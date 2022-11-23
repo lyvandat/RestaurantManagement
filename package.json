@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon --inspect src/index.js",
-    "watch": "node-sass --watch src/resources/scss --output src/public/css",
+    "watch": "node-sass -w src/resources/scss -o src/public/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,7 +14,9 @@
   },
   "keywords": [
     "web",
-    "app"
+    "app",
+    "sunrise",
+    "sunrise company"
   ],
   "author": "",
   "license": "ISC",
@@ -23,6 +25,8 @@
   },
   "homepage": "https://github.com/cuong457/PTWeb-KTPM1-HCMUS#readme",
   "dependencies": {
+    "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.10.2",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
     "method-override": "^3.0.0",
