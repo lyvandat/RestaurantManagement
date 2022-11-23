@@ -39,6 +39,10 @@ app.engine(
         extname: '.hbs',
         helpers: {
             sum: (a, b) => a + b,
+            isFirstVis: (vr) => {
+                if(vr == 0) return true; 
+                else return false;
+            }
         },
     }),
 );
