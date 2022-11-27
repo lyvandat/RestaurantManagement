@@ -65,6 +65,11 @@ class SiteController {
     // search(req, res) {
     //     res.render('search');
     // }
+
+    // [GET] /facebook
+    facebook(req, res, next) {
+        res.redirect('http://www.facebook.com/MinMinPD2211');
+    }
 }
 
 module.exports = new SiteController();
