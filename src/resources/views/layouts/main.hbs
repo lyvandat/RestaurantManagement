@@ -7,6 +7,7 @@
         <title>Final Project</title>
         <link rel="stylesheet" href="/css/app.css">
 
+        {{!-- Boostrap --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
@@ -48,8 +49,25 @@
                     console.log(subtotal);
                 });
             }); --}}
+
+            document.getElementById("item-final-single-buy").onclick = function () {
+                location.href = "/buy";
+            };
         </script>
+        {{!-- animation --}}
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        {{!-- icons fontawesome --}}
         <script src="https://kit.fontawesome.com/be735780e2.js" crossorigin="anonymous"></script>
+
+        {{!-- address sellect --}}
+        <script src="js/vietnamlocalselector/vietnamlocalselector.js"></script>
+        <script>
+            var localpicker = new LocalPicker({
+                province: "ls_province",
+                district: "ls_district",
+                ward: "ls_ward"
+                });
+        </script>
     </body>
 </html>
