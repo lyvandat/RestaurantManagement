@@ -11,7 +11,7 @@ const ProductSchema = new Schema(
         manufacturer: { type: String },
         stock: { type: Number },
         suspended: { type: Boolean },
-        image: { type: Array, required: true },
+        photo: { type: Array, required: true },
         description: { type: String },
 
         // slug: { type: String, slug: 'name', unique: true },

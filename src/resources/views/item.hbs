@@ -2,86 +2,82 @@
     <div class="container pt-5">
         {{!-- Item Detail --}}
         <div class="row pt-4">
-            {{#each foods}}
-                {{#if key}}
-                    <div class="row">
-                        <div class="col-3">
-                            <a href={{link}}>
-                                <img src={{img}} class="img-fluid itdetail-food-img" alt={{name}}>
-                            </a>
+            <div class="row">
+                <div class="col-3">
+                    <a href={{food.link}}>
+                        <img src={{food.img}} class="img-fluid itdetail-food-img" alt={{food.name}}>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <p class="itdetail-lger-title">{{food.name}}</p>
+                    <p class="itdetail-me-title text-indigo">Thương Hiệu: {{food.brand}}</p>
+                    <span class="ratings align-left"> 
+                        {{#loops food.fstar}}
+                            <i class="bi bi-star-fill rating-color"></i>
+                        {{/loops}}
+                        {{#loops food.hstar}}
+                            <i class="bi bi-star-half rating-color"></i>
+                        {{/loops}}
+                        {{#loops food.nstar}}
+                            <i class="bi bi-star-fill"></i>
+                        {{/loops}}
+                    </span>
+                    <p class="review-count align-left">&#160 {{food.rvcount}} reviews</p>
+                    <br><hr>
+                    <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{food.price}}.000 VNĐ</span></p>
+
+                    <div class="d-flex justify-content-center pt-4">
+                        <p class="text-center p-3 itdetail-achievement-title">
+                            <span class="material-icons itdetail-achievement-icon">restaurant</span>
+                        <br>Ngon chuẩn 5 sao</p>
+                        <p class="text-center p-3 itdetail-achievement-title">
+                            <span class="material-icons itdetail-achievement-icon">electric_car</span>
+                        <br>Giao hàng nhanh chóng</p>
+                        <p class="text-center p-3 itdetail-achievement-title">
+                            <span class="material-icons itdetail-achievement-icon">local_police</span>
+                        <br>Bảo hành dạ dày 24h</p>
+                    </div>
+                    <hr>
+                    <ul class="itdetail-lg-title text-justify">
+                        <li>Được sản xuất bởi các đầu bếp danh giá sở hữu từ 2 đến 3 sao Michelin</li>
+                        <li>Uy tín của thương hiệu được gây dựng xuyên suốt 69 năm về an toàn thực phẩm</li>
+                        <li>Nguyên liệu được vận chuyển trực tiếp từ vùng núi lạnh giá phía Tây Bắc, đảm bảo độ tươi sạch thuần khiết nhất</li>
+                        <li>Giao hàng nhanh chóng trong vòng 15 phút trong khu vực TP Hồ Chí Minh và Hà Nội. Riêng ngoại thành thì đừng đặt, xa thế ai mà ship đồ nóng đi được.</li>
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <div class="itdetail-box">
+                        <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
+                        <p class="rtab-sm-text wrap-text text-justify text-danger pt-3">Món ăn chỉ hỗ trợ những quốc gia như Việt Nam, Anh, Pháp, Nhật Bản, Mỹ. Các quốc gia còn lại sẽ áp dụng chính sách không giao hàng ngoại quốc.</p>
+                        
+                        <div class="pt-3">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span class="rtab-sm-title">&#160 Giao hàng tại Việt Nam</span>
                         </div>
-                        <div class="col-6">
-                            <p class="itdetail-lger-title">{{name}}</p>
-                            <p class="itdetail-me-title text-indigo">Thương Hiệu: {{brand}}</p>
-                            <span class="ratings align-left"> 
-                                {{#loops fstar}}
-                                    <i class="bi bi-star-fill rating-color"></i>
-                                {{/loops}}
-                                {{#loops hstar}}
-                                    <i class="bi bi-star-half rating-color"></i>
-                                {{/loops}}
-                                {{#loops nstar}}
-                                    <i class="bi bi-star-fill"></i>
-                                {{/loops}}
+
+                        <p class="rtab-me-text pt-2">Tình trạng: <span class="text-green">{{food.status}}</span></p>
+
+                        <form class="form-group pt-2">
+                            <label for="qty-itdetail" class="form-label">Quantity: </label>
+                            <span class="d-inline-block">
+                                <select class="form-control" id="qty-itdetail">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="many">4+</option>
+                                </select>
                             </span>
-                            <p class="review-count align-left">&#160 {{rvcount}} reviews</p>
-                            <br><hr>
-                            <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{price}}.000 VNĐ</span></p>
-
-                            <div class="d-flex justify-content-center pt-4">
-                                <p class="text-center p-3 itdetail-achievement-title">
-                                    <span class="material-icons itdetail-achievement-icon">restaurant</span>
-                                <br>Ngon chuẩn 5 sao</p>
-                                <p class="text-center p-3 itdetail-achievement-title">
-                                    <span class="material-icons itdetail-achievement-icon">electric_car</span>
-                                <br>Giao hàng nhanh chóng</p>
-                                <p class="text-center p-3 itdetail-achievement-title">
-                                    <span class="material-icons itdetail-achievement-icon">local_police</span>
-                                <br>Bảo hành dạ dày 24h</p>
-                            </div>
-                            <hr>
-                            <ul class="itdetail-lg-title text-justify">
-                                <li>Được sản xuất bởi các đầu bếp danh giá sở hữu từ 2 đến 3 sao Michelin</li>
-                                <li>Uy tín của thương hiệu được gây dựng xuyên suốt 69 năm về an toàn thực phẩm</li>
-                                <li>Nguyên liệu được vận chuyển trực tiếp từ vùng núi lạnh giá phía Tây Bắc, đảm bảo độ tươi sạch thuần khiết nhất</li>
-                                <li>Giao hàng nhanh chóng trong vòng 15 phút trong khu vực TP Hồ Chí Minh và Hà Nội. Riêng ngoại thành thì đừng đặt, xa thế ai mà ship đồ nóng đi được.</li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <div class="itdetail-box">
-                                <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
-                                <p class="rtab-sm-text wrap-text text-justify text-danger pt-3">Món ăn chỉ hỗ trợ những quốc gia như Việt Nam, Anh, Pháp, Nhật Bản, Mỹ. Các quốc gia còn lại sẽ áp dụng chính sách không giao hàng ngoại quốc.</p>
-                                
-                                <div class="pt-3">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="rtab-sm-title">&#160 Giao hàng tại Việt Nam</span>
-                                </div>
-
-                                <p class="rtab-me-text pt-2">Tình trạng: <span class="text-green">{{status}}</span></p>
-
-                                <form class="form-group pt-2">
-                                    <label for="qty-itdetail" class="form-label">Quantity: </label>
-                                    <span class="d-inline-block">
-                                        <select class="form-control" id="qty-itdetail">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="many">4+</option>
-                                        </select>
-                                    </span>
-                                </form>
-                                <div class="row w-75 m-auto">
-                                    <div class="col text-center">
-                                        <button class="btn-addtocart mt-3">Thêm vào giỏ hàng</button>
-                                        <a href="/buy"><button class="btn-buynow mt-2" id="item-final-single-buy">Mua ngay</button></a>
-                                    </div>
-                                </div>
+                        </form>
+                        <div class="row w-75 m-auto">
+                            <div class="col text-center">
+                                <button class="btn-addtocart mt-3">Thêm vào giỏ hàng</button>
+                                <a href="/buy"><button class="btn-buynow mt-2" id="item-final-single-buy">Mua ngay</button></a>
                             </div>
                         </div>
                     </div>
-                {{/if}}
-            {{/each}}
+                </div>
+            </div>
         </div>
         <br><br><br><br><hr><br><br>
         {{!-- About Restaurant --}}
