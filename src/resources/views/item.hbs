@@ -3,35 +3,35 @@
         {{!-- Item Detail --}}
         <div class="row pt-4">
             <div class="col-3" id="itdetail-mainimg">
-                <a href={{foods.link}}>
-                    <img src={{foods.img}} class="img-fluid itdetail-food-img" alt={{foods.name}}>
+                <a href={{food.link}}>
+                    <img src={{food.img}} class="img-fluid itdetail-food-img" alt={{food.name}}>
                 </a>
             </div>
             <div class="col-12 col-md-8 col-lg-6">
-                <p class="itdetail-lger-title">{{foods.name}}</p>
-                <p class="itdetail-me-title text-indigo">Thương Hiệu: {{foods.brand}}</p>
+                <p class="itdetail-lger-title">{{food.name}}</p>
+                <p class="itdetail-me-title text-indigo">Thương Hiệu: {{food.brand}}</p>
                 <span class="ratings align-left"> 
-                    {{#loops foods.fstar}}
+                    {{#loops food.fstar}}
                         <i class="bi bi-star-fill rating-color"></i>
                     {{/loops}}
-                    {{#loops foods.hstar}}
+                    {{#loops food.hstar}}
                         <i class="bi bi-star-half rating-color"></i>
                     {{/loops}}
-                    {{#loops foods.nstar}}
+                    {{#loops food.nstar}}
                         <i class="bi bi-star-fill"></i>
                     {{/loops}}
                 </span>
-                <p class="review-count align-left">&#160 {{foods.rvcount}} reviews</p>
+                <p class="review-count align-left">&#160 {{food.rvcount}} reviews</p>
 
                 {{!-- Alternative item image --}}
                 <div class="row pt-3" id="itdetail-alterimg">
                     <div class="col-4">
-                        <a href={{foods.link}}>
-                            <img src={{foods.img}} class="img-fluid itdetail-food-img" alt={{foods.name}}>
+                        <a href={{food.link}}>
+                            <img src={{food.img}} class="img-fluid itdetail-food-img" alt={{food.name}}>
                         </a>
                     </div>
                     <div class="col-8">
-                        <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{foods.price}}.000 VNĐ</span></p>
+                        <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{food.price}}.000 VNĐ</span></p>
 
                         <div class="d-flex justify-content-center pt-4">
                             <p class="text-center p-3 ps-0 itdetail-sm-title wrap-text">
@@ -49,7 +49,7 @@
                 
                 <div id="itdetail-mainimg">
                     <br><hr>
-                    <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{foods.price}}.000 VNĐ</span></p>
+                    <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{food.price}}.000 VNĐ</span></p>
 
                     <div class="d-flex justify-content-center pt-4">
                         <p class="text-center p-3 itdetail-me-title wrap-text">
@@ -82,7 +82,7 @@
                         <span class="rtab-sm-title">&#160 Giao hàng tại Việt Nam</span>
                     </div>
 
-                    <p class="rtab-me-text pt-2">Tình trạng: <span class="text-green">{{foods.status}}</span></p>
+                    <p class="rtab-me-text pt-2">Tình trạng: <span class="text-green">{{food.status}}</span></p>
 
                     <form class="form-group pt-2">
                         <label for="qty-itdetail" class="form-label">Quantity: </label>
