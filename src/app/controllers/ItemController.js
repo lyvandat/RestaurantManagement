@@ -1,7 +1,6 @@
 
-const foods = [
-    {key: true, img: "images/foods/food_1.png", name: "SALAD NGŨ VỊ HOÀNG GIA ANH", link: "/item", brand: "Sunrise Foods", fstar: 4, hstar: 1, nstar: 0, rvcount: "41,002", price: 49, status: "Còn hàng"}
-]
+const foods = {img: "images/foods/food_1.png", name: "SALAD NGŨ VỊ HOÀNG GIA ANH", link: "/item", brand: "Sunrise Foods", fstar: 4, hstar: 1, nstar: 0, rvcount: "41,002", price: 49, status: "Còn hàng"}
+
 
 const recommend = [
     {img: "images/FoodThumnail/bun.png", name: "Bún Đậu Mắm Tôm chuẩn ngon", link: "/item", fstar: 4, hstar: 0, nstar: 1, rvcount: 12.567, price: 89},
