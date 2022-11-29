@@ -11,9 +11,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-        {{!-- Animation --}}
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
         {{!-- Restaurant Icon --}}
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -30,10 +27,9 @@
             {{> Footer}}
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
         <script>
+            let cart_count = 0;
+            let cart_subtotal = 0;
 
             $("#sellectAll").change(function (e) {
                 if (e.currentTarget.checked) {
@@ -43,19 +39,15 @@
                 }
             });
 
-            {{!-- $('#BBTHG001').change( function() {
-                $(this).find(":selected").each(function () {
-                    subtotal += $(this).val() * BBTHG001_price;
-                    console.log(subtotal);
-                });
-            }); --}}
 
-            document.getElementById("item-final-single-buy").onclick = function () {
-                location.href = "/buy";
-            };
+            $('#qty-itdetail').change(function()
+            {
+                let qty = $('#qty-itdetail').find(":selected").val();
+                if (qty == 'many')
+                    $('#qty-itdetail').replaceWith('<input type="text" class="form-control small-img" id="qty-itdetail">');
+            });
+            
         </script>
-        {{!-- animation --}}
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
         {{!-- icons fontawesome --}}
         <script src="https://kit.fontawesome.com/be735780e2.js" crossorigin="anonymous"></script>
@@ -69,5 +61,10 @@
                 ward: "ls_ward"
                 });
         </script>
+
+        {{!-- Boostrap --}}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     </body>
 </html>

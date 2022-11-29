@@ -42,7 +42,13 @@ app.engine(
             isFirstVis: (vr) => {
                 if(vr == 0) return true; 
                 else return false;
-            }
+            },
+            loops: (n, block) => {
+                var accum = '';
+                for(var i = 0; i < n; ++i)
+                    accum += block.fn(i);
+                return accum;
+            },
         },
     }),
 );
