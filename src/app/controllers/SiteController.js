@@ -22,23 +22,23 @@ let rect_banners = [
     {img: "images/banners/rect-banner-2.png", link: "re_banner2.com", index: 1}
 ]
 
-let food_thumnails = [
-    {img: "images/FoodThumnail/bun.png", name: "Bún", link: "thum_1.com", bder: true},
-    {img: "images/FoodThumnail/pho.png", name: "Phở", link: "thum_2.com", bder: true},
-    {img: "images/FoodThumnail/doannhanh.png", name: "Cơm", link: "thum_3.com", bder: true},
-    {img: "images/FoodThumnail/dohan.png", name: "Đồ ăn nhanh", link: "thum_4.com", bder: true},
-    {img: "images/FoodThumnail/donhat.png", name: "Đồ Hàn", link: "thum_5.com", bder: true},
-    {img: "images/FoodThumnail/com.png", name: "Đồ Nhật", link: "thum_6.com", bder: true},
-    {img: "images/FoodThumnail/donuong.png", name: "Đồ nướng", link: "thum_7.com", bder: true},
-    {img: "images/FoodThumnail/lau.png", name: "Lẩu", link: "thum_8.com", bder: true}
+let recommend = [
+    {img: "images/FoodThumnail/bun.png", name: "Bún Đậu Mắm Tôm chuẩn ngon", link: "/item", fstar: 4, hstar: 0, nstar: 1, rvcount: 12.567, price: 89},
+    {img: "images/FoodThumnail/pho.png", name: "Cơm Tấm Hoàng Diệu 2", link: "/item", fstar: 3, hstar: 1, nstar: 1, rvcount: 8.291, price: 25},
+    {img: "images/FoodThumnail/doannhanh.png", name: "Cá Viên Chiên Makima", link: "/item", fstar: 5, hstar: 0, nstar: 0, rvcount: 163.523, price: 999},
+    {img: "images/FoodThumnail/dohan.png", name: "Nem Cuốn Hàn Xẻng", link: "/item", fstar: 3, hstar: 1, nstar: 1, rvcount: 1.286, price: 56},
+    {img: "images/FoodThumnail/donhat.png", name: "Thập Cẩm Chả Biết Tên", link: "/item", fstar: 4, hstar: 0, nstar: 1, rvcount: 15.927, price: 102},
+    {img: "images/FoodThumnail/pho.png", name: "Cơm Chay Chỉ Thiên", link: "/item", fstar: 3, hstar: 0, nstar: 2, rvcount: 26.546, price: 89}
 ]
 
-let sale_thumnails = [
-    {img: "images/FoodThumnail/bun.png", name: "Bún", link: "thum_1.com", bder: false},
-    {img: "images/FoodThumnail/doannhanh.png", name: "Phở", link: "thum_2.com", bder: false},
-    {img: "images/FoodThumnail/donhat.png", name: "Cơm", link: "thum_3.com", bder: false},
-    {img: "images/FoodThumnail/com.png", name: "Đồ ăn nhanh", link: "thum_4.com", bder: false},
-    {img: "images/FoodThumnail/donuong.png", name: "Đồ Hàn", link: "thum_5.com", bder: false}
+let sale_thumnails_1 = [
+    {img: "images/FoodThumnail/bun.png", name: "Bún Đậu Mắm Tôm", link: "/item", brand: "Sunrise Foods", fstar: 4, hstar: 0, nstar: 1, rvcount: 12.567, price: 89, status: "Còn hàng"},
+    {img: "images/FoodThumnail/pho.png", name: "Cơm Tấm Thôn Quê", link: "/item", brand: "Sunrise Foods", fstar: 3, hstar: 1, nstar: 1, rvcount: 8.291, price: 25, status: "Còn hàng"},
+]
+
+let sale_thumnails_2 = [
+    {img: "images/FoodThumnail/donhat.png", name: "Thập Cẩm Chả Biết Tên", link: "/item", brand: "Sunrise Foods", fstar: 4, hstar: 0, nstar: 1, rvcount: 15.927, price: 102, status: "Còn hàng"},
+    {img: "images/FoodThumnail/pho.png", name: "Cơm Chay Chỉ Thiên", link: "/item", brand: "Sunrise Foods", fstar: 3, hstar: 0, nstar: 2, rvcount: 26.546, price: 89, status: "Còn hàng"}
 ]
 
 class SiteController {
@@ -56,8 +56,9 @@ class SiteController {
             small_banners_1, 
             small_banners_2, 
             rect_banners,
-            food_thumnails,
-            sale_thumnails
+            recommend,
+            sale_thumnails_1,
+            sale_thumnails_2
         });
     }
 

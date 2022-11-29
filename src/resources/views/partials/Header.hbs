@@ -1,9 +1,9 @@
 <header class="header" id="header">
-    <div class="navbar navbar-expand-lg pt-0 pb-0 header-bar-color">
+    <div class="navbar navbar-expand pt-0 pb-0 header-bar-color">
         <div class="container p-0">
             <div class="collapse navbar-collapse">
                 {{!-- Left links field --}}
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto" id="nav-leftlink">
                     <li class="nav-item">
                         <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Trở thành người bán hàng</a>
                     </li>
@@ -27,6 +27,22 @@
                         </a>
                     </li>
                 </ul>
+                {{!-- Menu button when < 768px --}}
+                <ul class="navbar-nav me-auto" id="nav-menubutton">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle nav-dropdown-font" href="#" role="button" data-bs-toggle="dropdown"> 
+                            <i class="bi bi-list navbar-menuicon"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="#">Trở thành người bán hàng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="#">Hỗ trợ</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
                 {{!-- Right links field --}}
                 <ul class="navbar-nav ml-0">
@@ -38,13 +54,13 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle nav-dropdown-font" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Ngôn ngữ </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             <li>
-                                <a class="dropdown-item" href="#">Tiếng Việt</a>
+                                <a class="dropdown-item" href="/">Tiếng Việt</a>
                             </li>
-                            <li>
+                            {{!-- <li>
                                 <a class="dropdown-item" href="#">Tiếng Anh</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
 
@@ -61,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div class="navbar navbar-expand-lg p-0 header-background">
+    <div class="navbar navbar-expand p-0 header-background">
         <div class='container pt-4'>
             <div class='row w-100 m-0'>
                 <div class="collapse navbar-collapse">
@@ -79,7 +95,7 @@
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-2" id="hrz-menu">
                             <a href="#" class="nav-menu-font">Cơm</a>
                             <a href="#" class="nav-menu-font">Phở</a>
                             <a href="#" class="nav-menu-font">Đồ ăn vặt</a>
@@ -87,7 +103,7 @@
                             <a href="#" class="nav-menu-font">Bún đậu mắm tôm</a>
                         </div>
                     </div>
-                    <div class="col d-flex justify-content-end pb-4 mb-3">
+                    <div class="col d-flex justify-content-end" id="cart">
                         <a href="/cart">
                             <i class="bi bi-cart cart-icon"></i>
                         </a>
