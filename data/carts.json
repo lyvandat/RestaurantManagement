@@ -2,7 +2,14 @@
   {
     "_id": "5c8a1ec62f8fb814b56fa183",
     "userID": "5c8a1dfa2f8fb814b56fa181",
-    "products": [{"_id": "5c8a23412f8fb814b56fa18c"}, {"_id": "5c8a23c82f8fb814b56fa18d"}]
+    "products": [{
+        "productID": "5c8a23412f8fb814b56fa18c",
+        "quantity": 1
+      },
+      {
+        "productID": "5c8a23c82f8fb814b56fa18d",
+        "quantity": 1
+      }]
   },
   {
     "_id": "5c8a1f292f8fb814b56fa184",
