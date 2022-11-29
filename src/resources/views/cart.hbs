@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row pb-5">
         {{!-- Main content --}}
-        <div class="col-9">
+        <div class="col-12 col-xl-9">
             <div class="bg-white ctdetail">
                 <p class="ctdetail-xxlg-title">Shopping Cart</p>
                 <div>
@@ -16,7 +16,7 @@
                 {{!-- Items --}}
                 {{#each items}}
                     <div class="row">
-                        <div class="col-3 d-flex">
+                        <div class="col-3 d-flex align-items-center">
                             <div class="form-check d-flex align-items-center sellectItem">
                                 <input class="form-check-input" type="checkbox" id={{key}}>
                             </div>
@@ -28,7 +28,7 @@
                             <a href={{link}} class="ctdetail-item-title erase-underline text-black">{{name}}</a>
                             <p class="ctdetail-item-sm-detail text-green"><b>{{status}}</b></p>
                             <p class="ctdetail-item-sm-detail">Delivered from and sold by {{brand}}</p>
-                            <p class="ctdetail-item-me-detail"><b>Your addition option: </b>{{notice}}</p>
+                            <p class="ctdetail-item-me-detail"><b>Your option: </b>{{notice}}</p>
                             
                             <div class="row mt-2 mb-2">
                                 <div class="col form-group">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-2">
                             <div class="row h-50">
-                                <p class="d-flex justify-content-end align-items-center"><b>{{price}}.000VNĐ</b></p>
+                                <p class="d-flex justify-content-start align-items-center cart-item-price"><b>{{price}}.000VNĐ</b></p>
                             </div>
                             <div class="row h-50">
                                 <div class="d-flex justify-content-end align-items-end">
@@ -52,49 +52,65 @@
                         <hr class="m-2">
                     </div>
                 {{/each}}
+                <div class="row" id="subtotal-main">
+                    <span><p class="rtab-me-text align-right wrap-text">Subtotal (2 items): <b>540.000VNĐ</b></p></span>
+                    <a href="/buy"><button class="btn btn-outline-dark rtab-detail-button align-right" id="checkout-btn-main">Checkout</button></a>
+                </div>
             </div>
-            <div class="bg-white ctdetail mt-4 mb-2"><br></div>
-            <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            {{!-- End page expand --}}
+            <div id="endpage-expand">
+                <div class="bg-white ctdetail mb-2"><br></div>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            </div>
         </div>
         {{!-- Right site bar --}}
-        <div class="col-3">
-            <div class="bg-white rtab mb-4">
+        <div class="col-12 col-xl-3">
+            <div class="bg-white rtab mb-4" id="subtotal-rtab">
                 <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
                 <div class="text-center">
-                    <p class="rtab-lg-text mt-2">Subtotal (<span id="item-count">2 items</span>): <b><span id="subtotal">540.000</span>VNĐ</b></p>
-                    <a href="/buy"><button class="btn btn-primary rtab-buying-button" id="prc-checkout-btn">Proceed to Checkout</button></a>
+                    <p class="rtab-lg-text mt-2 wrap-text" id="cart-subtotal">Subtotal (2 items): <b>540.000VNĐ</b></p>
+                    <a href="/buy"><button class="rtab-buying-button" id="checkout-btn-rtab">Checkout</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
                 <p class="rtab-sm-title">Recommend for you</p>
-                {{#each recommend}}
-                    <div class="row pb-2">
-                        <a href={{link}} class="col-5 d-flex erase-underline">
-                            <img src={{img}} class="img-fluid">
-                        </a>
-                        <div class="col-7">
-                            <a href={{link}} class="erase-underline"><p class="rtab-me-text text-lightblue">{{name}}</p></a>
-                            <span class="ratings"> 
-                                {{#loops fstar}}
-                                    <i class="bi bi-star-fill rating-color"></i>
-                                {{/loops}}
-                                {{#loops hstar}}
-                                    <i class="bi bi-star-half rating-color"></i>
-                                {{/loops}}
-                                {{#loops nstar}}
-                                    <i class="bi bi-star"></i>
-                                {{/loops}}
-                            </span>
-                            <p class="review-count">{{rvcount}}</p>
-                            <p class="rtab-sm-text">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
-                            <div class="text-center">
-                                <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more detail</button></a>
+                <div class="row">
+                    {{#each recommend}}
+                        <div class="col-12 col-lg-6 col-xl-12">
+                            <div class="row pb-2">
+                                <a href={{link}} class="col-5 d-flex erase-underline">
+                                    <img src={{img}} class="img-fluid">
+                                </a>
+                                <div class="col-7">
+                                    <a href={{link}} class="erase-underline"><p class="rtab-me-text text-lightblue">{{name}}</p></a>
+                                    <span class="ratings"> 
+                                        {{#loops fstar}}
+                                            <i class="bi bi-star-fill rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops hstar}}
+                                            <i class="bi bi-star-half rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops nstar}}
+                                            <i class="bi bi-star"></i>
+                                        {{/loops}}
+                                    </span>
+                                    <p class="review-count">{{rvcount}}</p>
+                                    <p class="rtab-sm-text">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
+                                    <div class="text-center">
+                                        <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more detail</button></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {{/each}}
+                    {{/each}}
+                </div>
+                
             </div>
-            
+            {{!-- second end page expand --}}
+            <div id="scnd-endpage-expand">
+                <div class="bg-white ctdetail mt-4 mb-2"><br></div>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            </div>
         </div>
     </div>
 </div>

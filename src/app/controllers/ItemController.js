@@ -1,6 +1,5 @@
 
 const food = {
-    key: true,
     img: "images/foods/food_1.png",
     name: "SALAD NGŨ VỊ HOÀNG GIA ANH",
     link: "/item",
