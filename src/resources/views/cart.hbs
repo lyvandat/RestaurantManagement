@@ -34,7 +34,7 @@
                                 <div class="col form-group">
                                     <label for=(concat "qty-" {{key}})>Quantity: </label>
                                     <span class="d-inline-block">
-                                        <input type="number" class="form-control small-img" id=(concat "qty-" {{key}})>
+                                        <input type="number" class="form-control small-img" id=(concat "qty-" {{key}}) value=1>
                                     </span>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                     </div>
                 {{/each}}
                 <div class="row" id="subtotal-main">
-                    <span><p class="rtab-me-text align-right wrap-text">Subtotal (2 items): <b>540.000VNĐ</b></p></span>
+                    <span><p class="me-title align-right wrap-text">Subtotal (2 items): <b>540.000VNĐ</b></p></span>
                     <a href="/buy"><button class="btn btn-outline-dark rtab-detail-button align-right" id="checkout-btn-main">Checkout</button></a>
                 </div>
             </div>
@@ -66,14 +66,14 @@
         {{!-- Right site bar --}}
         <div class="col-12 col-xl-3">
             <div class="bg-white rtab mb-4" id="subtotal-rtab">
-                <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
+                <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
                 <div class="text-center">
-                    <p class="rtab-lg-text mt-2 wrap-text" id="cart-subtotal">Subtotal (2 items): <b>540.000VNĐ</b></p>
+                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal (2 items): <b>540.000VNĐ</b></p>
                     <a href="/buy"><button class="rtab-buying-button" id="checkout-btn-rtab">Checkout</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
-                <p class="rtab-sm-title">Recommend for you</p>
+                <p class="sm-title">Recommend for you</p>
                 <div class="row">
                     {{#each recommend}}
                         <div class="col-12 col-lg-6 col-xl-12">
@@ -82,7 +82,7 @@
                                     <img src={{img}} class="img-fluid">
                                 </a>
                                 <div class="col-7">
-                                    <a href={{link}} class="erase-underline"><p class="rtab-me-text text-lightblue">{{name}}</p></a>
+                                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                                     <span class="ratings"> 
                                         {{#loops fstar}}
                                             <i class="bi bi-star-fill rating-color"></i>
@@ -95,7 +95,7 @@
                                         {{/loops}}
                                     </span>
                                     <p class="review-count">{{rvcount}}</p>
-                                    <p class="rtab-sm-text">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
+                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
                                     <div class="text-center">
                                         <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more detail</button></a>
                                     </div>
@@ -114,3 +114,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $("#sellectAll").change(function (e) {
+            if (e.currentTarget.checked) {
+                $('.sellectItem').find('input[type="checkbox"]').prop('checked', true);
+            } else {
+                $('.sellectItem').find('input[type="checkbox"]').prop('checked', false);
+            }
+        });
+    });
+</script>

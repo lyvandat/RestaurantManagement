@@ -77,14 +77,21 @@ body p {
 .cart-icon:hover{color:rgb(0, 0, 0);opacity: 100%;}
 
 //-----------MainPage---------------
+.xxlg-title {font-weight: 500;font-size: xx-large;margin-bottom:0rem;}
+.xlg-title {font-weight: 500;font-size: x-large;margin-bottom:0rem;}
+.lger-title {font-weight: 500;font-size: larger;margin-bottom:0rem;}
+.lg-title {font-weight: 500;font-size: large;margin-bottom:0rem;}
+.sm-title {font-weight: 500;font-size: small;margin-bottom:0rem;}
+.me-title {font-weight: 500;font-size: medium;margin-bottom:0rem;}
+.light-text {font-weight: 400!important;}
 
     //HOME PAGE
-.small-thumnail {padding: 0.25rem;background-color: #fff;border: 1px solid rgb(231, 231, 231);border-radius: 0;border-left: 0!important;border-bottom: 0!important;max-width: 100%;height: auto;transition: .2;}
-.small-thumnail:hover {transform: scale(1.1);border-left: 1px solid rgb(231, 231, 231)!important;border-bottom: 1px solid rgb(231, 231, 231)!important;}
-.large-thumnail {padding: 0.25rem;background-color: transparent;max-width: 100%;height: auto;transition: .2;}
-.large-thumnail:hover {transform: scale(1.05);}
+.small-thumnail {padding: 0.25rem;background-color: #fff;border: 1px solid rgb(231, 231, 231);border-radius: 0;border-left: 0!important;border-bottom: 0!important;max-width: 100%;height: auto;transition: all .3s ease-in-out;}
+.small-thumnail:hover {transform: scale(1.05);border-left: 1px solid rgb(231, 231, 231)!important;border-bottom: 1px solid rgb(231, 231, 231)!important;}
+.large-thumnail {padding: 0.25rem;background-color: transparent;max-width: 100%;height: auto;transition: all .3s ease-in-out;}
+.large-thumnail:hover {transform: scale(1.1);}
 .thumnail-ref-container {text-decoration: none;}
-.thumnail-text {font-weight: 400;color:rgb(0, 0, 0);white-space: nowrap;text-align: center;padding-top: 1rem;}
+
 
     //CART PAGE
 .ctdetail {padding: 20px!important;margin-bottom: 2rem!important;}
@@ -99,11 +106,6 @@ body p {
 
 .rtab {padding: 10px;}
 .rtab-recommend {padding: 10px;border-radius: 1rem;}
-.rtab-lg-title {font-weight: 500;font-size: large;white-space: nowrap;margin-bottom:1rem;}
-.rtab-sm-title {font-weight: 500;font-size: small;white-space: nowrap;margin-bottom:1rem;}
-.rtab-lg-text {font-weight: 500;font-size: large;}
-.rtab-me-text {font-weight: 500;font-size: medium;}
-.rtab-sm-text {font-weight: 400;font-size: small;}
 .rtab-money {color: red;font-weight: 600;}
 .rtab-detail-button {font-size: small!important;border-radius: 0.75rem!important;border: rgb(121, 121, 121) solid 1px !important;padding-top: 2px!important;padding-bottom: 2px!important;margin-top: 10px;margin-right: 10px;}
 .rtab-buying-button {background-color:rgb(255, 225, 0);color:black;font-weight: 600;border:rgb(203, 132, 2);border-radius: 0.8rem;width: 70%;padding: 10px;margin-top: 10px;margin-bottom: 10px;}
@@ -179,6 +181,21 @@ body p {
 
 .smooth-square-button:hover {background-color: rgb(14, 0, 75);color: aliceblue;}
 
+    //LIST
+.brand-hover {
+    transition: all .3s ease-in-out;
+}
+.brand-hover:hover {
+    transform: scale(1.3);
+}
+
+.card-hover {
+    transition: all .3s ease-in-out;
+}
+.card-hover:hover {
+    transform: scale(1.05);
+}
+
 //------------Footer----------------
 .footer-icon {display: flex;align-items: center;font-size: 24px;color: #fff;border-radius: 50%;padding-right: 10px;}
 .footer-social-icon {display: flex;align-items: center;justify-content: start;width: 40px;height: 40px;font-size: 20px;color: #fff;opacity: 60%;}
@@ -198,7 +215,7 @@ body p {
 }
 
 @media (max-width: 576px) {
-    #name-rtab-me-text {
+    #name-me-title {
         font-size: large;
     }
 }
@@ -226,6 +243,9 @@ body p {
     .cart-item-price {
         font-size: small;
     }
+    .list-splitline {
+        display: block;
+    }
 }
 
 
@@ -235,6 +255,9 @@ body p {
         margin-bottom: 0.75rem;
     }
     #nav-menubutton {
+        display: none;
+    }
+    .list-splitline {
         display: none;
     }
 }

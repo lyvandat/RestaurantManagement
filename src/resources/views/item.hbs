@@ -74,15 +74,15 @@
             </div>
             <div class="col-12 col-md-4 col-lg-3">
                 <div class="itdetail-box">
-                    <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
-                    <p class="rtab-sm-text wrap-text text-justify text-danger pt-3">Món ăn chỉ hỗ trợ những quốc gia như Việt Nam, Anh, Pháp, Nhật Bản, Mỹ. Các quốc gia còn lại sẽ áp dụng chính sách không giao hàng ngoại quốc.</p>
+                    <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
+                    <p class="sm-title wrap-text text-justify text-danger pt-3">Món ăn chỉ hỗ trợ những quốc gia như Việt Nam, Anh, Pháp, Nhật Bản, Mỹ. Các quốc gia còn lại sẽ áp dụng chính sách không giao hàng ngoại quốc.</p>
                     
                     <div class="pt-3">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span class="rtab-sm-title">&#160 Giao hàng tại Việt Nam</span>
+                        <span class="sm-title">&#160 Giao hàng tại Việt Nam</span>
                     </div>
 
-                    <p class="rtab-me-text pt-2">Tình trạng: <span class="text-green">{{food.status}}</span></p>
+                    <p class="me-title pt-2">Tình trạng: <span class="text-green">{{food.status}}</span></p>
 
                     <form class="form-group pt-2">
                         <label for="qty-itdetail" class="form-label">Quantity: </label>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="col-12 col-lg-6 col-xl-5 ps-5">
                     <p class="itdetail-lg-title text-center"><b>ĐƯỢC THÀNH LẬP VÀ PHÂN PHỐI BỞI<br>SUNRISE COMPANY</b><br><br></p>
-                    <p class="itdetail-me-title wrap-text text-justify">
+                    <p class="itdetail-me-title wrap-text text-justify light-text">
                         <i>Chuỗi nhà hàng Sunrise Foods được hình thành và phát triển hơn 69 năm. 
                         Với uy tín và chất lượng thuộc top đầu thế giới với vô số đầu bếp sở hữu 
                         sao Michelin và muôn vẻ sáng tạo trong việc đưa những món ăn độc lạ hay 
@@ -151,7 +151,7 @@
                 {{#each recommend}}
                     <div class="col-6 col-md-4 col-xl-2 m-auto p-4">
                         <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
-                        <a href={{link}} class="erase-underline"><p class="rtab-me-text text-lightblue">{{name}}</p></a>
+                        <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                         <span class="ratings"> 
                             {{#loops fstar}}
                                 <i class="bi bi-star-fill rating-color"></i>
@@ -164,7 +164,7 @@
                             {{/loops}}
                         </span>
                         <p class="review-count">{{rvcount}}</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                        <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
                         <div class="text-center">
                             <a href="/item"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
                         </div>
@@ -175,11 +175,13 @@
     </div>
 </div>
 
-<script>    
-    $('#qty-itdetail').change(function()
-    {
-        console.log("meno");    
-        if ($('#qty-itdetail').find(":selected").val() == 'many')
-            $('#qty-itdetail').replaceWith('<input type="text" class="form-control small-img" id="qty-itdetail">');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdown_qty_itdetail =  $('#qty-itdetail');
+        dropdown_qty_itdetail.change(function()
+        {  
+            if ($('#qty-itdetail').find(":selected").val() == 'many')
+                $('#qty-itdetail').replaceWith('<input type="number" class="form-control small-img" id="qty-itdetail">');
+        });
     });
 </script>
