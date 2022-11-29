@@ -1,109 +1,140 @@
 <header class="header" id="header">
-    <div class="navbar navbar-expand-lg pt-0 pb-0 header-bar-color">
-        <div class="container p-0">
-            <div class="collapse navbar-collapse">
-                {{!-- Left links field --}}
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Trở thành người bán hàng</a>
-                    </li>
+  <div class="navbar navbar-expand-lg pt-0 pb-0 header-bar-color">
+    <div class="container p-0">
+      <div class="collapse navbar-collapse">
+        {{! Left links field }}
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Trở
+              thành người bán hàng</a>
+          </li>
 
-                    <li class="nav-item"><p class="nav-link disabled navbar-font-link pb-2 m-0">|</p></li>
+          <li class="nav-item"><p
+              class="nav-link disabled navbar-font-link pb-2 m-0"
+            >|</p></li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Hỗ trợ</a>
-                    </li>
+          <li class="nav-item">
+            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Hỗ trợ</a>
+          </li>
 
-                    <li class="nav-item"><p class="nav-link disabled navbar-font-link pb-2 m-0">|</p></li>
-                    
-                    <li clas="nav-item">
-                        <a href="http://www.facebook.com/MinMinPD2211" class="nav-link active navbar-icon pb-2 m-0">
-                            <i class="bi bi-facebook"></i>
-                        </a>
-                    </li>
-                    <li clas="nav-item">
-                        <a href="twitter" class="nav-link active navbar-icon pb-2 m-0">
-                            <i class="bi bi-twitter"></i>
-                        </a>
-                    </li>
-                </ul>
+          <li class="nav-item"><p
+              class="nav-link disabled navbar-font-link pb-2 m-0"
+            >|</p></li>
 
-                {{!-- Right links field --}}
-                <ul class="navbar-nav ml-0">
-                    <li class="nav-item">
-                        <a class="nav-link active navbar-font-link pb-2 m-0" href="#">
-                            <i class="bi bi-bell" id="navbar-icon-with-text"></i> Thông báo
-                        </a>
-                    </li>
+          <li clas="nav-item">
+            <a
+              href="http://www.facebook.com/MinMinPD2211"
+              class="nav-link active navbar-icon pb-2 m-0"
+            >
+              <i class="bi bi-facebook"></i>
+            </a>
+          </li>
+          <li clas="nav-item">
+            <a href="twitter" class="nav-link active navbar-icon pb-2 m-0">
+              <i class="bi bi-twitter"></i>
+            </a>
+          </li>
+        </ul>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle nav-dropdown-font" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Ngôn ngữ </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="#">Tiếng Việt</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Tiếng Anh</a>
-                            </li>
-                        </ul>
-                    </li>
+        {{! Right links field }}
+        <ul class="navbar-nav ml-0">
+          <li class="nav-item">
+            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">
+              <i class="bi bi-bell" id="navbar-icon-with-text"></i>
+              Thông báo
+            </a>
+          </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng ký</a>
-                    </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link active dropdown-toggle nav-dropdown-font"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            > Ngôn ngữ </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="#">Tiếng Việt</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Tiếng Anh</a>
+              </li>
+            </ul>
+          </li>
 
-                    <li class="nav-item"><p class="nav-link disabled navbar-font-link pb-2 m-0">|</p></li>
+          <li class="nav-item">
+            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng
+              ký</a>
+          </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng nhập</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+          <li class="nav-item"><p
+              class="nav-link disabled navbar-font-link pb-2 m-0"
+            >|</p></li>
+
+          <li class="nav-item">
+            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng
+              nhập</a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link active navbar-font-link pb-2 m-0"
+              href="/admin/dashboard"
+            >TRANG ADMIN</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="navbar navbar-expand-lg p-0 header-background">
-        <div class='container pt-4'>
-            <div class='row w-100 m-0'>
-                <div class="collapse navbar-collapse">
-                    <div class="col-3">
-                        <a class="navbar-brand pb-0" href="/">
-                            <figure class="figure mb-0">
-                                <img src="images/logo.png" class="figure-img img-fluid rounded" alt="SF logo" id='logo'/>
-                            </figure>
-                        </a>
-                    </div>
-                    <div class="col-8">
-                        <div class="input-group">
-                            <input type="text" class="form-control search-box" id="search-box" placeholder="Cùng tìm kiếm vài món ăn ngon nào!"/>
-                            <button type="button" class="btn btn-primary">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                        <div class="mt-2">
-                            <a href="#" class="nav-menu-font">Cơm</a>
-                            <a href="#" class="nav-menu-font">Phở</a>
-                            <a href="#" class="nav-menu-font">Đồ ăn vặt</a>
-                            <a href="#" class="nav-menu-font">Trà sữa</a>
-                            <a href="#" class="nav-menu-font">Bún đậu mắm tôm</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-end pb-4 mb-3">
-                        <a href="/cart">
-                            <i class="bi bi-cart cart-icon"></i>
-                        </a>
-                    </div>
-                </div>
+  </div>
+  <div class="navbar navbar-expand-lg p-0 header-background">
+    <div class="container pt-4">
+      <div class="row w-100 m-0">
+        <div class="collapse navbar-collapse">
+          <div class="col-3">
+            <a class="navbar-brand pb-0" href="/">
+              <figure class="figure mb-0">
+                <img
+                  src="images/logo.png"
+                  class="figure-img img-fluid rounded"
+                  alt="SF logo"
+                  id="logo"
+                />
+              </figure>
+            </a>
+          </div>
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control search-box"
+                id="search-box"
+                placeholder="Cùng tìm kiếm vài món ăn ngon nào!"
+              />
+              <button type="button" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+              </button>
             </div>
+            <div class="mt-2">
+              <a href="#" class="nav-menu-font">Cơm</a>
+              <a href="#" class="nav-menu-font">Phở</a>
+              <a href="#" class="nav-menu-font">Đồ ăn vặt</a>
+              <a href="#" class="nav-menu-font">Trà sữa</a>
+              <a href="#" class="nav-menu-font">Bún đậu mắm tôm</a>
+            </div>
+          </div>
+          <div class="col d-flex justify-content-end pb-4 mb-3">
+            <a href="/cart">
+              <i class="bi bi-cart cart-icon"></i>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const iconFacebook = $('.bi-facebook');
-
-        iconFacebook.click(function (event) {
-            //alert();
-        });
-    });
+  document.addEventListener('DOMContentLoaded', function () { const iconFacebook
+  = $('.bi-facebook'); iconFacebook.click(function (event) { //alert(); }); });
 </script>
