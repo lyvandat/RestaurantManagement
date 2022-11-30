@@ -13,9 +13,9 @@ const Product = require(`${modelsPath}/Product`);
 const ProductReview = require(`${modelsPath}/ProductReview`);
 const User = require(`${modelsPath}/User`);
 
-mongoose.connect(
-  "mongodb+srv://cuongpham:211319539@cluster0.b87mt4q.mongodb.net/PTWeb_FinalProject_HCMUS"
-);
+// Nếu muốn sử dụng database khác thì đổi connection string thành của database đó.
+const connectionString = 'mongodb+srv://cuongpham:211319539@cluster0.b87mt4q.mongodb.net/PTWeb_FinalProject_HCMUS';
+mongoose.connect(connectionString);
 
 // nếu để file json trong thư mục gốc thì khỏi cần đổi
 const fileDataUsers = fs.readFileSync(`${__dirname}/users.json`, "utf-8");
