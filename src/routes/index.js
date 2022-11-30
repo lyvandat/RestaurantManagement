@@ -7,13 +7,13 @@ const buyRouter = require("./buy");
 const listRouter = require("./list");
 
 function route(app) {
-  app.use("/list", listRouter);
-  app.use("/buy", buyRouter);
-  app.use("/item", itemRouter);
-  app.use("/cart", cartRouter);
-  app.use("/products", productsRouter);
-  app.use("/admin", adminRouter);
-  app.use("/", siteRouter);
+  app.use("/.netlify/functions/list", listRouter);
+  app.use("/.netlify/functions/buy", buyRouter);
+  app.use("/.netlify/functions/item", itemRouter);
+  app.use("/.netlify/functions/cart", cartRouter);
+  app.use("/.netlify/functions/products", productsRouter);
+  app.use("/.netlify/functions/admin", adminRouter);
+  app.use("/.netlify/functions/", siteRouter);
 }
 
 module.exports = route;
