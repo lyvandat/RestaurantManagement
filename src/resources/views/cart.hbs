@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row pb-5">
         {{!-- Main content --}}
-        <div class="col-9">
+        <div class="col-12 col-xl-9">
             <div class="bg-white ctdetail">
                 <p class="ctdetail-xxlg-title">Shopping Cart</p>
                 <div>
@@ -14,204 +14,115 @@
                 <br><hr>
 
                 {{!-- Items --}}
-                <div class="row">
-                    <div class="col-3 d-flex">
-                        <div class="form-check d-flex align-items-center sellectItem">
-                            <input class="form-check-input" type="checkbox">
+                {{#each items}}
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center">
+                            <div class="form-check d-flex align-items-center sellectItem">
+                                <input class="form-check-input" type="checkbox" id={{key}}>
+                            </div>
+                            <a href={{link}}>
+                                <img src={{img}} class="img-fluid">
+                            </a>
                         </div>
-                        <a href="/item"><img src="images/FoodThumnail/lau.png" class="img-fluid"></a>
-                    </div>
-                    <div class="col-7 ctdetail-itemdetail">
-                        <a href="/item" class="ctdetail-item-title erase-underline text-black">Bò Bít Tết Hoàng Gia</a>
-                        <p class="ctdetail-item-sm-detail text-green"><b>In stock</b></p>
-                        <p class="ctdetail-item-sm-detail">Delivered from and sold by Sunrise Foods</p>
-                        <p class="ctdetail-item-me-detail"><b>Your addition option: </b><span>Raw meet and clean decoration</span></p>
-                        
-                        <div class="row mt-2 mb-2">
-                            <div class="col form-group">
-                                <label for="BBTHG001">Quantity: </label>
-                                <span class="d-inline-block">
-                                    <select class="form-control" id="BBTHG001">
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="many">4+</option>
-                                    </select>
-                                </span>
+                        <div class="col-7 ctdetail-itemdetail">
+                            <a href={{link}} class="ctdetail-item-title erase-underline text-black">{{name}}</a>
+                            <p class="ctdetail-item-sm-detail text-green"><b>{{status}}</b></p>
+                            <p class="ctdetail-item-sm-detail">Delivered from and sold by {{brand}}</p>
+                            <p class="ctdetail-item-me-detail"><b>Your option: </b>{{notice}}</p>
+                            
+                            <div class="row mt-2 mb-2">
+                                <div class="col form-group">
+                                    <label for=(concat "qty-" {{key}})>Quantity: </label>
+                                    <span class="d-inline-block">
+                                        <input type="number" class="form-control small-img" id=(concat "qty-" {{key}}) value=1>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="row h-50">
-                            <p class="d-flex justify-content-end align-items-center"><b>369.000VNĐ</b></p>
-                        </div>
-                        <div class="row h-50">
-                            <div class="d-flex justify-content-end align-items-end">
-                                <button class="btn ctdetail-delete-button">Delete</button>
+                        <div class="col-2">
+                            <div class="row h-50">
+                                <p class="d-flex justify-content-start align-items-center cart-item-price"><b>{{price}}.000VNĐ</b></p>
+                            </div>
+                            <div class="row h-50">
+                                <div class="d-flex justify-content-end align-items-end">
+                                    <button class="btn ctdetail-delete-button">Delete</button>
+                                </div>
                             </div>
                         </div>
+                        <hr class="m-2">
                     </div>
-                    <hr class="m-2">
-                </div>
-
-                <div class="row">
-                    <div class="col-3 d-flex">
-                        <div class="form-check d-flex align-items-center sellectItem">
-                            <input class="form-check-input" type="checkbox">
-                        </div>
-                        <a href="/item"><img src="images/FoodThumnail/pho.png" class="img-fluid"></a>
-                    </div>
-                    <div class="col-7 ctdetail-itemdetail">
-                        <a href="/item" class="ctdetail-item-title erase-underline text-black">Gỏi Gia Truyền Truyền Từ Thời Ông Cố Nội</a>
-                        <p class="ctdetail-item-sm-detail text-green"><b>In stock</b></p>
-                        <p class="ctdetail-item-sm-detail">Delivered from and sold by Sunrise Foods</p>
-                        <p class="ctdetail-item-me-detail"><b>Your addition option: </b><span>Raw meet and clean decoration</span></p>
-                        
-                        <div class="row mt-2 mb-2">
-                            <div class="col form-group">
-                                <label for="GGT001">Quantity: </label>
-                                <span class="d-inline-block">
-                                    <select class="form-control" id="GGT001">
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="many">4+</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="row h-50">
-                            <p class="d-flex justify-content-end align-items-center"><b>171.000VNĐ</b></p>
-                        </div>
-                        <div class="row h-50">
-                            <div class="d-flex justify-content-end align-items-end">
-                                <button class="btn ctdetail-delete-button">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="m-2">
+                {{/each}}
+                <div class="row" id="subtotal-main">
+                    <span><p class="me-title align-right wrap-text">Subtotal (2 items): <b>540.000VNĐ</b></p></span>
+                    <a href="/buy"><button class="btn btn-outline-dark rtab-detail-button align-right" id="checkout-btn-main">Checkout</button></a>
                 </div>
             </div>
-            <div class="bg-white ctdetail mt-4 mb-2"><br></div>
-            <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            {{!-- End page expand --}}
+            <div id="endpage-expand">
+                <div class="bg-white ctdetail mb-2"><br></div>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            </div>
         </div>
         {{!-- Right site bar --}}
-        <div class="col-3">
-            <div class="bg-white rtab-orderprice mb-4">
-                <i class="bi bi-credit-card-2-front-fill"><span class="rtab-lg-title"> Payment</span></i>
+        <div class="col-12 col-xl-3">
+            <div class="bg-white rtab mb-4" id="subtotal-rtab">
+                <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
                 <div class="text-center">
-                    <p class="rtab-lg-text mt-2 ">Subtotal <span>(2 items):</span> <span><b>540.000VNĐ</b></span></p>
-                    <button class="btn btn-primary rtab-buying-button">Proceed to Checkout</button>
+                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal (2 items): <b>540.000VNĐ</b></p>
+                    <a href="/buy"><button class="rtab-buying-button" id="checkout-btn-rtab">Checkout</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
-                <p class="rtab-sm-title">Recommend for you</p>
-                <div class="row pb-2">
-                    <a href="/item" class="col-5 d-flex erase-underline">
-                        <img src="images/FoodThumnail/bun.png" class="img-fluid">
-                    </a>
-                    <div class="col-7">
-                        <a href="/item" class="erase-underline"><p class="rtab-me-text text-lightblue">Bún Đậu Mắm Tôm chuẩn ngon</p></a>
-                        <span class="ratings"> 
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </span>
-                        <p class="review-count">12,567</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">89.000VNĐ</span></p>
-                        <div class="text-center">
-                            <button class="btn btn-outline-dark rtab-detail-button">See more detail</button>
+                <p class="sm-title">Recommend for you</p>
+                <div class="row">
+                    {{#each recommend}}
+                        <div class="col-12 col-lg-6 col-xl-12">
+                            <div class="row pb-2">
+                                <a href={{link}} class="col-5 d-flex erase-underline">
+                                    <img src={{img}} class="img-fluid">
+                                </a>
+                                <div class="col-7">
+                                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                                    <span class="ratings"> 
+                                        {{#loops fstar}}
+                                            <i class="bi bi-star-fill rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops hstar}}
+                                            <i class="bi bi-star-half rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops nstar}}
+                                            <i class="bi bi-star"></i>
+                                        {{/loops}}
+                                    </span>
+                                    <p class="review-count">{{rvcount}}</p>
+                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
+                                    <div class="text-center">
+                                        <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more detail</button></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {{/each}}
                 </div>
-                <div class="row pb-2">
-                    <a href="/item" class="col-5 d-flex erase-underline">
-                        <img src="images/FoodThumnail/com.png" class="img-fluid">
-                    </a>
-                    <div class="col-7">
-                        <a href="/item" class="erase-underline"><p class="rtab-me-text text-lightblue">Cơm Tấm Hoàng Diệu 2</p></a>
-                        <span class="ratings"> 
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </span>
-                        <p class="review-count">8,291</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">25.000VNĐ</span></p>
-                        <div class="text-center">
-                            <button class="btn btn-outline-dark rtab-detail-button">See more detail</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pb-2">
-                    <a href="/item" class="col-5 d-flex erase-underline">
-                        <img src="images/FoodThumnail/doannhanh.png" class="img-fluid">
-                    </a>
-                    <div class="col-7">
-                        <a href="/item" class="erase-underline"><p class="rtab-me-text text-lightblue">Cá Viên Chiên Makima</p></a>
-                        <span class="ratings"> 
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                        </span>
-                        <p class="review-count">163,523</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">999.000VNĐ</span></p>
-                        <div class="text-center">
-                            <button class="btn btn-outline-dark rtab-detail-button">See more detail</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pb-2">
-                    <a href="/item" class="col-5 d-flex erase-underline">
-                        <img src="images/FoodThumnail/dohan.png" class="img-fluid">
-                    </a>
-                    <div class="col-7">
-                        <a href="/item" class="erase-underline"><p class="rtab-me-text text-lightblue">Nem Cuốn Hàn Xẻng</p></a>
-                        <span class="ratings"> 
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </span>
-                        <p class="review-count">1,286</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">56.000VNĐ</span></p>
-                        <div class="text-center">
-                            <button class="btn btn-outline-dark rtab-detail-button">See more detail</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pb-2">
-                    <a href="/item" class="col-5 d-flex erase-underline">
-                        <img src="images/FoodThumnail/donuong.png" class="img-fluid">
-                    </a>
-                    <div class="col-7">
-                        <a href="/item" class="erase-underline"><p class="rtab-me-text text-lightblue">Thập Cẩm Chả Biết Tên</p></a>
-                        <span class="ratings"> 
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill rating-color"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </span>
-                        <p class="review-count">15,927</p>
-                        <p class="rtab-sm-text">1 offer from <span class="rtab-money">102.000VNĐ</span></p>
-                        <div class="text-center">
-                            <button class="btn btn-outline-dark rtab-detail-button">See more detail</button>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
-            
+            {{!-- second end page expand --}}
+            <div id="scnd-endpage-expand">
+                <div class="bg-white ctdetail mt-4 mb-2"><br></div>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $("#sellectAll").change(function (e) {
+            if (e.currentTarget.checked) {
+                $('.sellectItem').find('input[type="checkbox"]').prop('checked', true);
+            } else {
+                $('.sellectItem').find('input[type="checkbox"]').prop('checked', false);
+            }
+        });
+    });
+</script>

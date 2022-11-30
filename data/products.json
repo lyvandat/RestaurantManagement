@@ -1,0 +1,101 @@
+[
+  {
+    "_id": "5c8a1f4e2f8fb814b56fa185",
+    "name": "Bún Đậu Mắm Tôm chuẩn ngon",
+    "price": 89000,
+    "category": ["bún"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["bun.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a201e2f8fb814b56fa186",
+    "name": "Cơm Tấm Hoàng Diệu 2",
+    "price": 25000,
+    "category": ["cơm"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["pho.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a20d32f8fb814b56fa187",
+    "name": "Cá Viên Chiên Makima",
+    "price": 999000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["doannhanh.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a211f2f8fb814b56fa188",
+    "name": "Nem Cuốn Hàn Xẻng",
+    "price": 56000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["dohan.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a21d02f8fb814b56fa189",
+    "name": "Thập Cẩm Chả Biết Tên",
+    "price": 102000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["donhat.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a21f22f8fb814b56fa18a",
+    "name": "Cơm Chay Chỉ Thiên",
+    "price": 89000,
+    "category": ["cơm"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["bun.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a22c62f8fb814b56fa18b",
+    "name": "Salad Ngũ Vị Hoàng Gia Anh",
+    "price": 49000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["food_1.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a23412f8fb814b56fa18c",
+    "name": "Bò Bít Tết Hoàng Gia",
+    "price": 369000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["lau.png"],
+    "description": "ngon"
+  },
+  {
+    "_id": "5c8a23c82f8fb814b56fa18d",
+    "name": "Gỏi Gia Truyền Truyền Từ Thời Ông Cố Nội",
+    "price": 171000,
+    "category": ["general"],
+    "manufacturer": "Sunrise Foods",
+    "stock": 100,
+    "suspended": false,
+    "photo": ["pho.png"],
+    "description": "ngon"
+  }
+]

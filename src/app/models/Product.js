@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const slug = require('mongoose-slug-generator');
 
 const Schema = mongoose.Schema;
 
@@ -11,10 +10,8 @@ const ProductSchema = new Schema(
         manufacturer: { type: String },
         stock: { type: Number },
         suspended: { type: Boolean },
-        image: { type: Array, required: true },
-        description: { type: String },
-
-        // slug: { type: String, slug: 'name', unique: true },
+        photo: { type: Array, required: true },
+        description: { type: String }
     },
     {
         timestamps: true,
@@ -22,6 +19,5 @@ const ProductSchema = new Schema(
 );
 
 // Add plugin
-// mongoose.plugin(slug);
 
 module.exports = mongoose.model('Product', ProductSchema);

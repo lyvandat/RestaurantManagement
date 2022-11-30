@@ -2,7 +2,7 @@
 <div class="container pt-4 mt-4">
     <section>
         <div class='row'>
-            <div class='col-8'>
+            <div class='col-12 col-md-8'>
                 <div id="main-large-banner" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         {{#each large_banner}}
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div class='col-4'>
+            <div class='col-12 col-md-4' id="separate-top-md">
                 <div class='row'>
                     <div id="first-small-banner" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
@@ -77,26 +77,33 @@
     </section>
     <div class="mt-3 bg-white">
         <p class='menu-large-font'>Bạn muốn ăn gì?</p>
-        <div class='row d-flex m-0'>
-            {{#each food_thumnails}}
-                {{#if bder}}
-                    <div class='col small-thumnail'>
-                {{else}}
-                    <div class='col large-thumnail'>
-                {{/if}} 
-                    <a href={{link}} class='thumnail-ref-container'>
-                        <img src={{img}} class="w-100" alt='thumnail'>
-                        <p class='thumnail-text'>{{name}}</p>
-                    </a>
-                </div>   
+        <div class='row d-flex m-0 pb-2'>
+            {{#each recommend}}
+                <div class="col-6 col-md-4 col-xl-2 m-auto p-4 large-thumnail">
+                    <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
+                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                    <span class="ratings"> 
+                        {{#loops fstar}}
+                            <i class="bi bi-star-fill rating-color"></i>
+                        {{/loops}}
+                        {{#loops hstar}}
+                            <i class="bi bi-star-half rating-color"></i>
+                        {{/loops}}
+                        {{#loops nstar}}
+                            <i class="bi bi-star"></i>
+                        {{/loops}}
+                    </span>
+                    <p class="review-count">{{rvcount}}</p>
+                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                </div>
             {{/each}}
         </div>
     </div>
     <div class="mt-3 bg-white">
         <p class='menu-large-font'>Đang giảm giá siêu sốc!</p>
         <div class='row'>
-            <div class='col-4 ps-4 pe-0'>
-                <div id="sale-banner" class="carousel slide" data-bs-ride="carousel">
+            <div class='col-12 col-lg-4 ps-4 pe-0 pb-3'>
+                <div id="sale-banner" class="carousel slide me-4" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         {{#each rect_banners}}
                             {{#if (isFirstVis index)}}
@@ -118,33 +125,63 @@
                     </div>
                 </div>
             </div>
-            <div class='col-8 ps-0'>
-                <div class='row d-flex m-0'>
-                    {{#each sale_thumnails}}
-                        {{#if bder}}
-                            <div class='col small-thumnail'>
-                        {{else}}
-                            <div class='col large-thumnail'>
-                        {{/if}} 
-                            <a href={{link}} class='thumnail-ref-container'>
-                                <img src={{img}} class="w-100" alt='thumnail'>
-                                <p class='thumnail-text'>{{name}}</p>
-                            </a>
+            <div class='col-12 col-lg-8'>
+                <div class='row d-flex h-50'>
+                    {{#each sale_thumnails_1}}
+                        <div class='col-12 col-sm-6 large-thumnail'>
+                            {{!-- tag --}}
+                            <div class="row ps-2">
+                                <div class="col-5 pe-0">
+                                    <a href={{link}} class='thumnail-ref-container'><img src={{img}} class="w-100 pb-2" alt='thumnail'></a>
+                                </div>
+                                <div class="col-7">
+                                    <p class="me-title wrap-text mb-0" id="name-me-title">{{name}}</p>
+                                    <p class="sm-title text-indigo mb-0">Thương Hiệu: {{brand}}</p>
+                                    <span class="ratings"> 
+                                        {{#loops fstar}}
+                                            <i class="bi bi-star-fill rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops hstar}}
+                                            <i class="bi bi-star-half rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops nstar}}
+                                            <i class="bi bi-star"></i>
+                                        {{/loops}}
+                                    </span>
+                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                                    <p class="sm-title mb-0">Tình trạng: <span class="text-green">{{status}}</span></p>
+                                </div>
+                            </div>
                         </div>     
                     {{/each}}
                 </div>
-                <div class='row d-flex m-0'>
-                    {{#each sale_thumnails}}
-                        {{#if bder}}
-                            <div class='col small-thumnail'>
-                        {{else}}
-                            <div class='col large-thumnail'>
-                        {{/if}} 
-                            <a href={{link}} class='thumnail-ref-container'>
-                                <img src={{img}} class="w-100" alt='thumnail'>
-                                <p class='thumnail-text'>{{name}}</p>
-                            </a>
-                        </div>   
+                <div class='row d-flex h-50'>
+                    {{#each sale_thumnails_2}}
+                        <div class='col-12 col-sm-6 large-thumnail'>
+                            {{!-- tag --}}
+                            <div class="row ps-2">
+                                <div class="col-5 pe-0">
+                                    <a href={{link}} class='thumnail-ref-container'><img src={{img}} class="w-100 pb-2" alt='thumnail'></a>
+                                </div>
+                                <div class="col-7">
+                                    <p class="me-title wrap-text mb-0" id="name-me-title">{{name}}</p>
+                                    <p class="sm-title text-indigo mb-0">Thương Hiệu: {{brand}}</p>
+                                    <span class="ratings"> 
+                                        {{#loops fstar}}
+                                            <i class="bi bi-star-fill rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops hstar}}
+                                            <i class="bi bi-star-half rating-color"></i>
+                                        {{/loops}}
+                                        {{#loops nstar}}
+                                            <i class="bi bi-star"></i>
+                                        {{/loops}}
+                                    </span>
+                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                                    <p class="sm-title mb-0">Tình trạng: <span class="text-green">{{status}}</span></p>
+                                </div>
+                            </div>
+                        </div>     
                     {{/each}}
                 </div>
             </div>
@@ -153,31 +190,24 @@
     <div class="mt-3 bg-white mb-5">
         <p class='menu-large-font'>Gợi ý hôm nay</p>
         <div class='row d-flex m-0'>
-            {{#each food_thumnails}}
-                {{#if bder}}
-                    <div class='col small-thumnail'>
-                {{else}}
-                    <div class='col large-thumnail'>
-                {{/if}} 
-                    <a href={{link}} class='thumnail-ref-container'>
-                        <img src={{img}} class="w-100" alt='thumnail'>
-                        <p class='thumnail-text'>{{name}}</p>
-                    </a>
-                </div>  
-            {{/each}}
-        </div>
-        <div class='row d-flex m-0'>
-            {{#each food_thumnails}}
-                {{#if bder}}
-                    <div class='col small-thumnail'>
-                {{else}}
-                    <div class='col large-thumnail'>
-                {{/if}} 
-                    <a href={{link}} class='thumnail-ref-container'>
-                        <img src={{img}} class="w-100" alt='thumnail'>
-                        <p class='thumnail-text'>{{name}}</p>
-                    </a>
-                </div>   
+            {{#each recommend}}
+                <div class="col-6 col-md-4 col-xl-2 m-auto p-4 large-thumnail">
+                    <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
+                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                    <span class="ratings"> 
+                        {{#loops fstar}}
+                            <i class="bi bi-star-fill rating-color"></i>
+                        {{/loops}}
+                        {{#loops hstar}}
+                            <i class="bi bi-star-half rating-color"></i>
+                        {{/loops}}
+                        {{#loops nstar}}
+                            <i class="bi bi-star"></i>
+                        {{/loops}}
+                    </span>
+                    <p class="review-count">{{rvcount}}</p>
+                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                </div>
             {{/each}}
         </div>
     </div>
