@@ -1,9 +1,8 @@
 // only for importing and deleting data
 // NOTE:
-// import (chạy trong cmd): node .\import-tour-data.js --import (nếu để nó file này trong thư mục gốc)
-// delete (chạy trong cmd): node .\import-tour-data.js --delete (nếu để nó file này trong thư mục gốc)
-// import script: node .\dev-data\data\import-tour-data.js --import
-// delete script: node .\dev-data\data\import-tour-data.js --delete
+// import script: node <file path> --import
+// delete script: node <file path> --delete
+
 const fs = require('fs');
 const mongoose = require('mongoose');
 
@@ -14,15 +13,6 @@ const Product = require(`${modelsPath}/Product`);
 const ProductReview = require(`${modelsPath}/ProductReview`);
 const User = require(`${modelsPath}/User`);
 
-const dotenv = require('dotenv');
-dotenv.config({ path: './config.env' });
-
-const DB = process.env.MONGODB_CONNECTION_STRING.replace(
-  '<password>',
-  process.env.MONGODB_PASSWORD
-);
-
-// thay DB = connect string vào đây (đừng quan tâm dotenv)
 mongoose.connect('mongodb+srv://cuongpham:211319539@cluster0.b87mt4q.mongodb.net/PTWeb_FinalProject_HCMUS');
 
 // nếu để file json trong thư mục gốc thì khỏi cần đổi
@@ -38,11 +28,13 @@ const orders = JSON.parse(fileDataOrders);
 const carts = JSON.parse(fileDataCarts);
 const productReviews = JSON.parse(fileDataProductReviews);
 
-
-
 const importData = async () => {
   try {
     await User.create(users);
+    await Product.create(products);
+    await Order.create(orders);
+    await Cart.create(carts);
+    await ProductReview.create(productReviews);
 
     console.log('import successfully');
   } catch (err) {
@@ -54,10 +46,14 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await User.deleteMany();
+    await Product.deleteMany();
+    await Order.deleteMany();
+    await Cart.deleteMany();
+    await ProductReview.deleteMany();
 
     console.log('delete sucsessfully');
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
   }
   process.exit();
 };
