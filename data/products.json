@@ -7,7 +7,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["bun.png"],
+    "photo": ["bun.png", "food_1.png"],
     "description": "ngon"
   },
   {
@@ -18,7 +18,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["pho.png"],
+    "photo": ["pho.png", "food_2.png"],
     "description": "ngon"
   },
   {
@@ -29,7 +29,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["doannhanh.png"],
+    "photo": ["doannhanh.png", "food_3.png"],
     "description": "ngon"
   },
   {
@@ -40,7 +40,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["dohan.png"],
+    "photo": ["dohan.png", "food_4.png"],
     "description": "ngon"
   },
   {
@@ -51,7 +51,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["donhat.png"],
+    "photo": ["donhat.png", "food_1.png"],
     "description": "ngon"
   },
   {
@@ -62,7 +62,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["bun.png"],
+    "photo": ["bun.png", "food_2.png"],
     "description": "ngon"
   },
   {
@@ -73,7 +73,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["food_1.png"],
+    "photo": ["com.png", "food_3.png"],
     "description": "ngon"
   },
   {
@@ -84,7 +84,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["lau.png"],
+    "photo": ["lau.png", "food_4.png"],
     "description": "ngon"
   },
   {
@@ -95,7 +95,7 @@
     "manufacturer": "Sunrise Foods",
     "stock": 100,
     "suspended": false,
-    "photo": ["pho.png"],
+    "photo": ["pho.png", "food_1.png"],
     "description": "ngon"
   }
 ]

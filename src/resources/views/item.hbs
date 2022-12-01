@@ -3,13 +3,13 @@
         {{!-- Item Detail --}}
         <div class="row pt-4">
             <div class="col-3" id="itdetail-mainimg">
-                <a href={{food.link}}>
-                    <img src={{food.img}} class="img-fluid itdetail-food-img" alt={{food.name}}>
+                <a href={{food.photo.[1]}}>
+                    <img src="/images/foods/{{food.photo.[1]}}" class="img-fluid itdetail-food-img" alt={{food.name}}>
                 </a>
             </div>
             <div class="col-12 col-md-8 col-lg-6">
                 <p class="itdetail-lger-title">{{food.name}}</p>
-                <p class="itdetail-me-title text-indigo">Thương Hiệu: {{food.brand}}</p>
+                <p class="itdetail-me-title text-indigo">Thương Hiệu: {{food.manufacturer}}</p>
                 <span class="ratings align-left"> 
                     {{#loops food.fstar}}
                         <i class="bi bi-star-fill rating-color"></i>
@@ -113,7 +113,7 @@
         <div class="itdetail-about">
             <div class="row">
                 <div class="col-12 col-lg-6 col-xl-7 pe-0 pb-4">
-                    <img src="images/abouts/about-1.png" class="img-fluid itdetail-food-img">
+                    <img src="/images/abouts/about-1.png" class="img-fluid itdetail-food-img">
                 </div>
                 <div class="col-12 col-lg-6 col-xl-5 ps-5">
                     <p class="itdetail-lg-title text-center"><b>ĐƯỢC THÀNH LẬP VÀ PHÂN PHỐI BỞI<br>SUNRISE COMPANY</b><br><br></p>
@@ -128,15 +128,15 @@
                     </p>
                     <div class="d-flex justify-content-center pt-4">
                         <span class="itdetail-achievement-icon text-center">
-                            <img src="images/icons/star.png" class="itdetail-icon" alt="star">
+                            <img src="/images/icons/star.png" class="itdetail-icon" alt="star">
                             <p class="p-3 itdetail-me-title">Ngon chuẩn 5 sao</p>
                         </span>
                         <span class="itdetail-achievement-icon text-center">
-                            <img src="images/icons/certificate.png" class="itdetail-icon" alt="star">
+                            <img src="/images/icons/certificate.png" class="itdetail-icon" alt="star">
                             <p class="p-3 itdetail-me-title">Chứng nhận quốc tế</p>
                         </span>
                         <span class="itdetail-achievement-icon text-center">
-                            <img src="images/icons/achievement.png" class="itdetail-icon" alt="star">
+                            <img src="/images/icons/achievement.png" class="itdetail-icon" alt="star">
                             <p class="p-3 itdetail-me-title">Top 1 thịnh hành</p>
                         </span>
                     </div>
@@ -150,7 +150,7 @@
             <div class="row">
                 {{#each recommend}}
                     <div class="col-6 col-md-4 col-xl-2 m-auto p-4">
-                        <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
+                        <a href={{link}}><img src={{photo}} class="img-fluid pb-3"></a>
                         <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                         <span class="ratings"> 
                             {{#loops fstar}}

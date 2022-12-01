@@ -44,13 +44,6 @@ let sale_thumnails_2 = [
 class SiteController {
     // [GET] /
     index(req, res, next) {
-        // Course.find({})
-        //     .then((courses) => {
-        //         res.render('home', {
-        //             courses: multipleMongooseToObject(courses),
-        //         });
-        //     })
-        //     .catch(next);
         res.render('home', {
             large_banner,
             small_banners_1, 
@@ -63,9 +56,9 @@ class SiteController {
     }
 
     // [GET] /search
-    // search(req, res) {
-    //     res.render('search');
-    // }
+    search(req, res) {
+        res.render('list');
+    }
 
     // [GET] /facebook
     facebook(req, res, next) {

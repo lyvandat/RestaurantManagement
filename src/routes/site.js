@@ -8,7 +8,7 @@ const siteController = require("../app/controllers/SiteController");
 router.get("/facebook", siteController.facebook);
 router.get("/twitter", siteController.facebook);
 
-// router.get('/search', siteController.search);
+router.get('/search', siteController.search);
 router.get("/", siteController.index);
 
 module.exports = router;

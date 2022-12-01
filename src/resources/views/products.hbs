@@ -83,9 +83,9 @@
                     {{#each foods}}
                         <div class="col-6 col-lg-4 pb-3">
                             <div class="card card-hover">
-                                <a href={{link}}><img src={{img}} class="card-img-top p-3"></a>
+                                <a href="products/{{slug}}"><img src="images/FoodThumnail/{{photo.[0]}}" class="card-img-top p-3"></a>
                                 <div class="card-body">
-                                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                                    <a href="products/{{slug}}" class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                                     <span class="ratings"> 
                                         {{#loops fstar}}
                                             <i class="bi bi-star-fill rating-color"></i>
@@ -100,7 +100,7 @@
                                     <p class="review-count">{{rvcount}}</p>
                                     <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
                                     <div class="text-center">
-                                        <a href="/item"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
+                                        <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
                                     </div>
                                 </div>
                             </div>
