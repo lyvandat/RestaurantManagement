@@ -14,6 +14,6 @@
   {
     "_id": "5c8a1f292f8fb814b56fa184",
     "userID": "5c8a1e1a2f8fb814b56fa182",
-    "products": [{"_id": "5c8a20d32f8fb814b56fa187"}]
+    "products": [{"productID": "5c8a20d32f8fb814b56fa187", "quantity": 1}]
   }
 ]
