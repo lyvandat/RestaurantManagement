@@ -4,6 +4,7 @@ const cartRouter = require("./cart");
 const adminRouter = require("./admin");
 const buyRouter = require("./buy");
 const userRouter = require("./user");
+const authRouter = require("./auth");
 const globalErrorHandler = require("./errorHandler");
 
 function route(app) {
@@ -12,8 +13,10 @@ function route(app) {
   app.use("/cart", cartRouter);
   app.use("/products", productsRouter);
   app.use("/admin", adminRouter);
-
   app.use("/", siteRouter);
+
+  // handle authentication
+  app.use("/auth", authRouter);
   // handle all middleware error
   app.use(globalErrorHandler);
 }

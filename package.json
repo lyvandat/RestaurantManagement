@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/cuong457/PTWeb-KTPM1-HCMUS#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.10.2",
     "docker": "^1.0.0",
