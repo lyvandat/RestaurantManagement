@@ -1,5 +1,8 @@
 exports.renderDashBoard = (req, res, next) => {
-  res.render("./admin/dashboard", { layout: "adminMain.hbs" });
+  res.render("./admin/dashboard", {
+    layout: "adminMain.hbs",
+    user: res.locals.user,
+  });
 };
 
 exports.renderBilling = (req, res, next) => {

@@ -28,4 +28,25 @@ UserSchema.pre("save", async function (next) {
   this.password = hashedPassword;
 });
 
+UserSchema.methods.isCorrectPassword = async function (
+  password,
+  hashedPassword
+) {
+  const isCorrect = await bcrypt.compare(password, hashedPassword);
+
+  return isCorrect;
+};
+
+UserSchema.methods.changePasswordAfter = function (JWTCreatedTime) {
+  // JWTCreatedTime: seconds
+  // this.changePasswordAt: Date
+  // getTime(): milliseconds
+  if (this.changePasswordAt) {
+    const changedTime = parseInt(this.changePasswordAt.getTime() / 1000);
+    return this.changePasswordAt > JWTTimeStamp;
+  }
+
+  return false;
+};
+
 module.exports = mongoose.model("User", UserSchema);

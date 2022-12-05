@@ -7,8 +7,10 @@ const {
   renderTables,
 } = require("../app/controllers/AdminController");
 
+const { isLoggedIn } = require("../app/controllers/AuthController");
+
 const router = express.Router();
-router.use("/dashboard", renderDashBoard);
+router.use("/dashboard", [isLoggedIn, renderDashBoard]);
 router.use("/billing", renderBilling);
 router.use("/profile", renderProfile);
 router.use("/sign-in", renderSignIn);

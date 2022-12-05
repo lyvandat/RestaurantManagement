@@ -3,6 +3,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const { engine } = require("express-handlebars");
 const app = express();
+// parsing cookies
+var cookieParser = require("cookie-parser");
 const route = require("./routes");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -13,6 +15,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(methodOverride("_method"));
 
