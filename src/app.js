@@ -30,6 +30,10 @@ app.engine(
   "hbs",
   engine({
     extname: ".hbs",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
     helpers: {
       sum: (a, b) => a + b,
       isFirstVis: (vr) => {
@@ -40,6 +44,32 @@ app.engine(
         var accum = "";
         for (var i = 0; i < n; ++i) accum += block.fn(i);
         return accum;
+      },
+      if_cond: (v1, op, v2, options) => {
+        switch (op) {
+          case "==":
+            return v1 == v2 ? options.fn(this) : options.inverse(this);
+          case "===":
+            return v1 === v2 ? options.fn(this) : options.inverse(this);
+          case "!=":
+            return v1 != v2 ? options.fn(this) : options.inverse(this);
+          case "!==":
+            return v1 !== v2 ? options.fn(this) : options.inverse(this);
+          case "<":
+            return v1 < v2 ? options.fn(this) : options.inverse(this);
+          case "<=":
+            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+          case ">":
+            return v1 > v2 ? options.fn(this) : options.inverse(this);
+          case ">=":
+            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+          case "&&":
+            return v1 && v2 ? options.fn(this) : options.inverse(this);
+          case "||":
+            return v1 || v2 ? options.fn(this) : options.inverse(this);
+          default:
+            return options.inverse(this);
+        }
       },
     },
   })

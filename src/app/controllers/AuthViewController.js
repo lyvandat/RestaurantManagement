@@ -173,7 +173,6 @@ exports.isLoggedIn = async (req, res, next) => {
 
     // 2) check if user has been deleted
     const user = await UserModel.findOne({ _id: decoded.id });
-
     if (!user) {
       return next();
     }

@@ -8,10 +8,14 @@ const {
   renderTables,
 } = require("../app/controllers/AdminController");
 
-const { isLoggedIn } = require("../app/controllers/AuthController");
+const { isLoggedIn } = require("../app/controllers/AuthViewController");
 
 const router = express.Router();
-router.use("/dashboard", [isLoggedIn, renderDashBoard]);
+
+// check login and permission
+router.use(isLoggedIn);
+
+router.use("/dashboard", renderDashBoard);
 router.use("/billing", renderBilling);
 router.use("/profile", renderProfile);
 router.use("/sign-in", renderSignIn);

@@ -22,6 +22,7 @@ if (loginForm) {
       }
 
       const data = await response.json();
+      console.log(data);
       console.log("login successfully");
       setTimeout(() => {
         window.location.href = "/";
