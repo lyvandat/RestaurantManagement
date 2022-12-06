@@ -26,32 +26,40 @@
                     <p class="lger-title pb-2">Sắp xếp theo</p>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highrate-radios" checked>
-                            <label class="form-check-label" for="highrate-radios">
-                                Đánh giá cao nhất
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highrate-radio" value="default">
+                            <label class="form-check-label" for="highrate-radio">
+                                Nổi bật nhất
                             </label>
                         </div>
                     </div>
-                    <div class="col-6">
+                    {{!-- <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="bestseller-radios">
                             <label class="form-check-label" for="bestseller-radios">
                                 Bán chạy nhất
                             </label>
                         </div>
+                    </div> --}}
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="created-at-radio" value="created-at">
+                            <label class="form-check-label" for="highrate-radio">
+                                Ngày đăng
+                            </label>
+                        </div>
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="lowprice-radios">
-                            <label class="form-check-label" for="lowprice-radios">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="lowprice-radio" value="low-to-high">
+                            <label class="form-check-label" for="lowprice-radio">
                                 Giá thấp <i class="bi bi-arrow-right m-auto"></i> cao
                             </label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highprice-radios">
-                            <label class="form-check-label" for="highprice-radios">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highprice-radio" value="high-to-low">
+                            <label class="form-check-label" for="highprice-radio">
                                 Giá cao <i class="bi bi-arrow-right"></i> thấp 
                             </label>
                         </div>
@@ -98,7 +106,7 @@
                                         {{/loops}}
                                     </span>
                                     <p class="review-count">{{rvcount}}</p>
-                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                                    <p class="sm-title">1 offer from <span class="rtab-money">{{{toPrice price}}} VNĐ</span></p>
                                     <div class="text-center">
                                         <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
                                     </div>
@@ -112,3 +120,54 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sortOptions = $('input[name="flexRadioDefault"]');
+
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+
+        if (params.column === 'price') {
+            if (params.type === 'asc')
+                $('#lowprice-radio').prop("checked", true);
+            else
+                $('#highprice-radio').prop("checked", true);
+        } else if (params.column === '_createdAt') {
+            $('#created-at-radio').prop("checked", true);
+        } else {
+            $('#highrate-radio').prop("checked", true);
+        }
+
+        sortOptions.change(function() {
+            console.log($('input[name=flexRadioDefault]:checked').val());
+
+            switch($('input[name=flexRadioDefault]:checked').val()) {
+                case 'low-to-high':
+                    location.href = '?_sort&column=price&type=asc';
+                break;
+
+                case 'high-to-low':
+                    location.href = '?_sort&column=price&type=desc';
+                break;
+
+                case 'created-at':
+                    location.href = '?_sort&column=_createdAt&type=asc';
+                break;
+
+                case 'default':
+                    location.href = './products';
+                break;
+
+                default:
+                    location.href = './products';
+                break;
+            }
+
+            
+        });
+        
+    });
+</script>

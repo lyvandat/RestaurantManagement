@@ -26,12 +26,12 @@
                 {{!-- Alternative item image --}}
                 <div class="row pt-3" id="itdetail-alterimg">
                     <div class="col-4">
-                        <a href={{food.link}}>
-                            <img src={{food.img}} class="img-fluid itdetail-food-img" alt={{food.name}}>
+                        <a href={{food.photo.[1]}}>
+                            <img src="/images/foods/{{food.photo.[1]}}" class="img-fluid itdetail-food-img" alt={{food.name}}>
                         </a>
                     </div>
                     <div class="col-8">
-                        <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{food.price}}.000 VNĐ</span></p>
+                        <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{{toPrice food.price}}} VNĐ</span></p>
 
                         <div class="d-flex justify-content-center pt-4">
                             <p class="text-center p-3 ps-0 itdetail-sm-title wrap-text">
@@ -49,7 +49,7 @@
                 
                 <div id="itdetail-mainimg">
                     <br><hr>
-                    <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{food.price}}.000 VNĐ</span></p>
+                    <p class="itdetail-me-title text-green">1 Order from &#160<span class="itdetail-lg-money">{{{toPrice food.price}}} VNĐ</span></p>
 
                     <div class="d-flex justify-content-center pt-4">
                         <p class="text-center p-3 itdetail-me-title wrap-text">
@@ -164,7 +164,7 @@
                             {{/loops}}
                         </span>
                         <p class="review-count">{{rvcount}}</p>
-                        <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                        <p class="sm-title">1 offer from <span class="rtab-money">{{{toPrice price}}} VNĐ</span></p>
                         <div class="text-center">
                             <a href="/item"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
                         </div>

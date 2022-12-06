@@ -26,7 +26,7 @@
   "homepage": "https://github.com/cuong457/PTWeb-KTPM1-HCMUS#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "cookie-parser": "^1.4.6",
     "docker": "^1.0.0",
@@ -35,15 +35,12 @@
     "express-handlebars": "^6.0.6",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
-    "mongoose": "^6.7.2",
+    "mongoose": "^6.8.0",
     "mongoose-slug-generator": "^1.0.4"
   },
   "devDependencies": {
-    "husky": "^4.2.5",
-    "lint-staged": "^13.0.3",
     "morgan": "^1.10.0",
     "node-sass": "^8.0.0",
-    "nodemon": "^2.0.20",
-    "prettier": "^2.7.1"
+    "nodemon": "^2.0.20"
   }
 }
