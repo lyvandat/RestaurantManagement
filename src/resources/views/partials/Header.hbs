@@ -144,13 +144,13 @@
                 id="search-box"
                 placeholder="Cùng tìm kiếm vài món ăn ngon nào!"
               />
-              <a href="/products"><button
+              {{!-- <a href="/products"> --}}
+              <button
                   type="button"
                   class="btn btn-primary"
-                  name="search-items"
                 >
                   <i class="bi bi-search"></i>
-                </button></a>
+              </button>
             </div>
             <div class="mt-2" id="hrz-menu">
               <a href="/products" class="nav-menu-font">Cơm</a>
@@ -161,7 +161,7 @@
             </div>
           </div>
           <div class="col d-flex justify-content-end" id="cart">
-            <a href="/cart">
+            <a href="user/{{user.id}}/cart">
               <i class="bi bi-cart cart-icon"></i>
             </a>
           </div>
@@ -172,5 +172,21 @@
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () { });
+  document.addEventListener('DOMContentLoaded', function () {
+    const buttonSearch = $('.btn.btn-primary');
+    const inputBoxSearch = $('#search-box');
+
+    buttonSearch.click(function() {
+      if (inputBoxSearch.val()) location.href = `/products/?_search=${inputBoxSearch.val()}`;
+      else location.href = '/products';
+    });
+
+    inputBoxSearch.on('keypress',function(e) {
+      if (e.which == 13) {
+        if (inputBoxSearch.val()) location.href = `/products/?_search=${inputBoxSearch.val()}`;
+        else location.href = '/products';
+      }
+    });
+
+  });
 </script>

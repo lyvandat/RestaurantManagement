@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 const {
   multipleMongooseToObject,
   mongooseToObject,
-} = require("../../util/mongoose");
+} = require("../../utils/mongoose");
 
 let large_banner = [
   { img: "images/banners/banner-1.png", link: "banner1.com", index: 0 },
@@ -223,74 +223,106 @@ const payment_methods = [
   },
 ];
 
-exports.renderCart = function cart(req, res, next) {
-  Cart.findOne({ userID: req.params.id })
-    .then((cart) => {
-      const cartProducts = cart.products.map((item) =>
-        mongoose.Types.ObjectId(item.productID)
-      );
 
-      Product.find({ _id: { $in: cartProducts } })
-        .then((products) => {
-          const items = multipleMongooseToObject(products);
-          items.forEach((item) =>
-            Object.assign(item, {
-              status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
-            })
-          );
 
-          res.render("cart", {
-            items,
-            recommend,
-          });
+exports.renderHome = async function index(req, res, next) {
+    const recommend = await Product.aggregate([ { $sample: { size: 6 } } ]);
+
+    res.render("home", {
+        large_banner,
+        small_banners_1,
+        small_banners_2,
+        rect_banners,
+        recommend,
+        sale_thumnails_1,
+        sale_thumnails_2,
+    });
+};
+
+exports.renderItemDetail = async function (req, res, next) {
+    const recommend = await Product.aggregate([ { $sample: { size: 6 } } ]);
+    
+    Product.findOne({ slug: req.params.slug })
+        .then((product) => {
+            res.render("item", {
+                recommend,
+                food: mongooseToObject(product),
+            });
         })
         .catch(next);
-    })
-    .catch(next);
 };
 
-exports.renderHome = function index(req, res, next) {
-  res.render("home", {
-    large_banner,
-    small_banners_1,
-    small_banners_2,
-    rect_banners,
-    recommend,
-    sale_thumnails_1,
-    sale_thumnails_2,
-  });
-};
-
-exports.renderItemDetail = function (req, res, next) {
-  Product.findOne({ slug: req.params.slug })
-    .then((product) => {
-      res.render("item", {
-        recommend,
-        food: mongooseToObject(product),
-      });
-    })
-    .catch(next);
-};
-
+// [GET] /products
 exports.renderItems = async function (req, res, next) {
-  const products = await Product.find();
+    const options = {};
 
-  res.render("products", {
-    foods: multipleMongooseToObject(products),
-    restaurant_logo,
-  });
+    if (req.query.hasOwnProperty('_search')) Object.assign(options, { name: { "$regex": req.query._search, "$options": "i" } });
+
+    const products = await Product.find(options).sortable(req);
+
+    res.render("products", {
+        foods: multipleMongooseToObject(products),
+        restaurant_logo,
+    });
 };
 
-exports.renderCart = function (req, res, next) {
-  res.render("cart", {
-    items,
-    recommend,
-  });
+
+exports.searchItems = async function (req, res, next) {
+    //res.json(req.body);
+    const products = await Product.find({ name: 'makima' })
+
+    res.json(products);
+    
 };
 
+// [GET] /user/:id/cart
+exports.renderCart = function cart(req, res, next) {
+    Cart.findOne({ userID: req.params.id })
+        .then((cart) => {
+            const cartProducts = cart.products.map((item) =>
+                mongoose.Types.ObjectId(item.productID)
+            );
+
+            Product.find({ _id: { $in: cartProducts } })
+                .then((products) => {
+                    const items = multipleMongooseToObject(products);
+                    items.forEach((item) =>
+                        Object.assign(item, {
+                        status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
+                        })
+                    );
+
+                    res.render("cart", {
+                        items,
+                        recommend,
+                    });
+                })
+                .catch(next);
+        
+        })
+        .catch(next);
+};
+
+// [GET] /user/:id/order
 exports.renderPayment = function (req, res, next) {
-  res.render("buy", {
-    items,
-    payment_methods,
-  });
+    Order.findOne({ userID: req.params.id })
+        .then((order) => {
+            const orderProducts = order.products.map(item => mongoose.Types.ObjectId(item.productID));
+
+            Product.find({ '_id': { $in: orderProducts } })
+                .then((products) => {
+                    const items = multipleMongooseToObject(products);
+                    items.forEach(item => Object.assign(item, {
+                        status: item.stock > 0 ? 'Còn hàng' : 'Hết hàng'
+                    }));
+
+                    res.render('buy', {
+                        items,
+                        payment_methods,
+                    });
+                })
+                .catch(next);
+        })
+        .catch(next);
+
 };

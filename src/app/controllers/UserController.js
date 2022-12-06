@@ -26,34 +26,35 @@ class UserController {
   // [GET] /user/:id/cart
   cart(req, res, next) {
     Cart.findOne({ userID: req.params.id })
-      .then((cart) => {
-        const cartProducts = cart.products.map((item) =>
-          mongoose.Types.ObjectId(item.productID)
-        );
-
-        Product.find({ _id: { $in: cartProducts } })
-          .then((products) => {
-            const items = multipleMongooseToObject(products);
-            items.forEach((item) =>
-              Object.assign(item, {
-                status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
-              })
+        .then((cart) => {
+            const cartProducts = cart.products.map((item) =>
+            mongoose.Types.ObjectId(item.productID)
             );
-                Product.find({ '_id': { $in: cartProducts } })
-                    .then((products) => {
-                        const items = multipleMongooseToObject(products);
-                        items.forEach(item => Object.assign(item, {
-                            status: item.stock > 0 ? 'Còn hàng' : 'Hết hàng'
-                        }));
 
-                        res.render('cart', {
-                            items,
-                            recommend,
-                        });
+            Product.find({ _id: { $in: cartProducts } })
+                .then((products) => {
+                    const items = multipleMongooseToObject(products);
+                    items.forEach((item) =>
+                    Object.assign(item, {
+                        status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
                     })
-                    .catch(next);
-            })
+                    );
+                        Product.find({ '_id': { $in: cartProducts } })
+                            .then((products) => {
+                                const items = multipleMongooseToObject(products);
+                                items.forEach(item => Object.assign(item, {
+                                    status: item.stock > 0 ? 'Còn hàng' : 'Hết hàng'
+                                }));
+
+                                res.render('cart', {
+                                    items,
+                                    recommend,
+                                });
+                            })
+                            .catch(next);
+                    })
             .catch(next);
+        });
     }
 
     // [GET] /user/:id/order

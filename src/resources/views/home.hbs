@@ -80,8 +80,8 @@
         <div class='row d-flex m-0 pb-2'>
             {{#each recommend}}
                 <div class="col-6 col-md-4 col-xl-2 m-auto p-4 large-thumnail">
-                    <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
-                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                    <a href="products/{{slug}}"><img src="images/FoodThumnail/{{photo.[0]}}" class="img-fluid pb-3"></a>
+                    <a href="products/{{slug}}" class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                     <span class="ratings"> 
                         {{#loops fstar}}
                             <i class="bi bi-star-fill rating-color"></i>
@@ -94,7 +94,7 @@
                         {{/loops}}
                     </span>
                     <p class="review-count">{{rvcount}}</p>
-                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                    <p class="sm-title">1 offer from <span class="rtab-money">{{{toPrice price}}} VNĐ</span></p>
                 </div>
             {{/each}}
         </div>
@@ -192,8 +192,8 @@
         <div class='row d-flex m-0'>
             {{#each recommend}}
                 <div class="col-6 col-md-4 col-xl-2 m-auto p-4 large-thumnail">
-                    <a href={{link}}><img src={{img}} class="img-fluid pb-3"></a>
-                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
+                    <a href="products/{{slug}}"><img src="images/FoodThumnail/{{photo.[0]}}" class="img-fluid pb-3"></a>
+                    <a href="products/{{slug}}" class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
                     <span class="ratings"> 
                         {{#loops fstar}}
                             <i class="bi bi-star-fill rating-color"></i>
@@ -206,7 +206,7 @@
                         {{/loops}}
                     </span>
                     <p class="review-count">{{rvcount}}</p>
-                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000 VNĐ</span></p>
+                    <p class="sm-title">1 offer from <span class="rtab-money">{{{toPrice price}}} VNĐ</span></p>
                 </div>
             {{/each}}
         </div>
