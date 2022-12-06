@@ -43,15 +43,17 @@ const createSendToken = (user, req, res) => {
 
 exports.signUp = catchAsync(async (req, res, next) => {
   // 1) validate email, password
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   if (
+    !name ||
+    name.trim().length === 0 ||
     !email.trim() ||
     !email.includes("@") ||
     password.length < 6 ||
     !password
   ) {
-    return next(new AppError(400, "Invalid email and password"));
+    return next(new AppError(400, "Invalid name, email and password"));
   }
 
   // 2) check if email has existed
@@ -65,6 +67,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   // 3) store user
   const storedUser = await UserModel.create({
+    name,
     email,
     password,
   });
@@ -187,7 +190,7 @@ exports.isLoggedIn = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     next();
   }
 };

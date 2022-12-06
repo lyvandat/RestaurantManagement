@@ -85,18 +85,28 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng
-              ký</a>
+            <a
+              class="nav-link active navbar-font-link pb-2 m-0"
+              href="/admin/sign-up"
+            >Đăng ký</a>
           </li>
 
           <li class="nav-item"><p
               class="nav-link disabled navbar-font-link pb-2 m-0"
             >|</p></li>
 
-          <li class="nav-item">
-            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Đăng
-              nhập</a>
-          </li>
+          {{#if user}}
+            <li class="nav-item">
+              <a
+                class="nav-link active navbar-font-link pb-2 m-0"
+                href="/admin/sign-in"
+              >Đăng nhập</a>
+            </li>
+          {{else}}
+            <li id="signout-user" class="nav-item cursor-pointer">
+              <a class="nav-link active navbar-font-link pb-2 m-0">Đăng xuất</a>
+            </li>
+          {{/if}}
 
           <li class="nav-item">
             <a
@@ -132,9 +142,13 @@
                 id="search-box"
                 placeholder="Cùng tìm kiếm vài món ăn ngon nào!"
               />
-              <a href="/products"><button type="button" class="btn btn-primary" name="search-items">
-                <i class="bi bi-search"></i>
-              </button></a>
+              <a href="/products"><button
+                  type="button"
+                  class="btn btn-primary"
+                  name="search-items"
+                >
+                  <i class="bi bi-search"></i>
+                </button></a>
             </div>
             <div class="mt-2" id="hrz-menu">
               <a href="/products" class="nav-menu-font">Cơm</a>
@@ -156,7 +170,5 @@
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-
-  });
+  document.addEventListener('DOMContentLoaded', function () { });
 </script>

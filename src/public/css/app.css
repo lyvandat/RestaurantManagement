@@ -485,6 +485,9 @@ body p {
   text-overflow: ellipsis;
   margin-bottom: 0; }
 
+.cursor-pointer {
+  cursor: pointer; }
+
 @media (max-width: 576px) {
   #name-me-title {
     font-size: large; } }

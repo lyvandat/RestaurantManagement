@@ -32,8 +32,14 @@
       href="/assets/css/soft-ui-dashboard.css?v=1.0.6"
       rel="stylesheet"
     />
+    {{!-- css for error page --}}
+    <link
+      href="/assets/css/error-page.css"
+      rel="stylesheet"
+    />
   </head>
 
+  {{#if user}}
   <body class="g-sidenav-show bg-gray-100">
     <aside
       class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
@@ -381,7 +387,7 @@
                   href="/admin/profile"
                 >Lý Văn Đạt</a>
               </li>
-              <li class="nav-item d-flex align-items-center">
+              <li id="signout-admin" class="nav-item d-flex align-items-center">
                 <a
                   href="javascript:;"
                   class="nav-link text-body font-weight-bold px-0"
@@ -762,5 +768,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
+
+    {{! ALL JS FILES }}
+    <script type="module" src="/js/index.js"></script>
   </body>
+  {{else}}
+  {{> Error}}
+  {{/if}}
 </html>
