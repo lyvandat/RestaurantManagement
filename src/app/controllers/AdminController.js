@@ -1,7 +1,6 @@
 exports.renderDashBoard = (req, res, next) => {
   res.render("./admin/dashboard", {
     layout: "adminMain.hbs",
-    user: res.locals.user,
   });
 };
 
@@ -15,6 +14,10 @@ exports.renderProfile = (req, res, next) => {
 
 exports.renderSignIn = (req, res, next) => {
   res.render("./admin/sign-in", { layout: false });
+};
+
+exports.renderSignUp = (req, res, next) => {
+  res.render("./admin/sign-up", { layout: false });
 };
 
 exports.renderTables = (req, res, next) => {
