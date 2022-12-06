@@ -28,7 +28,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "cookie-parser": "^1.4.6",
     "core-js": "^2.6.12",
@@ -43,8 +43,6 @@
     "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
-    "husky": "^4.2.5",
-    "lint-staged": "^13.0.3",
     "morgan": "^1.10.0",
     "node-sass": "^8.0.0",
     "nodemon": "^2.0.20",

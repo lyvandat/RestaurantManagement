@@ -1,19 +1,58 @@
-[
-  {
-    "_id": "5c8a1ec62f8fb814b56fa183",
-    "userID": "5c8a1dfa2f8fb814b56fa181",
-    "products": [{
-        "productID": "5c8a23412f8fb814b56fa18c",
-        "quantity": 1
-      },
-      {
-        "productID": "5c8a23c82f8fb814b56fa18d",
-        "quantity": 1
-      }]
+[{
+  "_id": {
+    "$oid": "5c8a1f292f8fb814b56fa184"
   },
-  {
-    "_id": "5c8a1f292f8fb814b56fa184",
-    "userID": "5c8a1e1a2f8fb814b56fa182",
-    "products": [{"productID": "5c8a20d32f8fb814b56fa187", "quantity": 1}]
-  }
-]
+  "userID": "5c8a1e1a2f8fb814b56fa182",
+  "products": [
+    {
+      "productID": "5c8a20d32f8fb814b56fa187",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6388cfb607170098307faf4c"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454819"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454819"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a1ec62f8fb814b56fa183"
+  },
+  "userID": "5c8a1dfa2f8fb814b56fa181",
+  "products": [
+    {
+      "productID": "5c8a23412f8fb814b56fa18c",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6388cfb607170098307faf49"
+      }
+    },
+    {
+      "productID": "5c8a23c82f8fb814b56fa18d",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6388cfb607170098307faf4a"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454819"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454819"
+    }
+  },
+  "__v": 0
+}]

@@ -1,29 +1,273 @@
-[
-  {
-    "_id": "5c8a1d5b0190b214360dc057",
-    "name": "Jonas Schmedtmann",
-    "email": "admin@natours.io",
-    "role": "admin",
-    "active": true,
-    "photo": "user-1.jpg",
-    "password": "123"
+[{
+  "_id": {
+    "$oid": "5c8a1d5b0190b214360dc057"
   },
-  {
-    "_id": "5c8a1dfa2f8fb814b56fa181",
-    "name": "Lourdes Browning",
-    "email": "loulou@example.com",
-    "role": "user",
-    "active": true,
-    "photo": "user-2.jpg",
-    "password": "123"
+  "name": "Jonas Schmedtmann",
+  "password": "123",
+  "email": "admin@natours.io",
+  "role": "admin",
+  "active": true,
+  "photo": "user-1.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910452644"
+    }
   },
-  {
-    "_id": "5c8a1e1a2f8fb814b56fa182",
-    "name": "Sophie Louise Hart",
-    "email": "sophie@example.com",
-    "role": "user",
-    "active": true,
-    "photo": "user-3.jpg",
-    "password": "123"
-  }
-]
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910452644"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a1dfa2f8fb814b56fa181"
+  },
+  "name": "Lourdes Browning",
+  "password": "123",
+  "email": "loulou@example.com",
+  "role": "user",
+  "active": true,
+  "photo": "user-2.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910452645"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910452645"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a1e1a2f8fb814b56fa182"
+  },
+  "name": "Sophie Louise Hart",
+  "password": "123",
+  "email": "sophie@example.com",
+  "role": "user",
+  "active": true,
+  "photo": "user-3.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910452645"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910452645"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9c5911b5932c2da0fcfe"
+  },
+  "password": "$2a$12$hOZa4OZKIVmx3G2eYduN/.9/EQDrl4Lzjl855Nivpp/m6vMb9j1r.",
+  "email": "lyvandat123@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670224985327"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670224985327"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9d0411b5932c2da0fd01"
+  },
+  "password": "$2a$12$qDkB2p0XhQ8.2kphi1YKqejn5.HOOY.c0cIi2MJxlzmeDUhkso4mi",
+  "email": "lyvandat123@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225156563"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225156563"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e1077aa50f303fdca88"
+  },
+  "password": "$2a$12$bghri9GwqC7xl1N2xERha.ZHarSq/7TNwhcQzymOvNnRRc6NVRJfO",
+  "email": "lyvandat123@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225424265"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225424265"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e1977aa50f303fdca8b"
+  },
+  "password": "$2a$12$nr4b5k63BMAXlxHHEPcCL.P9oZS2rEAzbjgY.iEcZIWC.OSZkAmI6",
+  "email": "lyvandat123@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225433068"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225433068"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e4e89fcae45ce2a90cf"
+  },
+  "password": "$2a$12$NCRmY1GpcNs5VsQaZHC/iuPDRJG65XP3pMPjpQL4ZuAzm8ok2yZZ.",
+  "email": "lyvandat124@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225486726"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225486726"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e7a4ca7d529e36f815a"
+  },
+  "password": "$2a$12$FhjIcqrqGlo.rUtC66.p5.jEB0YNttVJFrtmNYSo8xepAMMRvjtHe",
+  "email": "lyvandat12345@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225530614"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225530614"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e8b8a646c33e3c7ede2"
+  },
+  "password": "$2a$12$4rRMHIXOLB4CaqwHNhw4C.FriVNxGTtvfICUCnzraZLJGQ6KoeIsm",
+  "email": "lyvandat123456@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225548001"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225548001"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638d9e968a646c33e3c7ede5"
+  },
+  "password": "$2a$12$jD6tMm4yq3VCAidf.5xE1uFzN4gKixOELuRo46dyJQSoW7E./wYsG",
+  "email": "lyvandat12345688@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670225558472"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670225558472"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638df1e7c265f6e17f772b20"
+  },
+  "password": "$2a$12$sTQrtoOuCcyRtrSuM8v4lOR4tnebnk4hLlZYw/Y6m5CA2c4sku7RS",
+  "email": "lyvandat3@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670246887843"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670246887843"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638df1fdc265f6e17f772b23"
+  },
+  "password": "$2a$12$JrXoXLnocWMpRIT4x3pU1O0SUQrfO2WobTdegaa0dYAScMnNN2IwC",
+  "email": "lyvandat4@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670246909825"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670246909825"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638df29cc265f6e17f772b27"
+  },
+  "password": "$2a$12$ZX/7lz41FT0nWvfsqaQb5eHweZW8TKE1mclnEzGcQi.Xf79IUCRzW",
+  "email": "lyvandat5@gmail.com",
+  "role": "User",
+  "active": true,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1670247068262"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670247068262"
+    }
+  },
+  "__v": 0
+}]

@@ -1,101 +1,262 @@
-[
-  {
-    "_id": "5c8a1f4e2f8fb814b56fa185",
-    "name": "Bún Đậu Mắm Tôm chuẩn ngon",
-    "price": 89000,
-    "category": ["bún"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["bun.png", "food_1.png"],
-    "description": "ngon"
+[{
+  "_id": {
+    "$oid": "5c8a1f4e2f8fb814b56fa185"
   },
-  {
-    "_id": "5c8a201e2f8fb814b56fa186",
-    "name": "Cơm Tấm Hoàng Diệu 2",
-    "price": 25000,
-    "category": ["cơm"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["pho.png", "food_2.png"],
-    "description": "ngon"
+  "name": "Bún Đậu Mắm Tôm chuẩn ngon",
+  "price": 89000,
+  "category": [
+    "bún"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "bun.png",
+    "food_1.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454068"
+    }
   },
-  {
-    "_id": "5c8a20d32f8fb814b56fa187",
-    "name": "Cá Viên Chiên Makima",
-    "price": 999000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["doannhanh.png", "food_3.png"],
-    "description": "ngon"
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454068"
+    }
   },
-  {
-    "_id": "5c8a211f2f8fb814b56fa188",
-    "name": "Nem Cuốn Hàn Xẻng",
-    "price": 56000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["dohan.png", "food_4.png"],
-    "description": "ngon"
+  "slug": "bun-dau-mam-tom-chuan-ngon",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a211f2f8fb814b56fa188"
   },
-  {
-    "_id": "5c8a21d02f8fb814b56fa189",
-    "name": "Thập Cẩm Chả Biết Tên",
-    "price": 102000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["donhat.png", "food_1.png"],
-    "description": "ngon"
+  "name": "Nem Cuốn Hàn Xẻng",
+  "price": 56000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "dohan.png",
+    "food_4.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
   },
-  {
-    "_id": "5c8a21f22f8fb814b56fa18a",
-    "name": "Cơm Chay Chỉ Thiên",
-    "price": 89000,
-    "category": ["cơm"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["bun.png", "food_2.png"],
-    "description": "ngon"
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
   },
-  {
-    "_id": "5c8a22c62f8fb814b56fa18b",
-    "name": "Salad Ngũ Vị Hoàng Gia Anh",
-    "price": 49000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["com.png", "food_3.png"],
-    "description": "ngon"
+  "slug": "nem-cuon-han-xeng",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a21d02f8fb814b56fa189"
   },
-  {
-    "_id": "5c8a23412f8fb814b56fa18c",
-    "name": "Bò Bít Tết Hoàng Gia",
-    "price": 369000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["lau.png", "food_4.png"],
-    "description": "ngon"
+  "name": "Thập Cẩm Chả Biết Tên",
+  "price": 102000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "donhat.png",
+    "food_1.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
   },
-  {
-    "_id": "5c8a23c82f8fb814b56fa18d",
-    "name": "Gỏi Gia Truyền Truyền Từ Thời Ông Cố Nội",
-    "price": 171000,
-    "category": ["general"],
-    "manufacturer": "Sunrise Foods",
-    "stock": 100,
-    "suspended": false,
-    "photo": ["pho.png", "food_1.png"],
-    "description": "ngon"
-  }
-]
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "slug": "thap-cam-cha-biet-ten",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a22c62f8fb814b56fa18b"
+  },
+  "name": "Salad Ngũ Vị Hoàng Gia Anh",
+  "price": 49000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "com.png",
+    "food_3.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "slug": "salad-ngu-vi-hoang-gia-anh",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a21f22f8fb814b56fa18a"
+  },
+  "name": "Cơm Chay Chỉ Thiên",
+  "price": 89000,
+  "category": [
+    "cơm"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "bun.png",
+    "food_2.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "slug": "com-chay-chi-thien",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a23412f8fb814b56fa18c"
+  },
+  "name": "Bò Bít Tết Hoàng Gia",
+  "price": 369000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "lau.png",
+    "food_4.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454070"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454070"
+    }
+  },
+  "slug": "bo-bit-tet-hoang-gia",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a23c82f8fb814b56fa18d"
+  },
+  "name": "Gỏi Gia Truyền Truyền Từ Thời Ông Cố Nội",
+  "price": 171000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "pho.png",
+    "food_1.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454070"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454070"
+    }
+  },
+  "slug": "g-i-gia-truyen-truyen-tu-thoi-ong-co-noi",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a20d32f8fb814b56fa187"
+  },
+  "name": "Cá Viên Chiên Makima",
+  "price": 999000,
+  "category": [
+    "general"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "doannhanh.png",
+    "food_3.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "slug": "ca-vien-chien-makima",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5c8a201e2f8fb814b56fa186"
+  },
+  "name": "Cơm Tấm Hoàng Diệu 2",
+  "price": 25000,
+  "category": [
+    "cơm"
+  ],
+  "manufacturer": "Sunrise Foods",
+  "stock": 100,
+  "suspended": false,
+  "photo": [
+    "pho.png",
+    "food_2.png"
+  ],
+  "description": "ngon",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669910454069"
+    }
+  },
+  "slug": "com-tam-hoang-dieu-2",
+  "__v": 0
+}]

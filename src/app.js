@@ -71,6 +71,8 @@ app.engine(
             return options.inverse(this);
         }
       },
+      toPrice: (rawPrice) =>
+        rawPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
     },
   })
 );
