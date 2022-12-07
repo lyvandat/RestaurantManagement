@@ -267,13 +267,6 @@ exports.renderItems = async function (req, res, next) {
   });
 };
 
-exports.searchItems = async function (req, res, next) {
-  //res.json(req.body);
-  const products = await Product.find({ name: "makima" });
-
-  res.json(products);
-};
-
 // [GET] /user/:id/cart
 exports.renderCart = function cart(req, res, next) {
   Cart.findOne({ userID: req.params.id })

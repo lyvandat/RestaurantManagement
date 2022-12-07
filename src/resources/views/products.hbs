@@ -102,10 +102,10 @@
                     {{#each foods}}
                     <div class="col-6 col-lg-4 pb-3">
                         <div class="card card-hover">
-                            <a href="products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
+                            <a href="/products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
                                     class="card-img-top p-3" /></a>
                             <div class="card-body">
-                                <a href="products/{{slug}}" class="erase-underline">
+                                <a href="/products/{{slug}}" class="erase-underline">
                                     <p class="me-title text-lightblue">{{name}}</p>
                                 </a>
                                 <span class="ratings">
@@ -124,7 +124,7 @@
                                     <span class="rtab-money">{{{toPrice price}}} VNĐ</span>
                                 </p>
                                 <div class="text-center">
-                                    <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
+                                    <a href="/products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
                                             onclick="changepage()">See more detail</button></a>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
         } sortOptions.change(function () {
             console.log($('input[name=flexRadioDefault]:checked').val());//
             let previousSearchLocation = null;
-            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "";
+            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "?";
             switch ($('input[name=flexRadioDefault]:checked').val()) {
                 case 'low-to-high':
                     location.href = `${previousSearchLocation}_sort&column=price&type=asc`;
