@@ -178,21 +178,47 @@ var signOut = /*#__PURE__*/function () {
   };
 }();
 exports.signOut = signOut;
+},{}],"sort/price.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleSortPrice = void 0;
+var handleSortPrice = function handleSortPrice(e) {
+  e.preventDefault();
+  var fromInput = this.elements[name = "price-from"].value;
+  var toInput = this.elements[name = "price-to"].value;
+  if (!fromInput || !toInput || fromInput.trim().length === 0 || toInput.trim().length === 0 || fromInput > toInput) {
+    alert("Khoảng giá không phù hợp");
+    return;
+  }
+
+  //   const oldHref = location.href;
+  //   const queryPriceString =  `priceRange=${fromInput},${toInput}`
+  //   const newHref = oldHref.includes("?") ? `${oldHref}&${queryPriceString}` : `${oldHref}?${queryPriceString}`;
+  location.href = "?priceRange=".concat(fromInput, ",").concat(toInput);
+};
+exports.handleSortPrice = handleSortPrice;
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _signOut = require("./auth/sign-out.js");
+var _price = require("./sort/price.js");
 // import "@babel/polyfill";
-console.log("hello world");
 var signOutBtnAdmin = document.getElementById("signout-admin");
 var signOutBtnUser = document.getElementById("signout-user");
+var priceSortForm = document.getElementById("price-sort-form");
 if (signOutBtnAdmin) {
   signOutBtnAdmin.addEventListener("click", _signOut.signOut);
 }
 if (signOutBtnUser) {
   signOutBtnUser.addEventListener("click", _signOut.signOut);
 }
-},{"./auth/sign-out.js":"auth/sign-out.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+if (priceSortForm) {
+  priceSortForm.addEventListener("submit", _price.handleSortPrice);
+}
+},{"./auth/sign-out.js":"auth/sign-out.js","./sort/price.js":"sort/price.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +243,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51702" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58607" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

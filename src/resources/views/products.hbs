@@ -9,20 +9,19 @@
                 <i class="bi bi-sliders2-vertical me-title">&#160 Bộ lọc</i>
                 <div class="row mt-4">
                     <p class="lger-title pb-2">Khoảng giá</p>
-                    <div class="col-6">
-                        <form class="form-floating">
-                            <input type="number" class="form-control" id="minprice-filter" min="0"
-                                placeholder="Từ (.000 VNĐ)" />
+                    <form class="d-flex" class="form-floating" id="price-sort-form">
+                        <div class="col-6 pe-1">
+                            <input name="price-from" type="number" class="form-control" id="minprice-filter" min="0"
+                                placeholder="" />
                             <label for="minprice-filter">Từ (.000 VNĐ)</label>
-                        </form>
-                    </div>
-                    <div class="col-6">
-                        <form class="form-floating">
-                            <input type="number" class="form-control" id="maxprice-filter" min="0"
-                                placeholder="Từ (.000 VNĐ)" />
+                        </div>
+                        <div class="col-6 ps-1">
+                            <input name="price-to" type="number" class="form-control" id="maxprice-filter" min="0"
+                                placeholder="" />
                             <label for="maxprice-filter">Đến (.000 VNĐ)</label>
-                        </form>
-                    </div>
+                        </div>
+                        <button type="submit" hidden></buttont>
+                    </form>
                 </div>
 
                 <div class="row mt-4">
@@ -96,6 +95,21 @@
                     {{/each}}
                 </div>
                 <hr class="list-splitline mb-5" />
+                <form class="mt-3">
+                    <label for="category">Chọn loại món ăn:</label>
+                    <select class="p-2 fs-6 rounded-pill" name="category" id="category">
+                        <option value="Cơm">Cơm</option>
+                        <option value="Phở">Phở</option>
+                        <option value="Bún">Bún</option>
+                        <option value="Hủ_tíu">Hủ tíu</option>
+                        <option value="Bánh_canh">Bánh canh</option>
+                        <option value="Lẩu">Lẩu</option>
+                        <option value="general">Khác</option>
+                    </select>
+                    <br><br>
+                    <input class="fw-bold fs-6 text-white border border-gray-50 bg-primary py-2 px-3 rounded-medium"
+                        type="submit" value="Lựa chọn">
+                </form>
             </div>
             <div class="col-12 col-md-8">
                 <div class="row">

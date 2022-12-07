@@ -161,17 +161,17 @@ let sale_thumnails_2 = [
 ];
 
 const restaurant_logo = [
-  { img: "/images/logo/logo.png", name: "Sunrise Foods", link: "/list" },
+  { img: "/images/logo/logo.png", name: "Sunrise Foods", link: "?manufacturer=Sunrise_Foods" },
   {
     img: "/images/logo/FlavourOfIndia-logo.png",
-    name: "Flavour of India",
-    link: "/list",
+    name: "Flavour_of_India",
+    link: "?manufacturer=Flavour of India",
   },
-  { img: "/images/logo/PanzerHot-logo.png", name: "Panzer Hot", link: "/list" },
+  { img: "/images/logo/PanzerHot-logo.png", name: "Panzer Hot", link: "?manufacturer=Panzer_Hot" },
   {
     img: "/images/logo/Friggitoria-logo.png",
     name: "Friggitoria",
-    link: "/list",
+    link: "?manufacturer=Friggitoria",
   },
 ];
 
@@ -238,26 +238,39 @@ exports.renderHome = async function index(req, res, next) {
 };
 
 exports.renderItemDetail = async function (req, res, next) {
-  const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
-
-  Product.findOne({ slug: req.params.slug })
-    .then((product) => {
-      res.render("item", {
-        recommend,
-        food: mongooseToObject(product),
-      });
-    })
-    .catch(next);
+  const product = await Product.findOne({ slug: req.params.slug });
+  const recommend = await Product.find({category: { $regex: product.category[0], $options: "i" }})
+  res.render("item", {
+    recommend,
+    food: mongooseToObject(product),
+  });
 };
 
 // [GET] /products
 exports.renderItems = async function (req, res, next) {
   const options = {};
-
   if (req.query.hasOwnProperty("_search"))
     Object.assign(options, {
       name: { $regex: req.query._search, $options: "i" },
     });
+
+  if (req.query.hasOwnProperty("priceRange")) {
+    const [from, to] = req.query.priceRange.split(",");
+    options["price"] = { $gte: +from * 1000, $lte: +to * 1000 };
+  }
+
+  if (req.query.hasOwnProperty("manufacturer")) {
+    const manufacturer = req.query.manufacturer;
+    const manufacurerQuery = manufacturer.replaceAll("_", " ");
+    options["manufacturer"] = manufacurerQuery;
+  }
+
+  if (req.query.hasOwnProperty("category")) {
+    const category = req.query.category;
+    const categoryQuery = category.replaceAll("_", " ");
+    options["category"] = { $regex: categoryQuery, $options: "i" };
+  }
+
 
   const products = await Product.find(options).sortable(req);
 
@@ -268,7 +281,8 @@ exports.renderItems = async function (req, res, next) {
 };
 
 // [GET] /user/:id/cart
-exports.renderCart = function cart(req, res, next) {
+exports.renderCart = async function cart(req, res, next) {
+  const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
   Cart.findOne({ userID: req.params.id })
     .then((cart) => {
       const cartProducts = cart.products.map((item) =>
@@ -277,6 +291,12 @@ exports.renderCart = function cart(req, res, next) {
 
       Product.find({ _id: { $in: cartProducts } })
         .then((products) => {
+          const categoryObj = {};
+          products.forEach((product) => {
+            categoryObj[product.category[0]] = product.category[0];
+          })
+
+          console.log(categoryObj);
           const items = multipleMongooseToObject(products);
           items.forEach((item) =>
             Object.assign(item, {

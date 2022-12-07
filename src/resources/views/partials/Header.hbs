@@ -9,23 +9,20 @@
               thành người bán hàng</a>
           </li>
 
-          <li class="nav-item"><p
-              class="nav-link disabled navbar-font-link pb-2 m-0"
-            >|</p></li>
+          <li class="nav-item">
+            <p class="nav-link disabled navbar-font-link pb-2 m-0">|</p>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link active navbar-font-link pb-2 m-0" href="#">Hỗ trợ</a>
           </li>
 
-          <li class="nav-item"><p
-              class="nav-link disabled navbar-font-link pb-2 m-0"
-            >|</p></li>
+          <li class="nav-item">
+            <p class="nav-link disabled navbar-font-link pb-2 m-0">|</p>
+          </li>
 
           <li clas="nav-item">
-            <a
-              href="http://www.facebook.com/MinMinPD2211"
-              class="nav-link active navbar-icon pb-2 m-0"
-            >
+            <a href="http://www.facebook.com/MinMinPD2211" class="nav-link active navbar-icon pb-2 m-0">
               <i class="bi bi-facebook"></i>
             </a>
           </li>
@@ -35,15 +32,10 @@
             </a>
           </li>
         </ul>
-        {{! Menu button when < 768px }}
-        <ul class="navbar-nav me-auto" id="nav-menubutton">
+        {{! Menu button when < 768px }} <ul class="navbar-nav me-auto" id="nav-menubutton">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link active dropdown-toggle nav-dropdown-font"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-            >
+            <a class="nav-link active dropdown-toggle nav-dropdown-font" href="#" role="button"
+              data-bs-toggle="dropdown">
               <i class="bi bi-list navbar-menuicon"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
@@ -55,68 +47,54 @@
               </li>
             </ul>
           </li>
-        </ul>
+          </ul>
 
-        {{! Right links field }}
-        <ul class="navbar-nav ml-0">
-          <li class="nav-item">
-            <a class="nav-link active navbar-font-link pb-2 m-0" href="#">
-              <i class="bi bi-bell" id="navbar-icon-with-text"></i>
-              Thông báo
-            </a>
-          </li>
+          {{! Right links field }}
+          <ul class="navbar-nav ml-0">
+            <li class="nav-item">
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="#">
+                <i class="bi bi-bell" id="navbar-icon-with-text"></i>
+                Thông báo
+              </a>
+            </li>
 
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link active dropdown-toggle nav-dropdown-font"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            > Ngôn ngữ </a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li>
-                <a class="dropdown-item" href="/">Tiếng Việt</a>
-              </li>
-              {{! <li>
-                                <a class="dropdown-item" href="#">Tiếng Anh</a>
-                            </li> }}
-            </ul>
-          </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link active dropdown-toggle nav-dropdown-font" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false"> Ngôn ngữ </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a class="dropdown-item" href="/">Tiếng Việt</a>
+                </li>
+                {{! <li>
+                  <a class="dropdown-item" href="#">Tiếng Anh</a>
+                </li> }}
+              </ul>
+            </li>
 
-          <li class="nav-item">
-            <a
-              class="nav-link active navbar-font-link pb-2 m-0"
-              href="/admin/sign-up"
-            >Đăng ký</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/sign-up">Đăng ký</a>
+            </li>
 
-          <li class="nav-item"><p
-              class="nav-link disabled navbar-font-link pb-2 m-0"
-            >|</p></li>
+            <li class="nav-item">
+              <p class="nav-link disabled navbar-font-link pb-2 m-0">|</p>
+            </li>
 
-          {{#if user}}
+            {{#if user}}
             <li id="signout-user" class="nav-item cursor-pointer">
               <a class="nav-link active navbar-font-link pb-2 m-0">Đăng xuất</a>
             </li>
-          {{else}}
+            {{else}}
             <li class="nav-item">
-              <a
-                class="nav-link active navbar-font-link pb-2 m-0"
-                href="/admin/sign-in"
-              >Đăng nhập</a>
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/sign-in">Đăng nhập</a>
             </li>
-          {{/if}}
+            {{/if}}
 
-          {{#if_cond user.role "===" "admin"}}
+            {{#if_cond user.role "===" "admin"}}
             <li class="nav-item">
-              <a
-                class="nav-link active navbar-font-link pb-2 m-0"
-                href="/admin/dashboard"
-              >Trang Admin</a>
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/dashboard">Trang Admin</a>
             </li>
-          {{/if_cond}}
-        </ul>
+            {{/if_cond}}
+          </ul>
       </div>
     </div>
   </div>
@@ -127,30 +105,18 @@
           <div class="col-3">
             <a class="navbar-brand pb-0" href="/">
               <figure class="figure mb-0">
-                <img
-                  src="/images/logo/logo.png"
-                  class="figure-img img-fluid rounded"
-                  alt="SF logo"
-                  id="logo"
-                />
+                <img src="/images/logo/logo.png" class="figure-img img-fluid rounded" alt="SF logo" id="logo" />
               </figure>
             </a>
           </div>
           <div class="col-8">
             <div class="input-group">
-              <input
-                type="text"
-                class="form-control search-box"
-                id="search-box"
-                placeholder="Cùng tìm kiếm vài món ăn ngon nào!"
-              />
+              <input type="text" class="form-control search-box" id="search-box"
+                placeholder="Cùng tìm kiếm vài món ăn ngon nào!" />
               {{!-- <a href="/products"> --}}
-              <button
-                  type="button"
-                  class="btn btn-primary"
-                >
+                <button type="button" class="btn btn-primary">
                   <i class="bi bi-search"></i>
-              </button>
+                </button>
             </div>
             <div class="mt-2" id="hrz-menu">
               <a href="/products" class="nav-menu-font">Cơm</a>
@@ -161,7 +127,7 @@
             </div>
           </div>
           <div class="col d-flex justify-content-end" id="cart">
-            <a href="user/{{user.id}}/cart">
+            <a href="user/5c8a1e1a2f8fb814b56fa182/cart">
               <i class="bi bi-cart cart-icon"></i>
             </a>
           </div>
@@ -176,14 +142,14 @@
     const buttonSearch = $('.btn.btn-primary');
     const inputBoxSearch = $('#search-box');
 
-    buttonSearch.click(function() {
-      if (inputBoxSearch.val()) location.href = `/products/?_search=${inputBoxSearch.val()}`;
+    buttonSearch.click(function () {
+      if (inputBoxSearch.val()) location.href = `/products?_search=${inputBoxSearch.val()}`;
       else location.href = '/products';
     });
 
-    inputBoxSearch.on('keypress',function(e) {
+    inputBoxSearch.on('keypress', function (e) {
       if (e.which == 13) {
-        if (inputBoxSearch.val()) location.href = `/products/?_search=${inputBoxSearch.val()}`;
+        if (inputBoxSearch.val()) location.href = `/products?_search=${inputBoxSearch.val()}`;
         else location.href = '/products';
       }
     });
