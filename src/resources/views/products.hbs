@@ -11,14 +11,14 @@
                     <p class="lger-title pb-2">Khoảng giá</p>
                     <div class="col-6">
                         <form class="form-floating">
-                            <input type="number" class="form-control" id="minprice-filter"
+                            <input type="number" class="form-control" id="minprice-filter" min="0"
                                 placeholder="Từ (.000 VNĐ)" />
                             <label for="minprice-filter">Từ (.000 VNĐ)</label>
                         </form>
                     </div>
                     <div class="col-6">
                         <form class="form-floating">
-                            <input type="number" class="form-control" id="maxprice-filter"
+                            <input type="number" class="form-control" id="maxprice-filter" min="0"
                                 placeholder="Từ (.000 VNĐ)" />
                             <label for="maxprice-filter">Đến (.000 VNĐ)</label>
                         </form>
@@ -102,10 +102,10 @@
                     {{#each foods}}
                     <div class="col-6 col-lg-4 pb-3">
                         <div class="card card-hover">
-                            <a href="products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
+                            <a href="/products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
                                     class="card-img-top p-3" /></a>
                             <div class="card-body">
-                                <a href="products/{{slug}}" class="erase-underline">
+                                <a href="/products/{{slug}}" class="erase-underline">
                                     <p class="me-title text-lightblue">{{name}}</p>
                                 </a>
                                 <span class="ratings">
@@ -124,7 +124,7 @@
                                     <span class="rtab-money">{{{toPrice price}}} VNĐ</span>
                                 </p>
                                 <div class="text-center">
-                                    <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
+                                    <a href="/products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
                                             onclick="changepage()">See more detail</button></a>
                                 </div>
                             </div>
