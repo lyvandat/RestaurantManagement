@@ -160,7 +160,7 @@
         } sortOptions.change(function () {
             console.log($('input[name=flexRadioDefault]:checked').val());//
             let previousSearchLocation = null;
-            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "";
+            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "?";
             switch ($('input[name=flexRadioDefault]:checked').val()) {
                 case 'low-to-high':
                     location.href = `${previousSearchLocation}_sort&column=price&type=asc`;
