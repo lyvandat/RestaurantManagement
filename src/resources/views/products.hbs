@@ -1,8 +1,9 @@
 <div class="bg-white">
     <div class="container pt-5">
         <p class="xlg-title mb-0">RESULTS</p>
-        <p class="me-title opacity-75">Price and other details may vary based on product size and colour.</p>
-        <hr>
+        <p class="me-title opacity-75">Price and other details may vary based on
+            product size and colour.</p>
+        <hr />
         <div class="row mt-3">
             <div class="col-12 col-md-4">
                 <i class="bi bi-sliders2-vertical me-title">&#160 Bộ lọc</i>
@@ -10,13 +11,15 @@
                     <p class="lger-title pb-2">Khoảng giá</p>
                     <div class="col-6">
                         <form class="form-floating">
-                            <input type="number" class="form-control" id="minprice-filter" placeholder="Từ (.000 VNĐ)">
+                            <input type="number" class="form-control" id="minprice-filter"
+                                placeholder="Từ (.000 VNĐ)" />
                             <label for="minprice-filter">Từ (.000 VNĐ)</label>
                         </form>
                     </div>
                     <div class="col-6">
                         <form class="form-floating">
-                            <input type="number" class="form-control" id="maxprice-filter" placeholder="Từ (.000 VNĐ)">
+                            <input type="number" class="form-control" id="maxprice-filter"
+                                placeholder="Từ (.000 VNĐ)" />
                             <label for="maxprice-filter">Đến (.000 VNĐ)</label>
                         </form>
                     </div>
@@ -26,23 +29,25 @@
                     <p class="lger-title pb-2">Sắp xếp theo</p>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highrate-radio" value="default">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highrate-radio"
+                                value="default" />
                             <label class="form-check-label" for="highrate-radio">
                                 Nổi bật nhất
                             </label>
                         </div>
                     </div>
-                    {{!-- <div class="col-6">
+                    {{! <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="bestseller-radios">
                             <label class="form-check-label" for="bestseller-radios">
                                 Bán chạy nhất
                             </label>
                         </div>
-                    </div> --}}
+                    </div> }}
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="created-at-radio" value="created-at">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="created-at-radio"
+                                value="created-at" />
                             <label class="form-check-label" for="highrate-radio">
                                 Ngày đăng
                             </label>
@@ -50,17 +55,23 @@
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="lowprice-radio" value="low-to-high">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="lowprice-radio"
+                                value="low-to-high" />
                             <label class="form-check-label" for="lowprice-radio">
-                                Giá thấp <i class="bi bi-arrow-right m-auto"></i> cao
+                                Giá thấp
+                                <i class="bi bi-arrow-right m-auto"></i>
+                                cao
                             </label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highprice-radio" value="high-to-low">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="highprice-radio"
+                                value="high-to-low" />
                             <label class="form-check-label" for="highprice-radio">
-                                Giá cao <i class="bi bi-arrow-right"></i> thấp 
+                                Giá cao
+                                <i class="bi bi-arrow-right"></i>
+                                thấp
                             </label>
                         </div>
                     </div>
@@ -68,106 +79,101 @@
                 <div class="row mt-4">
                     <p class="lger-title pb-2">Thương hiệu</p>
                     {{#each restaurant_logo}}
-                        <div class="col-6 mt-2 mb-2">
-                            <div class=" brand-hover">
-                                <a href={{link}} class="erase-underline">
-                                    <div class="row">
-                                        <div class="col-12 col-lg-4 ps-0 d-flex align-items-center justify-content-center">
-                                            <img src={{img}} class="itdetail-icon">
-                                        </div>
-                                        <div class="col-12 col-lg-8 ps-0 d-flex align-items-center justify-content-center">
-                                            <span class="me-title text-black text-center">{{name}}</span>
-                                        </div>
+                    <div class="col-6 mt-2 mb-2">
+                        <div class="brand-hover">
+                            <a href={{link}} class="erase-underline">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 ps-0 d-flex align-items-center justify-content-center">
+                                        <img src={{img}} class="itdetail-icon" />
                                     </div>
-                                </a>
-                            </div>
+                                    <div class="col-12 col-lg-8 ps-0 d-flex align-items-center justify-content-center">
+                                        <span class="me-title text-black text-center">{{name}}</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
+                    </div>
                     {{/each}}
                 </div>
-                <hr class="list-splitline mb-5">
+                <hr class="list-splitline mb-5" />
             </div>
             <div class="col-12 col-md-8">
                 <div class="row">
                     {{#each foods}}
-                        <div class="col-6 col-lg-4 pb-3">
-                            <div class="card card-hover">
-                                <a href="products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}" class="card-img-top p-3"></a>
-                                <div class="card-body">
-                                    <a href="products/{{slug}}" class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
-                                    <span class="ratings"> 
-                                        {{#loops fstar}}
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                        {{/loops}}
-                                        {{#loops hstar}}
-                                            <i class="bi bi-star-half rating-color"></i>
-                                        {{/loops}}
-                                        {{#loops nstar}}
-                                            <i class="bi bi-star"></i>
-                                        {{/loops}}
-                                    </span>
-                                    <p class="review-count">{{rvcount}}</p>
-                                    <p class="sm-title">1 offer from <span class="rtab-money">{{{toPrice price}}} VNĐ</span></p>
-                                    <div class="text-center">
-                                        <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button" onclick="changepage()">See more detail</button></a>
-                                    </div>
+                    <div class="col-6 col-lg-4 pb-3">
+                        <div class="card card-hover">
+                            <a href="products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
+                                    class="card-img-top p-3" /></a>
+                            <div class="card-body">
+                                <a href="products/{{slug}}" class="erase-underline">
+                                    <p class="me-title text-lightblue">{{name}}</p>
+                                </a>
+                                <span class="ratings">
+                                    {{#loops fstar}}
+                                    <i class="bi bi-star-fill rating-color"></i>
+                                    {{/loops}}
+                                    {{#loops hstar}}
+                                    <i class="bi bi-star-half rating-color"></i>
+                                    {{/loops}}
+                                    {{#loops nstar}}
+                                    <i class="bi bi-star"></i>
+                                    {{/loops}}
+                                </span>
+                                <p class="review-count">{{rvcount}}</p>
+                                <p class="sm-title">1 offer from
+                                    <span class="rtab-money">{{{toPrice price}}} VNĐ</span>
+                                </p>
+                                <div class="text-center">
+                                    <a href="products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
+                                            onclick="changepage()">See more detail</button></a>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {{/each}}
                 </div>
-                
+
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sortOptions = $('input[name="flexRadioDefault"]');
-
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-            get: (searchParams, prop) => searchParams.get(prop),
-        });
-
-        if (params.column === 'price') {
-            if (params.type === 'asc')
-                $('#lowprice-radio').prop("checked", true);
-            else
-                $('#highprice-radio').prop("checked", true);
-        } else if (params.column === '_createdAt') {
-            $('#created-at-radio').prop("checked", true);
-        } else {
-            $('#highrate-radio').prop("checked", true);
+    document.addEventListener('DOMContentLoaded', function () {
+        let _search = null;
+        if (location.search) {
+            let oldSearchParams = new URLSearchParams(location.search);
+            _search = oldSearchParams.get("_search");
         }
-
-        sortOptions.change(function() {
-            console.log($('input[name=flexRadioDefault]:checked').val());
-
-            switch($('input[name=flexRadioDefault]:checked').val()) {
+        const sortOptions =
+            $('input[name="flexRadioDefault"]'); const params = new Proxy(new
+                URLSearchParams(window.location.search), {
+                get: (searchParams, prop) =>
+                    searchParams.get(prop),
+            }); if (params.column === 'price') {
+                if (params.type
+                    === 'asc') $('#lowprice-radio').prop("checked", true); else
+                    $('#highprice-radio').prop("checked", true);
+            } else if (params.column ===
+                '_createdAt') { $('#created-at-radio').prop("checked", true); } else {
+            $('#highrate-radio').prop("checked", true);
+        } sortOptions.change(function () {
+            console.log($('input[name=flexRadioDefault]:checked').val());//
+            let previousSearchLocation = null;
+            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "";
+            switch ($('input[name=flexRadioDefault]:checked').val()) {
                 case 'low-to-high':
-                    location.href = '?_sort&column=price&type=asc';
-                break;
-
+                    location.href = `${previousSearchLocation}_sort&column=price&type=asc`;
+                    break;
                 case 'high-to-low':
-                    location.href = '?_sort&column=price&type=desc';
-                break;
-
+                    location.href = `${previousSearchLocation}_sort&column=price&type=desc`; break;
                 case 'created-at':
-                    location.href = '?_sort&column=_createdAt&type=asc';
-                break;
-
+                    location.href = `${previousSearchLocation}_sort&column=_createdAt&type=asc`; break;
                 case 'default':
-                    location.href = './products';
-                break;
-
-                default:
-                    location.href = './products';
-                break;
+                    location.href = '/products'; break;
+                default: location.href = './products';
+                    break;
             }
-
-            
         });
-        
     });
 </script>
