@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:dev": "nodemon src/index.js",
+    "golive": "nodemon src/index.js",
     "watch": "node-sass -w src/resources/scss -o src/public/css",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js"
