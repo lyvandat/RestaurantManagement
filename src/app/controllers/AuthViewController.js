@@ -6,6 +6,7 @@ const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
 const Email = require("../../utils/Email");
 const { promisify } = require("util");
+const User = require("../models/User");
 
 const signToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -73,7 +74,20 @@ exports.signUp = catchAsync(async (req, res, next) => {
     password,
   });
 
-  // 4) send back to client
+  // 4) send email
+  const verifyToken = storedUser.createVerifyToken();
+  try {
+    const emailObj = new Email(storedUser, `${req.protocol}://${req.get('host')}/admin/auth/verify/${verifyToken}`);
+    await emailObj.send("WELCOME AND PLEASE VERIFY YOUR EMAIL");
+  } catch(err) {
+    storedUser.emailVerifyToken = undefined;
+    storedUser.emailVerifyTokenExpires = undefined;
+    await storedUser.save({validateBeforeSave: false});
+
+    return next(new AppError(500, err.message));
+  }
+  
+  // 5) send back to client
   createSendToken(storedUser, req, res);
 });
 
@@ -101,8 +115,6 @@ exports.signIn = catchAsync(async (req, res, next) => {
   }
 
   // 3) sign user in
-  const emailObj = new Email(user, "https://www.google.com");
-  await emailObj.send("test", "hello");
   createSendToken(user, req, res);
   
 });
@@ -214,3 +226,25 @@ exports.restrictTo = (...roles) => {
     next();
   });
 };
+
+// verify
+exports.verifyEmail = catchAsync(async (req, res, next) => {
+  // req.params.token
+  // 1) get verify token
+  const hashedVerifyToken = crypto.createHash('sha256').update(req.params.verifyToken).digest('hex');
+  
+  // 2) if token has not expired, and there is user, activate account
+  const user = await UserModel.findOne({
+    emailVerifyToken: hashedResetPasswordToken,
+    emailVerifyTokenExpires: { $gt: Date.now() },
+  });
+
+  // 3) select field to save
+  user.active = true;
+  user.emailVerifyToken = undefined;
+  user.emailVerifyTokenExpires = undefined;
+  await user.save();
+
+  // 4) redirect user to home page
+  res.redirect("/");
+});

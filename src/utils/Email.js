@@ -26,11 +26,10 @@ class Email {
     } else {
       // not handled
       transport = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
+        service: "gmail",
         auth: {
-          user: 'c60e9e238b8a8f',
-          pass: 'e8e7e363c7323f'
+          user: process.env.GMAIL_USERNAME,
+          pass: process.env.GMAIL_PASSWORD,
         }
       })
     }
@@ -38,11 +37,11 @@ class Email {
     return transport;
   }
 
-  async send(template, subject) {
+  async send(subject) {
     // 0) prepare html form
     const htmlFileString = fs.readFileSync(`${__dirname}/MailTemplate/verify.html`, 'utf8');
     let html = Handlebars.compile(htmlFileString);
-    html = html({name: this.user.name || "User"});
+    html = html({name: this.user.name || "User", url: this.url});
     const text = convert(html);
     // 1) create transport
     const transporter = this.newTransport();
