@@ -4,6 +4,7 @@ const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/AppError");
 const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
+const Email = require("../../utils/Email");
 const { promisify } = require("util");
 
 const signToken = (userId) => {
@@ -100,7 +101,10 @@ exports.signIn = catchAsync(async (req, res, next) => {
   }
 
   // 3) sign user in
+  const emailObj = new Email(user, "https://www.google.com");
+  await emailObj.send("test", "hello");
   createSendToken(user, req, res);
+  
 });
 
 exports.signOut = catchAsync(async (req, res, next) => {

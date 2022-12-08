@@ -20,7 +20,6 @@ const ProductSchema = new Schema(
         timestamps: true,
     },
 );
-
 //Custom query helper
 ProductSchema.query.sortable = function (req) {
     if (req.query.hasOwnProperty('_sort')) {
