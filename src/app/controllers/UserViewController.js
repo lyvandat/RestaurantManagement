@@ -296,7 +296,6 @@ exports.renderCart = async function cart(req, res, next) {
             categoryObj[product.category[0]] = product.category[0];
           })
 
-          console.log(categoryObj);
           const items = multipleMongooseToObject(products);
           items.forEach((item) =>
             Object.assign(item, {

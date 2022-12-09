@@ -13,7 +13,7 @@ export const signOut = async (e) => {
     setTimeout(() => {
       // window.location.reload(true);
       window.location.replace("/admin/sign-in");
-    }, 1000);
+    }, 500);
   } catch (err) {
     console.log(err.message);
   }

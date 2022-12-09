@@ -2,7 +2,6 @@ const signUpForm = document.getElementById("signup-form");
 
 if (signUpForm) {
   const signUserUp = async (e) => {
-    console.log("signup");
     e.preventDefault();
     try {
       const response = await fetch("/auth/sign-up", {
@@ -25,9 +24,7 @@ if (signUpForm) {
 
       const data = await response.json();
       console.log("signup successfully");
-      setTimeout(() => {
-        window.location.replace("/");
-      }, 1000);
+      window.location.replace("/admin/sign-in");
     } catch (err) {
       console.log(err.message);
     }

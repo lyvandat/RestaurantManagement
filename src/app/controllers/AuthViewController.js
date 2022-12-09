@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const Email = require("../../utils/Email");
 const { promisify } = require("util");
 const User = require("../models/User");
+const crypto = require("crypto");
 
 const signToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -14,7 +15,7 @@ const signToken = (userId) => {
   });
 };
 
-const createSendToken = (user, req, res) => {
+const createSendToken = (user, req, res, redirect=false) => {
   // 1) create token
   const token = signToken(user._id);
 
@@ -34,13 +35,18 @@ const createSendToken = (user, req, res) => {
   res.cookie("jwt", token, cookieOptions);
 
   // 3) send res through api
-  res.status(200).json({
-    status: "success",
-    token,
-    data: {
-      user,
-    },
-  });
+  if (!redirect) {
+    res.status(200).json({
+      status: "success",
+      token,
+      data: {
+        user,
+      },
+    });
+  } else {
+    res.redirect('/');
+  }
+  
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
@@ -75,9 +81,10 @@ exports.signUp = catchAsync(async (req, res, next) => {
   });
 
   // 4) send email
-  const verifyToken = storedUser.createVerifyToken();
   try {
-    const emailObj = new Email(storedUser, `${req.protocol}://${req.get('host')}/admin/auth/verify/${verifyToken}`);
+    const verifyToken = storedUser.createVerifyToken();
+    await storedUser.save({validateBeforeSave: false});
+    const emailObj = new Email(storedUser, `${req.protocol}://${req.get('host')}/auth/verify/${verifyToken}`);
     await emailObj.send("WELCOME AND PLEASE VERIFY YOUR EMAIL");
   } catch(err) {
     storedUser.emailVerifyToken = undefined;
@@ -88,7 +95,12 @@ exports.signUp = catchAsync(async (req, res, next) => {
   }
   
   // 5) send back to client
-  createSendToken(storedUser, req, res);
+  res.status(200).json({
+    status: "success",
+    data: {
+      storedUser,
+    },
+  });
 });
 
 exports.signIn = catchAsync(async (req, res, next) => {
@@ -103,6 +115,10 @@ exports.signIn = catchAsync(async (req, res, next) => {
 
   if (!user) {
     return next(new AppError(400, "this email has not been registered"));
+  }
+
+  if (!user.active) {
+    return next(new AppError(400, "your account has not been verified, please check our verify email"));
   }
 
   // 2) check if password is correct
@@ -235,7 +251,7 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   
   // 2) if token has not expired, and there is user, activate account
   const user = await UserModel.findOne({
-    emailVerifyToken: hashedResetPasswordToken,
+    emailVerifyToken: hashedVerifyToken,
     emailVerifyTokenExpires: { $gt: Date.now() },
   });
 
@@ -243,8 +259,8 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   user.active = true;
   user.emailVerifyToken = undefined;
   user.emailVerifyTokenExpires = undefined;
-  await user.save();
+  await user.save({validateBeforeSave: false});
 
   // 4) redirect user to home page
-  res.redirect("/");
+  createSendToken(user, req, res, true);
 });

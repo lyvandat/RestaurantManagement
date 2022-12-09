@@ -11,6 +11,8 @@ const UserSchema = new Schema(
     role: { type: String, default: "user" },
     active: { type: Boolean, default: false },
     photo: { type: String },
+    emailVerifyToken: String,
+    emailVerifyTokenExpires: Date,
   },
   {
     timestamps: true,
@@ -54,13 +56,13 @@ UserSchema.methods.changePasswordAfter = function (JWTCreatedTime) {
 UserSchema.methods.createVerifyToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
-  this.passwordResetToken = crypto
+  this.emailVerifyToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
 
   // milliseconds, 24h valid
-  this.passwordResetTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
+  this.emailVerifyTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
   return resetToken;
 };
 

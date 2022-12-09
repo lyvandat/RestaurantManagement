@@ -159,7 +159,7 @@ var signOut = /*#__PURE__*/function () {
             setTimeout(function () {
               // window.location.reload(true);
               window.location.replace("/admin/sign-in");
-            }, 1000);
+            }, 500);
             _context.next = 20;
             break;
           case 17:
@@ -243,7 +243,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58607" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65045" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
