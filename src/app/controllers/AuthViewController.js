@@ -264,3 +264,75 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   // 4) redirect user to home page
   createSendToken(user, req, res, true);
 });
+
+exports.updateMe = catchAsync(async function (req, res, next) {
+  // req.user
+  if (req.body.password || req.body.confirmPassword) {
+    return next(
+      new AppError(
+        'this route is for updating user name and email. Try /changePassword'
+      )
+    );
+  }
+
+  // filter updated fields (only allow name, email - avoid changing role)
+  const allowUpdateFields = ['name', 'email'];
+  const newUpdateObj = {};
+  console.log(req.body);
+  Object.keys(req.body).forEach((el) => {
+    if (allowUpdateFields.includes(el)) {
+      newUpdateObj[el] = req.body[el];
+    }
+  });
+
+  console.log('update obj');
+  console.log(newUpdateObj);
+  // for uploading files
+  // if (req.file) newUpdateObj.photo = `${req.file.filename}.jpg`;
+
+  // khong co new: true thì trả về đối tượng cũ chưa update
+  console.log(req.user);
+  const updatedUser = await UserModel.findOneAndUpdate(
+    {_id: req.user._id},
+    newUpdateObj,
+    {
+      new: true,
+      // chỉ validate các fields được update
+      runValidators: true,
+    }
+  );
+  console.log('updated');
+  console.log(updatedUser);
+
+  // remove password field from res data
+  updatedUser.pasword = undefined;
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser,
+    },
+  });
+});
+
+// api
+exports.updatePassword = catchAsync(async function (req, res, next) {
+  // 1) find user
+  const user = await UserModel.findById(req.user._id);
+  // 2) check current password
+  const isCorrectPassword = await user.isCorrectPassword(
+    req.body.currentPassword,
+    user.password
+  );
+  if (!isCorrectPassword) {
+    return next(new AppError('current password is not correct'), 400);
+  }
+
+  // 3) update password (UserModel.findByIdAndUpdate se khong validate lai nen phai lam cach nay)
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  await user.save();
+
+  // 4) Log user in, send JWT
+  createSendToken(user, 200, res);
+});

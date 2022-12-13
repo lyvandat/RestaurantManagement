@@ -11,56 +11,78 @@
                     </div>
                     <p class="align-right">Price</p>
                 </div>
-                <br><hr>
+                <br>
+                <hr>
 
                 {{!-- Items --}}
+                {{#if_cond totalPrice '!==' 0}}
                 {{#each items}}
-                    <div class="row">
-                        <div class="col-3 d-flex align-items-center">
-                            <div class="form-check d-flex align-items-center sellectItem">
-                                <input class="form-check-input" type="checkbox" id={{key}}>
-                            </div>
-                            <a href="/products/{{slug}}">
-                                <img src="/images/FoodThumnail/{{photo.[0]}}" class="img-fluid">
-                            </a>
+                <div class="row">
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="form-check d-flex align-items-center sellectItem">
+                            <input class="form-check-input" type="checkbox" id={{productId._id}}>
                         </div>
-                        <div class="col-7 ctdetail-itemdetail">
-                            <a href="/products/{{slug}}" class="ctdetail-item-title erase-underline text-black">{{name}}</a>
-                            <p class="ctdetail-item-sm-detail text-green"><b>{{status}}</b></p>
-                            <p class="ctdetail-item-sm-detail">Delivered from and sold by {{brand}}</p>
-                            <p class="ctdetail-item-me-detail"><b>Your option: </b>{{notice}}</p>
-                            
-                            <div class="row mt-2 mb-2">
-                                <div class="col form-group">
-                                    <label for=(concat "qty-" {{_id}})>Quantity: </label>
-                                    <span class="d-inline-block">
-                                        <input type="number" class="form-control small-img" id=(concat "qty-" {{_id}}) value=1>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="row h-50">
-                                <p class="d-flex justify-content-start align-items-center cart-item-price"><b>{{price}}.000VNĐ</b></p>
-                            </div>
-                            <div class="row h-50">
-                                <div class="d-flex justify-content-end align-items-end">
-                                    <button class="btn ctdetail-delete-button">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="m-2">
+                        <a href="/products/{{productId.slug}}">
+                            <img src="/images/FoodThumnail/{{productId.photo.[0]}}" class="img-fluid">
+                        </a>
                     </div>
+                    <div class="col-7 ctdetail-itemdetail">
+                        <a href="/products/{{productId.slug}}"
+                            class="ctdetail-item-title erase-underline text-black">{{productId.name}}</a>
+                        <p class="ctdetail-item-sm-detail text-green"><b>Còn hàng - status</b></p>
+                        <p class="ctdetail-item-sm-detail">Delivered from and sold by {{productId.manufacturer}}</p>
+                        {{!-- <p class="ctdetail-item-me-detail"><b>Your option: </b>{{notice}}</p> --}}
+
+                        <div class="row mt-2 mb-2">
+                            <div class="col form-group">
+                                <label for=(concat "qty-" {{_id}})>Quantity: </label>
+                                <span class="d-inline-block">
+                                    <input type="number" class="form-control small-img" id=(concat "qty-" {{_id}})
+                                        value={{quantity}} min="1">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="row h-50">
+                            <p class="d-flex justify-content-start align-items-center cart-item-price">
+                                <b>{{{toPrice total}}} VNĐ</b>
+                            </p>
+                        </div>
+                        <div class="row h-50">
+                            <div class="d-flex justify-content-end align-items-end">
+                                <button class="btn ctdetail-delete-button">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-2">
+                </div>
                 {{/each}}
+                {{else}}
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h4 class="text-danger">Không có sản phẩm trong giỏ hàng</h4>
+                    <div class="" style="width: 200px; height: 160px;">
+                        <img class="w-100" src="/images/cart/empty.png" alt="empty cart image">
+                    </div>
+                </div>
+                {{/if_cond}}
                 <div class="row" id="subtotal-main">
-                    <span><p class="me-title align-right wrap-text">Subtotal (2 items): <b>540.000VNĐ</b></p></span>
-                    <a href="./order"><button class="btn btn-outline-dark rtab-detail-button align-right" id="checkout-btn-main">Checkout</button></a>
+                    <span>
+                        <p class="me-title align-right wrap-text">Subtotal ({{items.length}}):
+                            <b>{{{toPrice totalPrice}}} VNĐ</b>
+                        </p>
+                    </span>
+                    <a href="./order"><button class="btn btn-outline-dark rtab-detail-button align-right"
+                            id="checkout-btn-main">Checkout</button></a>
                 </div>
             </div>
             {{!-- End page expand --}}
             <div id="endpage-expand">
                 <div class="bg-white ctdetail mb-2"><br></div>
-                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change.
+                    The shopping cart is a temporary place to store a list of your items and reflects each item's most
+                    recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time
+                    to pay.</p>
             </div>
         </div>
         {{!-- Right site bar --}}
@@ -68,48 +90,57 @@
             <div class="bg-white rtab mb-4" id="subtotal-rtab">
                 <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
                 <div class="text-center">
-                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal (2 items): <b>540.000VNĐ</b></p>
+                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal ({{items.length}}):
+                        <b>{{{toPrice totalPrice}}} VNĐ</b>
+                    </p>
                     <a href="./order"><button class="rtab-buying-button" id="checkout-btn-rtab">Checkout</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
-                <p class="sm-title">Recommend for you</p>
+                <p class="sm-title mb-4">Recommend for you</p>
                 <div class="row">
                     {{#each recommend}}
-                        <div class="col-12 col-lg-6 col-xl-12">
-                            <div class="row pb-2">
-                                <a href={{link}} class="col-5 d-flex erase-underline">
-                                    <img src={{img}} class="img-fluid">
+                    <div class="col-12 col-lg-6 col-xl-12">
+                        <div class="row pb-2">
+                            <a href="/products/{{slug}}"" class=" col-5 d-flex erase-underline">
+                                <img src="/images/FoodThumnail/{{photo.[0]}}" class="img-fluid">
+                            </a>
+                            <div class="col-7">
+                                <a href="/products/{{slug}}"" class=" erase-underline">
+                                    <p class="me-title text-lightblue">{{name}}</p>
                                 </a>
-                                <div class="col-7">
-                                    <a href={{link}} class="erase-underline"><p class="me-title text-lightblue">{{name}}</p></a>
-                                    <span class="ratings"> 
-                                        {{#loops fstar}}
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                        {{/loops}}
-                                        {{#loops hstar}}
-                                            <i class="bi bi-star-half rating-color"></i>
-                                        {{/loops}}
-                                        {{#loops nstar}}
-                                            <i class="bi bi-star"></i>
-                                        {{/loops}}
-                                    </span>
-                                    <p class="review-count">{{rvcount}}</p>
-                                    <p class="sm-title">1 offer from <span class="rtab-money">{{price}}.000VNĐ</span></p>
-                                    <div class="text-center">
-                                        <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more detail</button></a>
-                                    </div>
+                                <span class="ratings">
+                                    {{#loops fstar}}
+                                    <i class="bi bi-star-fill rating-color"></i>
+                                    {{/loops}}
+                                    {{#loops hstar}}
+                                    <i class="bi bi-star-half rating-color"></i>
+                                    {{/loops}}
+                                    {{#loops nstar}}
+                                    <i class="bi bi-star"></i>
+                                    {{/loops}}
+                                </span>
+                                <p class="review-count">{{rvcount}}</p>
+                                <p class="sm-title">1 offer from <span class="rtab-money">{{toPrice price}} VNĐ</span>
+                                </p>
+                                <div class="text-center">
+                                    <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more
+                                            detail</button></a>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {{/each}}
                 </div>
-                
+
             </div>
             {{!-- second end page expand --}}
             <div id="scnd-endpage-expand">
                 <div class="bg-white ctdetail mt-4 mb-2"><br></div>
-                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time to pay.</p>
+                <p class="ctdetail-smler-text">The price and availability of items at Sunrise.sg are subject to change.
+                    The shopping cart is a temporary place to store a list of your items and reflects each item's most
+                    recent price. Do you have a promotional code? We'll ask you to enter your claim code when it's time
+                    to pay.</p>
             </div>
         </div>
     </div>
@@ -120,7 +151,7 @@
         //let productQuantity = $('#');
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         $("#sellectAll").change(function (e) {
             if (e.currentTarget.checked) {
                 $('.sellectItem').find('input[type="checkbox"]').prop('checked', true);

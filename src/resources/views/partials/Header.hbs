@@ -94,6 +94,12 @@
               <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/dashboard">Trang Admin</a>
             </li>
             {{/if_cond}}
+
+            {{#if user}}
+            <li class="nav-item">
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/me">Hi {{user.name}}</a>
+            </li>
+            {{/if}}
           </ul>
       </div>
     </div>

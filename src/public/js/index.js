@@ -11,7 +11,9 @@ if (signOutBtnAdmin) {
 }
 
 if (signOutBtnUser) {
+  alert("logout successfully");
   signOutBtnUser.addEventListener("click", signOut);
+
 }
 
 if (priceSortForm) {

@@ -9,6 +9,7 @@ function route(app) {
 
   // handle authentication
   app.use("/auth", authRouter);
+
   // handle all middleware error
   app.use(globalErrorHandler);
 }

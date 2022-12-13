@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const catchAsync = require("../../utils/catchAsync");
 const {
   multipleMongooseToObject,
   mongooseToObject,
@@ -281,37 +282,48 @@ exports.renderItems = async function (req, res, next) {
 };
 
 // [GET] /user/:id/cart
-exports.renderCart = async function cart(req, res, next) {
+exports.renderCart = catchAsync(async (req, res, next) => {
+  let cart = await Cart.findOne({userId: req.params.id});
   const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
-  Cart.findOne({ userID: req.params.id })
-    .then((cart) => {
-      const cartProducts = cart.products.map((item) =>
-        mongoose.Types.ObjectId(item.productID)
-      );
+  if (cart && cart.products.length !== 0) {
 
-      Product.find({ _id: { $in: cartProducts } })
-        .then((products) => {
-          const categoryObj = {};
-          products.forEach((product) => {
-            categoryObj[product.category[0]] = product.category[0];
-          })
+    // populate product data in productId field
+    const cartPopulatedPromises = cart.products.map(async (product, index) => {
+      return cart.populate(`products.${index}.productId`);
+    });
+    // [{}, {}, {}]: array of carts populated with product data
+    const carts = await Promise.all(cartPopulatedPromises);
+    cart = carts[0];
 
-          const items = multipleMongooseToObject(products);
-          items.forEach((item) =>
-            Object.assign(item, {
-              status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
-            })
-          );
+    // save total for products and subTotal for cart
+    if (cart.subTotal === 0) {
+      cart.products.map((product) => {
+        product.total = product.quantity * product.productId.price;
+        cart.subTotal += product.total;
+      })
+    
+      await cart.save();
+    }
+  } 
+  // create an empty cart
+  else {
+    await Cart.create({
+      userId: req.params.id,
+      products: [],
+    });
+  }
+  // render cart page
+  res.render("cart", {
+    items: cart?.products || [],
+    recommend,
+    totalPrice: cart?.subTotal || 0,
+  });
 
-          res.render("cart", {
-            items,
-            recommend,
-          });
-        })
-        .catch(next);
-    })
-    .catch(next);
-};
+  // res.status(200).json({
+  //   status: 'success',
+  //   data: cart[0],
+  // })
+})
 
 // [GET] /user/:id/order
 exports.renderPayment = function (req, res, next) {
@@ -339,3 +351,7 @@ exports.renderPayment = function (req, res, next) {
     })
     .catch(next);
 };
+
+exports.renderMe = catchAsync(async(req, res, next) => {
+  res.status(200).render('profile');
+});

@@ -1,26 +1,41 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ItemSchema = new Schema(
+    {
+        productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product',
+            required: [true, "an item should have productId"],
+        },
+        quantity: {
+            type: Number,
+            required: true,
+            min: [1, "Quantity must be greater than 1"]
+        },
+        total: {
+            type: Number,
+            min: [0, "total price cannot be less than 0"],
+            default: 0,
+        }
+    },
+    {
+        timestamps: true,
+    }
+)
+
 const CartSchema = new Schema(
     {
-        userID: { 
-            type: Schema.Types.ObjectId, required: true,
+        userId: { 
+            type: Schema.Types.ObjectId, 
+            required: true,
             ref: "User"
          },
-         products: [{
-            productId: Number,
-            quantitiy: Number,
-            name: String,
-            manufacturer: String,
-            price: Number,
-         }],
-         active: {
-            type: Boolean,
-            default: true
-         },
-         modifiedOn: {
-            type: Date,
-            default: Date.now()
+        products: [ItemSchema],
+
+        subTotal: {
+            type: Number,
+            min: [0, "total price cannot be less than 0"]
          }
     },
     {
@@ -28,7 +43,7 @@ const CartSchema = new Schema(
     },
 );
 
-CartSchema.methods.addItemToCart = async function({productId, quantity, name, manufacturer, price}) {
+CartSchema.methods.addItemToCart = async function(productId, quantity) {
     try {
         let productItemIndex = this.products.find((prod) => prod.productId === productId);
         let newUpdatedItem = null;
@@ -40,7 +55,7 @@ CartSchema.methods.addItemToCart = async function({productId, quantity, name, ma
         } 
         // if item does not exist
         else {
-            newUpdatedItem = {productId, quantity, name, manufacturer, price}
+            newUpdatedItem = {productId, quantity, price};
             this.products.push(newUpdatedItem);
         }
 
@@ -50,6 +65,27 @@ CartSchema.methods.addItemToCart = async function({productId, quantity, name, ma
     }
 }
 
-// Add plugin
+CartSchema.methods.removeItemFromCart = async function(productId, quantity) {
+    try {
+        let productItemIndex = this.products.find((prod) => prod.productId === productId);
+        let newUpdatedItem = null;
+        // if item exists
+        if (productItemIndex !== -1) {
+            newUpdatedItem = this.products[productItemIndex];
+            newUpdatedItem.quantity -= quantity;
+            this.products[productItemIndex] = newUpdatedItem;
+        } 
 
+        // nếu số lượng cập nhật lại <= 0 thì xóa khỏi products
+        if (newUpdatedItem?.quantity <= 0) {
+            this.products = this.products.shift(productItemIndex, 1);
+        }
+
+        await this.save();
+    } catch(err) {
+        console.log(err.message);
+    }
+}
+
+module.exports = mongoose.model('Item', ItemSchema);
 module.exports = mongoose.model('Cart', CartSchema);

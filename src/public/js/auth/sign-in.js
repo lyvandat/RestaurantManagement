@@ -18,14 +18,18 @@ if (loginForm) {
       if (!response.ok) {
         const errRes = await response.json();
         console.log(errRes.message);
+        alert(errRes.message);
         return;
       }
 
       const data = await response.json();
       console.log("login successfully");
+      alert("login successfully");
+
       window.location.href = "/";
     } catch (err) {
       console.log(err.message);
+      alert(err.message);
     }
   };
 

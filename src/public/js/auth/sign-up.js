@@ -1,3 +1,4 @@
+alert("we have email verification, please use your actual email or use our created account for testing purposes. email: lyvandat123@gmail.com, password: 123123");
 const signUpForm = document.getElementById("signup-form");
 
 if (signUpForm) {
@@ -19,14 +20,17 @@ if (signUpForm) {
       if (!response.ok) {
         const errRes = await response.json();
         console.log(errRes.message);
+        alert(errRes.message);
         return;
       }
 
       const data = await response.json();
       console.log("signup successfully");
+      alert("signup successfully");
       window.location.replace("/admin/sign-in");
     } catch (err) {
       console.log(err.message);
+      alert(err.message);
     }
   };
 
