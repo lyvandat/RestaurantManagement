@@ -284,16 +284,12 @@ exports.updateMe = catchAsync(async function (req, res, next) {
       newUpdateObj[el] = req.body[el];
     }
   });
-
-  console.log('update obj');
-  console.log(newUpdateObj);
   // for uploading files
   // if (req.file) newUpdateObj.photo = `${req.file.filename}.jpg`;
 
   // khong co new: true thì trả về đối tượng cũ chưa update
-  console.log(req.user);
-  const updatedUser = await UserModel.findOneAndUpdate(
-    {_id: req.user._id},
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    req.user._id,
     newUpdateObj,
     {
       new: true,
