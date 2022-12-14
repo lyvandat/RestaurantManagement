@@ -5,18 +5,15 @@
         <ul class="side-nav">
           <li class="side-nav--active"><a href="#"><svg>
                 <use xlink:href="img/icons.svg#icon-settings"></use>
-              </svg>Settings</a></li>
+              </svg>Profile</a></li>
           <li><a href="#"><svg>
                 <use xlink:href="img/icons.svg#icon-briefcase"></use>
-              </svg>My bookings</a></li>
+              </svg>Settings</a></li>
           <li><a href="#"><svg>
                 <use xlink:href="img/icons.svg#icon-star"></use>
-              </svg>My reviews</a></li>
-          <li><a href="#"><svg>
-                <use xlink:href="img/icons.svg#icon-credit-card"></use>
-              </svg>Billing</a></li>
+              </svg>Mores</a></li>
         </ul>
-        <div class="admin-nav">
+        {{!-- <div class="admin-nav">
           <h5 class="admin-nav__heading">Admin</h5>
           <ul class="side-nav">
             <li><a href="#"><svg>
@@ -32,7 +29,7 @@
                   <use xlink:href="img/icons.svg#icon-briefcase"></use>
                 </svg></a></li>
           </ul>
-        </div>
+        </div> --}}
       </nav>
       <div class="user-view__content">
         <div class="user-view__form-container">
@@ -42,7 +39,7 @@
                 id="name" type="text" value="{{user.name}}"" required=" required" /></div>
             <div class="form__group ma-bt-md"><label class="form__label" for="email">Email address</label><input
                 class="form__input" id="email" type="email" value="{{user.email}}"" required=" required" /></div>
-            <div class="form__group form__photo-upload"><img class="form__user-photo" src="img/user.jpg"
+            <div class="form__group form__photo-upload"><img class="form__user-photo" src="/images/ava.png"
                 alt="User photo" /><a class="btn-text" href="">Choose new photo</a></div>
             <div class="form__group right"><button type="submit" class="btn btn--small btn--green">Save
                 settings</button></div>

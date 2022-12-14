@@ -41,6 +41,18 @@ body p {
 //     margin-bottom: 2rem;
 // }
 
+// header avatar
+.header__avatar {
+  width: 20px;
+  height: 20px;
+}
+
+.header__avatar-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 .header-background {
   background-color: white;
   background-image: url("../images/header-background.png");
@@ -543,6 +555,9 @@ body p {
   text-overflow: ellipsis;
   margin-bottom: 0;
 }
+
+
+.header
 
 .cursor-pointer {
   cursor: pointer;

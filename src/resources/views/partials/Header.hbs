@@ -1,7 +1,7 @@
 <header class="header" id="header">
   <div class="navbar navbar-expand pt-0 pb-0 header-bar-color">
     <div class="container p-0">
-      <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse py-3">
         {{! Left links field }}
         <ul class="navbar-nav me-auto" id="nav-leftlink">
           <li class="nav-item">
@@ -96,9 +96,12 @@
             {{/if_cond}}
 
             {{#if user}}
-            <li class="nav-item">
-              <a class="nav-link active navbar-font-link pb-2 m-0" href="/me">Hi {{user.name}}</a>
-            </li>
+            <a class="nav-item d-flex align-items-center text-decoration-none" href="/me">
+              <div class="nav-link active navbar-font-link pb-2 m-0">Hi {{user.name}}</div>
+              <div class="header__avatar">
+                <img class="header__avatar-image" src="/images/ava.png" alt="avatar" />
+              </div>
+            </a>
             {{/if}}
           </ul>
       </div>
