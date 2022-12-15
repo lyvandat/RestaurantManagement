@@ -6,7 +6,6 @@ const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
 const Email = require("../../utils/Email");
 const { promisify } = require("util");
-const User = require("../models/User");
 const crypto = require("crypto");
 
 const signToken = (userId) => {
@@ -265,53 +264,6 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   createSendToken(user, req, res, true);
 });
 
-exports.updateMe = catchAsync(async function (req, res, next) {
-  // req.user
-  if (req.body.password || req.body.confirmPassword) {
-    return next(
-      new AppError(
-        'this route is for updating user name and email. Try /changePassword'
-      )
-    );
-  }
-
-  // filter updated fields (only allow name, email - avoid changing role)
-  const allowUpdateFields = ['name', 'email'];
-  const newUpdateObj = {};
-  console.log(req.body);
-  Object.keys(req.body).forEach((el) => {
-    if (allowUpdateFields.includes(el)) {
-      newUpdateObj[el] = req.body[el];
-    }
-  });
-  // for uploading files
-  // if (req.file) newUpdateObj.photo = `${req.file.filename}.jpg`;
-
-  // khong co new: true thì trả về đối tượng cũ chưa update
-  const updatedUser = await UserModel.findByIdAndUpdate(
-    req.user._id,
-    newUpdateObj,
-    {
-      new: true,
-      // chỉ validate các fields được update
-      runValidators: true,
-    }
-  );
-  console.log('updated');
-  console.log(updatedUser);
-
-  // remove password field from res data
-  updatedUser.pasword = undefined;
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user: updatedUser,
-    },
-  });
-});
-
-// api
 exports.updatePassword = catchAsync(async function (req, res, next) {
   // 1) find user
   const user = await UserModel.findById(req.user._id);

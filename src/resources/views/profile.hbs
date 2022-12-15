@@ -36,13 +36,19 @@
           <h2 class="heading-secondary ma-bt-md">Your account settings</h2>
           <form class="form form-user-data">
             <div class="form__group"><label class="form__label" for="name">Name</label><input class="form__input"
-                id="name" type="text" value="{{user.name}}"" required=" required" /></div>
-            <div class="form__group ma-bt-md"><label class="form__label" for="email">Email address</label><input
-                class="form__input" id="email" type="email" value="{{user.email}}"" required=" required" /></div>
-            <div class="form__group form__photo-upload"><img class="form__user-photo" src="/images/ava.png"
-                alt="User photo" /><a class="btn-text" href="">Choose new photo</a></div>
+                id="name" type="text" value="{{user.name}}" required="required" /></div>
+            <div class="form__group ma-bt-md">
+              <label class="form__label" for="email">Email address</label>
+              <input class="form__input" id="email" type="email" value="{{user.email}}" required=" required">
+            </div>
+            <div class="form__group form__photo-upload">
+              <img class="form__user-photo" id="avatar-display" src="/images/avatar/{{user.photo}}" alt="User photo" />
+              <a class="btn-text" href=""><label for="avatar-input">Choose new photo</label></a>
+              <input type="file" accept="*image/*" id="avatar-input" name="photo" hidden>
+            </div>
             <div class="form__group right"><button type="submit" class="btn btn--small btn--green">Save
-                settings</button></div>
+                settings</button>
+            </div>
           </form>
         </div>
         <div class="line">&nbsp;</div>

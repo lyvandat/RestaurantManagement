@@ -14,7 +14,7 @@ const {
 router.get("/user/:id/cart", [isLoggedIn, renderCart]);
 router.get("/user/:id/order", [isLoggedIn, renderPayment]);
 
-router.get("/products/:slug", renderItemDetail);
+router.get("/products/:slug", [isLoggedIn, renderItemDetail]);
 
 router.get("/products", renderItems);
 

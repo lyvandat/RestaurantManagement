@@ -15,7 +15,7 @@
                 <hr>
 
                 {{!-- Items --}}
-                {{#if_cond totalPrice '!==' 0}}
+                {{#if items}}
                 {{#each items}}
                 <div class="row">
                     <div class="col-3 d-flex align-items-center">
@@ -65,7 +65,7 @@
                         <img class="w-100" src="/images/cart/empty.png" alt="empty cart image">
                     </div>
                 </div>
-                {{/if_cond}}
+                {{/if}}
                 <div class="row" id="subtotal-main">
                     <span>
                         <p class="me-title align-right wrap-text">Subtotal ({{items.length}}):
@@ -147,10 +147,6 @@
 </div>
 
 <script>
-    function insertQuantity() {
-        //let productQuantity = $('#');
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         $("#sellectAll").change(function (e) {
             if (e.currentTarget.checked) {
@@ -159,12 +155,5 @@
                 $('.sellectItem').find('input[type="checkbox"]').prop('checked', false);
             }
         });
-
-
-        const btnCheckoutRTab = $('#checkout-btn-rtab');
-        const btnCheckoutMain = $('#checkout-btn-main');
-
-        btnCheckoutRTab.click(insertQuantity);
-        btnCheckoutMain.click(insertQuantity);
     });
 </script>

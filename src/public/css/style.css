@@ -145,7 +145,7 @@
   width: 70%;
   z-index: 10;
 }
-
+/* 
 .btn,
 .btn:link,
 .btn:visited {
@@ -161,29 +161,25 @@
   font-weight: 400;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  /*Add later when we use this for the button in form*/
+  Add later when we use this for the button in form
   border: none;
   cursor: pointer;
 }
+*/
 
-.btn:hover {
+/* .btn:hover {
   -webkit-transform: translateY(-3px);
   transform: translateY(-3px);
   -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-}
+} */
 
-.btn:active {
+/* .btn:active {
   -webkit-transform: translateY(-1px);
   transform: translateY(-1px);
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.btn:focus {
-  outline: none;
-  background-color: #0D6EFD;
-}
+} */
 
 .btn--white {
   background-color: #fff;

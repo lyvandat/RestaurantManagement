@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 const catchAsync = require("../../utils/catchAsync");
 const {
   multipleMongooseToObject,
@@ -204,22 +205,22 @@ const items = [
 const payment_methods = [
   {
     key: "momo-method",
-    img: "images/icons/momo.png",
+    img: "/images/icons/momo.png",
     label: "Thanh toán Online bằng Momo (Có mã ưu đãi)",
   },
   {
     key: "banking-method",
-    img: "images/icons/debit-card.png",
+    img: "/images/icons/debit-card.png",
     label: "Chuyển khoản ngân hàng (Miễn phí phí chuyển)",
   },
   {
     key: "cod-method",
-    img: "images/icons/cod.png",
+    img: "/images/icons/cod.png",
     label: "Thanh toán khi nhận hàng (COD)",
   },
   {
     key: "visa-method",
-    img: "images/icons/visa.png",
+    img: "/images/icons/visa.png",
     label: "Thanh toán Online bằng Visa, Master, JCB (Miễn phí phí chuyển)",
   },
 ];
@@ -285,8 +286,7 @@ exports.renderItems = async function (req, res, next) {
 exports.renderCart = catchAsync(async (req, res, next) => {
   let cart = await Cart.findOne({userId: req.params.id});
   const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
-  if (cart && cart.products.length !== 0) {
-
+  if (cart) {
     // populate product data in productId field
     const cartPopulatedPromises = cart.products.map(async (product, index) => {
       return cart.populate(`products.${index}.productId`);
@@ -294,24 +294,15 @@ exports.renderCart = catchAsync(async (req, res, next) => {
     // [{}, {}, {}]: array of carts populated with product data
     const carts = await Promise.all(cartPopulatedPromises);
     cart = carts[0];
-
-    // save total for products and subTotal for cart
-    if (cart.subTotal === 0) {
-      cart.products.map((product) => {
-        product.total = product.quantity * product.productId.price;
-        cart.subTotal += product.total;
-      })
-    
-      await cart.save();
-    }
   } 
   // create an empty cart
-  else {
-    await Cart.create({
+  else if(!cart) {
+    cart = await Cart.create({
       userId: req.params.id,
       products: [],
     });
   }
+
   // render cart page
   res.render("cart", {
     items: cart?.products || [],
@@ -327,29 +318,10 @@ exports.renderCart = catchAsync(async (req, res, next) => {
 
 // [GET] /user/:id/order
 exports.renderPayment = function (req, res, next) {
-  Order.findOne({ userID: req.params.id })
-    .then((order) => {
-      const orderProducts = order.products.map((item) =>
-        mongoose.Types.ObjectId(item.productID)
-      );
-
-      Product.find({ _id: { $in: orderProducts } })
-        .then((products) => {
-          const items = multipleMongooseToObject(products);
-          items.forEach((item) =>
-            Object.assign(item, {
-              status: item.stock > 0 ? "Còn hàng" : "Hết hàng",
-            })
-          );
-
-          res.render("buy", {
-            items,
-            payment_methods,
-          });
-        })
-        .catch(next);
-    })
-    .catch(next);
+  res.render("buy", {
+    items,
+    payment_methods,
+  });
 };
 
 exports.renderMe = catchAsync(async(req, res, next) => {

@@ -1,5 +1,6 @@
 const updateInfoForm = document.querySelector('.form-user-data');
 const updatePasswordForm = document.querySelector('.form-user-settings');
+const avatarInput = document.getElementById("avatar-input");
 
 const updateSettings = async function (data, type) {
   const url =
@@ -7,16 +8,24 @@ const updateSettings = async function (data, type) {
       ? '/auth/update-password'
       : '/auth/update-me';
   try {
-    console.log(data);
-    const response = await fetch(url, {
+    let fetchOptions = {
       method: 'PATCH',
       // gửi form data thì không cần JSON.stringify với lại "Content-Type"
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+      body: data,
+    };
 
+    if (type === 'password') {
+      fetchOptions = { 
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      } 
+
+    };
+    
+    const response = await fetch(url, fetchOptions);
     if (!response.ok) {
       const errRes = await response.json();
       // showAlert('error', errRes.message);
@@ -33,16 +42,29 @@ const updateSettings = async function (data, type) {
   }
 };
 
+if (avatarInput) {
+  const avatarDisplay = document.getElementById("avatar-display");
+  const displayInputAvatar = (e) => {
+    // console.log(URL.createObjectURL(e.target.files[0]));
+    avatarDisplay.src = URL.createObjectURL(e.target.files[0]);
+  };
+
+  avatarInput.addEventListener("change", displayInputAvatar);
+}
+
 if (updateInfoForm) {
   const updateUserData = async function (e) {
     e.preventDefault();
+    const formData = new FormData();
     const nameInput = this.elements[(name = 'name')];
     const emailInput = this.elements[(name = 'email')];
+    const photoInput = this.elements[(name = 'photo')];
 
-    updateSettings({
-      name: nameInput.value,
-      email: emailInput.value
-    }, 'user info');
+    formData.append("name", nameInput.value);
+    formData.append("email", emailInput.value);
+    formData.append("photo", photoInput.files[0]);
+
+    updateSettings(formData, 'user info');
   };
 
   updateInfoForm.addEventListener('submit', updateUserData);
