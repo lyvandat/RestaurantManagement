@@ -17,6 +17,9 @@ const ItemSchema = new Schema(
             type: Number,
             min: [0, "total price cannot be less than 0"],
             default: 0,
+        },
+        note: {
+            type: String,
         }
     },
     {
@@ -42,9 +45,9 @@ const OrderSchema = new Schema(
 
         payment: {
             type: String,
-            default: "Cash",
+            default: "cash",
             enum: {
-                values: ["Cash", "Card"],
+                values: ["cash", "card"],
                 message: '{VALUE} is not supported'
             }
         },
@@ -52,6 +55,10 @@ const OrderSchema = new Schema(
         status: {
             type: String,
             default: "progress"
+        },
+
+        note: {
+            type: String,
         }
     },
     {

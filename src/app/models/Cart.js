@@ -102,5 +102,17 @@ CartSchema.methods.removeItemFromCart = async function(productId, quantity, pric
     }
 }
 
+CartSchema.methods.getPopulatedCart = async function() {
+    // populate product data in productId field
+    const cartPopulatedPromises = this.products.map(async (product, index) => {
+        return this.populate(`products.${index}.productId`);
+    });
+
+    // [{}, {}, {}]: array of carts populated with product data
+    const carts = await Promise.all(cartPopulatedPromises);
+    console.log(carts[0]);
+    return carts[0];
+}
+
 exports.itemSchema = ItemSchema;
 module.exports = mongoose.model('Cart', CartSchema);

@@ -20,7 +20,8 @@
                 <div class="row">
                     <div class="col-3 d-flex align-items-center">
                         <div class="form-check d-flex align-items-center sellectItem">
-                            <input class="form-check-input" type="checkbox" id={{productId._id}}>
+                            <input class="form-check-input" type="checkbox" {{#if selected}} checked {{/if}}
+                                id={{productId._id}} data-product-id="{{productId._id}}">
                         </div>
                         <a href="/products/{{productId.slug}}">
                             <img src="/images/FoodThumnail/{{productId.photo.[0]}}" class="img-fluid">
@@ -72,7 +73,7 @@
                             <b>{{{toPrice totalPrice}}} VNĐ</b>
                         </p>
                     </span>
-                    <a href="./order"><button class="btn btn-outline-dark rtab-detail-button align-right"
+                    <a href="javascript:;"><button class="btn btn-outline-dark rtab-detail-button align-right"
                             id="checkout-btn-main">Checkout</button></a>
                 </div>
             </div>
@@ -93,7 +94,8 @@
                     <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal ({{items.length}}):
                         <b>{{{toPrice totalPrice}}} VNĐ</b>
                     </p>
-                    <a href="./order"><button class="rtab-buying-button" id="checkout-btn-rtab">Checkout</button></a>
+                    <a href="javascript:;"><button class="rtab-buying-button"
+                            id="checkout-btn-rtab">Checkout</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
@@ -102,11 +104,11 @@
                     {{#each recommend}}
                     <div class="col-12 col-lg-6 col-xl-12">
                         <div class="row pb-2">
-                            <a href="/products/{{slug}}"" class=" col-5 d-flex erase-underline">
+                            <a href="/products/{{slug}}" class=" col-5 d-flex erase-underline">
                                 <img src="/images/FoodThumnail/{{photo.[0]}}" class="img-fluid">
                             </a>
                             <div class="col-7">
-                                <a href="/products/{{slug}}"" class=" erase-underline">
+                                <a href="/products/{{slug}}" class=" erase-underline">
                                     <p class="me-title text-lightblue">{{name}}</p>
                                 </a>
                                 <span class="ratings">

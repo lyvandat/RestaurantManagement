@@ -1,7 +1,6 @@
 const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/AppError");
 const CartModel = require("../models/Cart");
-const { ObjectId } = require("mongoose");
 
 exports.addItemToCart = catchAsync(async (req, res, next) => {
   // for logged-in user
@@ -24,18 +23,21 @@ exports.addItemToCart = catchAsync(async (req, res, next) => {
 
 exports.updateSelectFieldToItem = catchAsync(async (req, res, next) => {
   const productIds = req.body.productIds;
-
-  const productObjectIds = productIds.map((id) => ObjectId(id));
   const cart = await CartModel.findOne({userId: req.user._id});
 
-  cart.products.forEach((product) => {
-    if (productObjectIds.includes(product._id)) {
-      product.selected = true;
+  if (!productIds || productIds.length === 0) {
+    return next(new AppError(400, "vui lòng chọn món ăn"));
+  }
+
+  cart.products.forEach((product, index) => {
+    cart.products[index].selected = false;
+
+    if (productIds.includes(String(product.productId))) {
+      cart.products[index].selected = true;
     }
   });
 
   const newCart = await cart.save();
-
   res.status(200).json({
     status: "success",
     data: {

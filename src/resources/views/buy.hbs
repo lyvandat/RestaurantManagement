@@ -1,4 +1,3 @@
-
 <div class="container pt-5">
     <div class="row pb-4">
         <div class="col-12 col-lg-8">
@@ -6,16 +5,19 @@
                 {{!-- Infor fullfill --}}
                 <div class="p-4 pt-3">
                     <p class="itdetail-lg-title">Để đặt hàng, vui lòng điền thông tin dưới đây.</p>
-                    <div class="row pt-3">   
+                    <div class="row pt-3">
                         <div class="col-6">
-                            <input type="text" class="form-control" placeholder="Họ và tên">
+                            <input type="text" class="form-control" placeholder="Họ và tên" value="{{user.name}}"
+                                disabled>
                         </div>
-                        <div class="col-6">
-                            <input type="text" class="form-control" placeholder="Số điện thoại">
+                        <div class=" col-6">
+                            <input type="text" class="form-control" name="phone" placeholder="Số điện thoại"
+                                value="{{user.phone}}" required>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <input type="text" class="form-control" placeholder="Địa chỉ">
+                        <input type="text" class="form-control" name="address" placeholder="Địa chỉ"
+                            value="{{user.address}}" required>
                     </div>
 
                     <div class="row">
@@ -31,7 +33,7 @@
                     </div>
 
                     <div class="pt-3">
-                        <input type="text" class="form-control" placeholder="Lời nhắn cho nhà hàng">
+                        <input type="text" name="note" class="form-control" placeholder="Lời nhắn cho nhà hàng">
                     </div>
                 </div>
                 {{!-- End infor fullfill --}}
@@ -43,9 +45,10 @@
                     <p class="itdetail-lg-title pb-4">Hãy chọn phương thức thanh toán.</p>
 
                     {{#each payment_methods}}
-                        <div class="row pt-2">
+                    <div class="row pt-2">
                         <div class="col-auto d-flex align-items-center">
-                            <input class="form-check-input mt-auto mb-auto me-2" type="checkbox" id={{key}}>
+                            <input class="form-check-input mt-auto mb-auto me-2" type="radio" data-value="{{key}}"
+                                name="payment" value="cash">
                         </div>
                         <div class="col-auto d-flex align-items-center">
                             <img src="{{img}}" class="itdetail-icon">
@@ -57,7 +60,7 @@
                         </div>
                     </div>
                     {{/each}}
-                    {{!-- End payment methods select --}}   
+                    {{!-- End payment methods select --}}
                 </div>
             </div>
         </div>
@@ -67,21 +70,23 @@
                     <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
 
                     {{#each items}}
-                        <div class="row p-4">
-                            <div class="col-4 p-0">
-                                <span><img src="/images/FoodThumnail/{{photo.[0]}}" class="img-fluid small-img smooth-border">
-                            </div>
-                            <div class="col-8 p-0">
-                                <p class="sm-title wrap-text mb-0">{{name}}</p>
-                                <p class="sm-title text-indigo mb-0">Thương Hiệu: {{brand}}</p>
-                                <p class="sm-title mb-0">Tình trạng: <span class="text-green">{{status}}</span></p>
-                                <div class="sm-title mb-0">
-                                    <i class="fa-solid fa-location-dot "></i>
-                                    <span>&#160 Giao hàng tại Việt Nam</span>
-                                </div>
-                                <p class="sm-title"><i class="bi bi-box-seam-fill"></i>&#160 Số lượng: {{quantity}}</p>
-                            </div>
+                    <div class="row p-4">
+                        <div class="col-4 p-0">
+                            <span><img src="/images/FoodThumnail/{{productId.photo.[0]}}"
+                                    class="img-fluid small-img smooth-border">
                         </div>
+                        <div class="col-8 p-0">
+                            <p class="sm-title wrap-text mb-0">{{productId.name}}</p>
+                            <p class="sm-title text-indigo mb-0">Thương Hiệu: {{productId.manufacturer}}</p>
+                            {{!-- <p class="sm-title mb-0">Tình trạng: <span class="text-green">{{status}}</span></p>
+                            --}}
+                            <div class="sm-title mb-0">
+                                <i class="fa-solid fa-location-dot "></i>
+                                <span>&#160 Giao hàng tại Việt Nam</span>
+                            </div>
+                            <p class="sm-title"><i class="bi bi-box-seam-fill"></i>&#160 Số lượng: {{quantity}}</p>
+                        </div>
+                    </div>
                     {{/each}}
                     <div class="row p-4 pt-0 pb-3">
                         <hr>
@@ -96,7 +101,7 @@
                         <hr>
                         <div class="d-flex">
                             <p class="me-title m-auto ms-0">Tạm tính:</p>
-                            <p class="me-title">49.000 VNĐ</p>
+                            <p class="me-title">{{{toPrice subTotal}}} VNĐ</p>
                         </div>
                         <div class="d-flex">
                             <p class="me-title m-auto ms-0">Phí vận chuyển:</p>
@@ -107,12 +112,14 @@
                         <hr>
                         <div class="d-flex">
                             <p class="lg-title m-auto ms-0">Tổng cộng</p>
-                            <p class="lg-title">69.000 VNĐ</p>
+                            <p class="lg-title">{{{toPrice total}}} VNĐ</p>
                         </div>
                     </div>
                     <div class="row p-4 pt-0">
                         <div class="d-flex justify-content-end p-0">
-                            <button class="rtab-buying-button"><p class="me-title">Đặt hàng</p></button>
+                            <button class="rtab-buying-button" id="buy-btn">
+                                <p class="me-title">Đặt hàng</p>
+                            </button>
                         </div>
                     </div>
                 </div>

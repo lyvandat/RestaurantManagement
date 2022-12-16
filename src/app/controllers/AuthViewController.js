@@ -185,6 +185,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // 4) user has logged in
   req.user = user;
+  res.locals.user = user;
   next();
 });
 

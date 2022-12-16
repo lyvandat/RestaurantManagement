@@ -204,22 +204,22 @@ const items = [
 // payment
 const payment_methods = [
   {
-    key: "momo-method",
+    key: "card",
     img: "/images/icons/momo.png",
     label: "Thanh toán Online bằng Momo (Có mã ưu đãi)",
   },
   {
-    key: "banking-method",
+    key: "card",
     img: "/images/icons/debit-card.png",
     label: "Chuyển khoản ngân hàng (Miễn phí phí chuyển)",
   },
   {
-    key: "cod-method",
+    key: "cash",
     img: "/images/icons/cod.png",
     label: "Thanh toán khi nhận hàng (COD)",
   },
   {
-    key: "visa-method",
+    key: "card",
     img: "/images/icons/visa.png",
     label: "Thanh toán Online bằng Visa, Master, JCB (Miễn phí phí chuyển)",
   },
@@ -287,16 +287,18 @@ exports.renderCart = catchAsync(async (req, res, next) => {
   let cart = await Cart.findOne({userId: req.params.id});
   const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
   if (cart) {
-    // populate product data in productId field
-    const cartPopulatedPromises = cart.products.map(async (product, index) => {
-      return cart.populate(`products.${index}.productId`);
-    });
-    // [{}, {}, {}]: array of carts populated with product data
-    const carts = await Promise.all(cartPopulatedPromises);
-    cart = carts[0];
+    // // populate product data in productId field
+    // const cartPopulatedPromises = cart.products.map(async (product, index) => {
+    //   return cart.populate(`products.${index}.productId`);
+    // });
+    // // [{}, {}, {}]: array of carts populated with product data
+    // const carts = await Promise.all(cartPopulatedPromises);
+    // cart = carts[0];
+
+    cart = await cart.getPopulatedCart();
   } 
   // create an empty cart
-  else if(!cart) {
+  else {
     cart = await Cart.create({
       userId: req.params.id,
       products: [],
@@ -317,12 +319,23 @@ exports.renderCart = catchAsync(async (req, res, next) => {
 })
 
 // [GET] /user/:id/order
-exports.renderPayment = function (req, res, next) {
+exports.renderPayment = catchAsync(async (req, res, next) => {
+  let cart = await Cart.findOne({userId: req.user._id});
+  cart = await cart.getPopulatedCart();
+  const items = cart.products.reduce((accumulator, product) => {
+    if (product.selected) {
+      accumulator.push(product);
+    }
+    return accumulator;
+  }, []);
+
   res.render("buy", {
     items,
     payment_methods,
+    subTotal: cart.subTotal,
+    total: cart.subTotal + 20000,
   });
-};
+});
 
 exports.renderMe = catchAsync(async(req, res, next) => {
   res.status(200).render('profile');
