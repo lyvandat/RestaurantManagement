@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "SET NODE_ENV=production && nodemon src/index.js",
+    "start": "nodemon src/index.js",
     "start:prod": "SET NODE_ENV=production && nodemon src/index.js",
     "golive": "nodemon src/index.js",
     "watch": "node-sass -w src/resources/scss -o src/public/css",
