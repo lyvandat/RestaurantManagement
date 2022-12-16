@@ -18,21 +18,23 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   }
 
   const products = [...cart.products].filter((product) => {
-    console.log(product.selected);
     return product.selected
   });
-  console.log("selected", products);
+
+  const totalPrice = products.reduce((accumulator, prod) => {
+    return accumulator + prod.total;
+  }, 0)
+
   const order = await OrderModel.create({
     userId: cart.userId,
     products,
-    subTotal: cart.subTotal + 20000,
+    subTotal: totalPrice + 20000,
     note,
     payment,
   });
 
   // remove all ordered products 
   const remainProducts = cart.products.filter((product) => {return product.selected === false});
-  console.log("not selected", remainProducts);
   cart.products = remainProducts;
   const newCart = await cart.save();
 

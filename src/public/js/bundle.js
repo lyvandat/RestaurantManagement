@@ -209,7 +209,7 @@ exports.handleSortPrice = handleSortPrice;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.handleCartToOrder = exports.handleAddItemToCart = void 0;
+exports.handleSetItemQuantity = exports.handleCartToOrder = exports.handleAddItemToCart = void 0;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -233,10 +233,11 @@ var handleAddItemToCart = /*#__PURE__*/function () {
             _context.prev = 3;
             _context.next = 6;
             return fetch("/api/v1/products/".concat(productId), {
-              method: "POST",
+              method: "PATCH",
               body: JSON.stringify({
                 quantity: +(quantityInput === null || quantityInput === void 0 ? void 0 : quantityInput.value) || 0,
-                price: price
+                price: price,
+                type: "add"
               }),
               headers: {
                 "Content-Type": "application/json"
@@ -277,27 +278,25 @@ var handleAddItemToCart = /*#__PURE__*/function () {
   };
 }();
 exports.handleAddItemToCart = handleAddItemToCart;
-var handleCartToOrder = /*#__PURE__*/function () {
+var handleSetItemQuantity = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-    var checkBoxes, productIds, response, errRes, data, orderUrl;
+    var productId, price, quantityInput, cartTotals, response, errRes, data, subTotal, formattedSubTotal;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            checkBoxes = _toConsumableArray(document.querySelectorAll(".form-check-input")); // remove select all checkbox
-            checkBoxes.shift();
-            productIds = [];
-            checkBoxes.forEach(function (check) {
-              if (check.checked) {
-                productIds.push(check.dataset.productId);
-              }
-            });
+            productId = e.target.dataset.productId;
+            price = +e.target.dataset.price || 0;
+            quantityInput = e.target;
+            cartTotals = _toConsumableArray(document.querySelectorAll(".cart-total"));
             _context2.prev = 4;
             _context2.next = 7;
-            return fetch("/api/v1/products", {
+            return fetch("/api/v1/products/".concat(productId), {
               method: "PATCH",
               body: JSON.stringify({
-                productIds: productIds
+                quantity: +(quantityInput === null || quantityInput === void 0 ? void 0 : quantityInput.value) || 0,
+                price: price,
+                type: "set"
               }),
               headers: {
                 "Content-Type": "application/json"
@@ -320,26 +319,92 @@ var handleCartToOrder = /*#__PURE__*/function () {
             return response.json();
           case 16:
             data = _context2.sent;
-            if (data.status === "success") {
-              orderUrl = location.href.replace("cart", "order");
-              location.assign(orderUrl);
-            }
-            _context2.next = 24;
+            // display new subtotal price when changing product quantity
+            subTotal = data.data.subTotal;
+            formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            cartTotals[0].textContent = "".concat(formattedSubTotal, " VN\u0110");
+            cartTotals[1].textContent = "".concat(formattedSubTotal, " VN\u0110");
+            _context2.next = 26;
             break;
-          case 20:
-            _context2.prev = 20;
+          case 23:
+            _context2.prev = 23;
             _context2.t0 = _context2["catch"](4);
             alert(_context2.t0.message);
-            console.log(_context2.t0);
-          case 24:
+          case 26:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[4, 20]]);
+    }, _callee2, null, [[4, 23]]);
   }));
-  return function handleCartToOrder(_x2) {
+  return function handleSetItemQuantity(_x2) {
     return _ref2.apply(this, arguments);
+  };
+}();
+exports.handleSetItemQuantity = handleSetItemQuantity;
+var handleCartToOrder = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    var checkBoxes, productIds, response, errRes, data, orderUrl;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            checkBoxes = _toConsumableArray(document.querySelectorAll(".form-check-input")); // remove select all checkbox
+            checkBoxes.shift();
+            productIds = [];
+            checkBoxes.forEach(function (check) {
+              if (check.checked) {
+                productIds.push(check.dataset.productId);
+              }
+            });
+            _context3.prev = 4;
+            _context3.next = 7;
+            return fetch("/api/v1/products", {
+              method: "PATCH",
+              body: JSON.stringify({
+                productIds: productIds
+              }),
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+          case 7:
+            response = _context3.sent;
+            if (response.ok) {
+              _context3.next = 14;
+              break;
+            }
+            _context3.next = 11;
+            return response.json();
+          case 11:
+            errRes = _context3.sent;
+            alert(errRes.message);
+            return _context3.abrupt("return");
+          case 14:
+            _context3.next = 16;
+            return response.json();
+          case 16:
+            data = _context3.sent;
+            if (data.status === "success") {
+              orderUrl = location.href.replace("cart", "order");
+              location.assign(orderUrl);
+            }
+            _context3.next = 24;
+            break;
+          case 20:
+            _context3.prev = 20;
+            _context3.t0 = _context3["catch"](4);
+            alert(_context3.t0.message);
+            console.log(_context3.t0);
+          case 24:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[4, 20]]);
+  }));
+  return function handleCartToOrder(_x3) {
+    return _ref3.apply(this, arguments);
   };
 }();
 exports.handleCartToOrder = handleCartToOrder;
@@ -438,14 +503,19 @@ var _signOut = require("./auth/sign-out.js");
 var _price = require("./sort/price.js");
 var _cart = require("./payment/cart.js");
 var _order = require("./payment/order.js");
-// import "@babel/polyfill";
-
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 var signOutBtnAdmin = document.getElementById("signout-admin");
 var signOutBtnUser = document.getElementById("signout-user");
 var priceSortForm = document.getElementById("price-sort-form");
 var addItemBtn = document.querySelector(".btn-addtocart");
 var checkoutBtn = document.getElementById("checkout-btn-rtab");
 var orderBtn = document.getElementById("buy-btn");
+var quantityCartBtn = _toConsumableArray(document.querySelectorAll("input[name='quantity']"));
 if (signOutBtnAdmin) {
   signOutBtnAdmin.addEventListener("click", _signOut.signOut);
 }
@@ -469,6 +539,12 @@ if (checkoutBtn) {
 // order
 if (orderBtn) {
   orderBtn.addEventListener("click", _order.clickOrderButton);
+}
+if (quantityCartBtn.length > 0) {
+  console.log('ok');
+  quantityCartBtn.forEach(function (btn) {
+    btn.addEventListener("change", _cart.handleSetItemQuantity);
+  });
 }
 },{"./auth/sign-out.js":"auth/sign-out.js","./sort/price.js":"sort/price.js","./payment/cart.js":"payment/cart.js","./payment/order.js":"payment/order.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -495,7 +571,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54095" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59720" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -48,6 +48,17 @@ const CartSchema = new Schema(
     },
 );
 
+//update subTotal when changing the number of products in cart
+CartSchema.pre("save", function(next) {
+    if (!this.isModified("products")) return next();
+
+    if (this.products.length === 0) return next();
+    this.subTotal = this.products.reduce((accumulator, prod) => {
+        return accumulator += prod.total;
+    }, 0);
+    next();
+});
+
 CartSchema.methods.addItemToCart = async function(productId, quantity, price) {
     try {
         let productItemIndex = this.products.findIndex((prod) => {
@@ -73,6 +84,34 @@ CartSchema.methods.addItemToCart = async function(productId, quantity, price) {
         const newCart = await this.save();
         return newCart;
     } catch(err) {
+        console.log(err);
+        return null;
+    }
+}
+
+CartSchema.methods.setItemCart = async function(productId, quantity, price) {
+    try {
+        let productItemIndex = this.products.findIndex((prod) => {
+            // parse ObjectId to String
+            return String(prod.productId) === productId;
+        });
+        let newUpdatedItem = null;
+        // if item exists
+        if (productItemIndex !== -1) {
+            newUpdatedItem = this.products[productItemIndex];
+            this.subTotal -= newUpdatedItem.total;
+            newUpdatedItem.quantity = quantity;
+            newUpdatedItem.total = newUpdatedItem.quantity * price;
+            this.subTotal += newUpdatedItem.total;
+            this.products[productItemIndex] = newUpdatedItem;
+
+            // save cart
+            const newCart = await this.save();
+            return newCart;
+        } 
+
+    } catch(err) {
+        console.log(err);
         return null;
     }
 }
@@ -110,7 +149,6 @@ CartSchema.methods.getPopulatedCart = async function() {
 
     // [{}, {}, {}]: array of carts populated with product data
     const carts = await Promise.all(cartPopulatedPromises);
-    console.log(carts[0]);
     return carts[0];
 }
 

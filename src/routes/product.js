@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  addItemToCart,
+  updateItemQuantity,
   updateSelectFieldToItem
 } = require("../app/controllers/ProductController");
 
@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.post("/:id", [protect, addItemToCart]);
+router.patch("/:id", [protect, updateItemQuantity]);
 router.patch("/", [protect, updateSelectFieldToItem]);
 
 module.exports = router;

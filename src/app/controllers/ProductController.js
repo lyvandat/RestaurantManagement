@@ -2,18 +2,24 @@ const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/AppError");
 const CartModel = require("../models/Cart");
 
-exports.addItemToCart = catchAsync(async (req, res, next) => {
+exports.updateItemQuantity = catchAsync(async (req, res, next) => {
   // for logged-in user
   const cart = await CartModel.findOne({userId: req.user._id});
   const productId = req.params.id;
   const quantity = req.body.quantity || 0;
   const price = req.body.price || 0;
+  const type = req.body.type || "add";
+  let newCart = null;
 
   if(!cart) {
     return next(new AppError("cannot find cart with that userId"));
   }
 
-  const newCart = await cart.addItemToCart(productId, quantity, price);
+  if (type === "add") {
+    newCart = await cart.addItemToCart(productId, quantity, price);
+  } else {
+    newCart  = await cart.setItemCart(productId, quantity, price);
+  }
 
   res.status(200).json({
     status: "success",

@@ -321,19 +321,23 @@ exports.renderCart = catchAsync(async (req, res, next) => {
 // [GET] /user/:id/order
 exports.renderPayment = catchAsync(async (req, res, next) => {
   let cart = await Cart.findOne({userId: req.user._id});
+  let totalPrice = 0;
   cart = await cart.getPopulatedCart();
   const items = cart.products.reduce((accumulator, product) => {
     if (product.selected) {
       accumulator.push(product);
+      totalPrice += product.total;
     }
     return accumulator;
   }, []);
 
+
+
   res.render("buy", {
     items,
     payment_methods,
-    subTotal: cart.subTotal,
-    total: cart.subTotal + 20000,
+    subTotal: totalPrice,
+    total: totalPrice + 20000,
   });
 });
 

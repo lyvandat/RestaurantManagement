@@ -52,6 +52,11 @@ const OrderSchema = new Schema(
             }
         },
 
+        shippingFee: {
+            type: Number,
+            default: 20000
+        },
+
         status: {
             type: String,
             default: "progress"

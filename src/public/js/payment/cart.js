@@ -4,10 +4,11 @@ export const handleAddItemToCart = async function(e) {
   const quantityInput = document.getElementById("qty-itdetail");
   try {
     const response = await fetch(`/api/v1/products/${productId}`, {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify({
         quantity: +quantityInput?.value || 0,
-        price
+        price,
+        type: "add",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +22,43 @@ export const handleAddItemToCart = async function(e) {
     }
 
     const data = await response.json();
+  } catch(err) {
+    alert(err.message);
+  }
+}
+
+export const handleSetItemQuantity = async function(e) {
+  const productId = e.target.dataset.productId;
+  const price = +e.target.dataset.price || 0;
+  const quantityInput = e.target;
+  const cartTotals = [...document.querySelectorAll(".cart-total")];
+  try {
+    const response = await fetch(`/api/v1/products/${productId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        quantity: +quantityInput?.value || 0,
+        price,
+        type: "set",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      const errRes = await response.json();
+      alert(errRes.message);
+      return;
+    }
+
+    const data = await response.json();
+
+    // display new subtotal price when changing product quantity
+    const subTotal = data.data.subTotal;
+    const formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    cartTotals[0].textContent = `${formattedSubTotal} VNĐ`;
+    cartTotals[1].textContent = `${formattedSubTotal} VNĐ`;
+    
   } catch(err) {
     alert(err.message);
   }
