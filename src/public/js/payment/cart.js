@@ -1,4 +1,4 @@
-export const handleAddItemToCart = async function(e) {
+export const handleAddItemToCart = async function (e) {
   const productId = e.target.dataset.productId;
   const price = +e.target.dataset.price || 0;
   const quantityInput = document.getElementById("qty-itdetail");
@@ -12,7 +12,7 @@ export const handleAddItemToCart = async function(e) {
       }),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (!response.ok) {
@@ -22,12 +22,12 @@ export const handleAddItemToCart = async function(e) {
     }
 
     const data = await response.json();
-  } catch(err) {
+  } catch (err) {
     alert(err.message);
   }
-}
+};
 
-export const handleSetItemQuantity = async function(e) {
+export const handleSetItemQuantity = async function (e) {
   const productId = e.target.dataset.productId;
   const price = +e.target.dataset.price || 0;
   const quantityInput = e.target;
@@ -42,7 +42,7 @@ export const handleSetItemQuantity = async function(e) {
       }),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (!response.ok) {
@@ -55,16 +55,17 @@ export const handleSetItemQuantity = async function(e) {
 
     // display new subtotal price when changing product quantity
     const subTotal = data.data.subTotal;
-    const formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const formattedSubTotal = subTotal
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     cartTotals[0].textContent = `${formattedSubTotal} VNĐ`;
     cartTotals[1].textContent = `${formattedSubTotal} VNĐ`;
-    
-  } catch(err) {
+  } catch (err) {
     alert(err.message);
   }
-}
+};
 
-export const handleCartToOrder = async function(e) {
+export const handleCartToOrder = async function (e) {
   const checkBoxes = [...document.querySelectorAll(".form-check-input")];
 
   // remove select all checkbox
@@ -75,17 +76,17 @@ export const handleCartToOrder = async function(e) {
     if (check.checked) {
       productIds.push(check.dataset.productId);
     }
-  })
+  });
 
   try {
     const response = await fetch(`/api/v1/products`, {
       method: "PATCH",
       body: JSON.stringify({
-        productIds
+        productIds,
       }),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (!response.ok) {
@@ -99,11 +100,46 @@ export const handleCartToOrder = async function(e) {
       let orderUrl = location.href.replace("cart", "order");
       location.assign(orderUrl);
     }
-  } catch(err) {
+  } catch (err) {
     alert(err.message);
     console.log(err);
   }
 
   // fetch change select field in cart
-}
+};
 
+export const handleDeleteItemFromCart = async function (e) {
+  const productId = e.target.dataset.productId;
+  const itemDeleted = document.getElementById(productId);
+  const cartTotals = [...document.querySelectorAll(".cart-total")];
+  if (!productId) {
+    alert("cannot find productId, fail to delete item from cart");
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/v1/products/${productId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errRes = await response.json();
+      alert(errRes.message);
+      return;
+    }
+    // lưu ý nếu trả về 204 no content thì chỗ này bị lỗi (^.^)
+    const data = await response.json();
+    if (data.status === "success") {
+      itemDeleted.parentElement.removeChild(itemDeleted);
+      const subTotal = data.data.cart?.subTotal || 0;
+      const formattedSubTotal = subTotal
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      cartTotals[0].textContent = `${formattedSubTotal} VNĐ`;
+      cartTotals[1].textContent = `${formattedSubTotal} VNĐ`;
+    }
+  } catch (err) {
+    alert(err.message);
+    console.log(err);
+  }
+};

@@ -17,7 +17,7 @@
                 {{!-- Items --}}
                 {{#if items}}
                 {{#each items}}
-                <div class="row">
+                <div class="row" id="{{productId._id}}">
                     <div class="col-3 d-flex align-items-center">
                         <div class="form-check d-flex align-items-center sellectItem">
                             <input class="form-check-input" type="checkbox" {{#if selected}} checked {{/if}}
@@ -53,10 +53,11 @@
                         </div>
                         <div class="row h-50">
                             <div class="d-flex justify-content-end align-items-end">
-                                <button class="btn ctdetail-delete-button">Delete</button>
+                                <button data-product-id="{{productId._id}}" name="delete-item-btn"
+                                    class="btn ctdetail-delete-button">Delete</button>
                             </div>
                         </div>
-                    </div>
+                    </div>"
                     <hr class="m-2">
                 </div>
                 {{/each}}

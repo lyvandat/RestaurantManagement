@@ -209,7 +209,7 @@ exports.handleSortPrice = handleSortPrice;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.handleSetItemQuantity = exports.handleCartToOrder = exports.handleAddItemToCart = void 0;
+exports.handleSetItemQuantity = exports.handleDeleteItemFromCart = exports.handleCartToOrder = exports.handleAddItemToCart = void 0;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -408,6 +408,71 @@ var handleCartToOrder = /*#__PURE__*/function () {
   };
 }();
 exports.handleCartToOrder = handleCartToOrder;
+var handleDeleteItemFromCart = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+    var productId, itemDeleted, cartTotals, response, errRes, data, _data$data$cart, subTotal, formattedSubTotal;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            productId = e.target.dataset.productId;
+            itemDeleted = document.getElementById(productId);
+            cartTotals = _toConsumableArray(document.querySelectorAll(".cart-total"));
+            if (productId) {
+              _context4.next = 6;
+              break;
+            }
+            alert("cannot find productId, fail to delete item from cart");
+            return _context4.abrupt("return");
+          case 6:
+            _context4.prev = 6;
+            _context4.next = 9;
+            return fetch("/api/v1/products/".concat(productId), {
+              method: "DELETE"
+            });
+          case 9:
+            response = _context4.sent;
+            if (response.ok) {
+              _context4.next = 16;
+              break;
+            }
+            _context4.next = 13;
+            return response.json();
+          case 13:
+            errRes = _context4.sent;
+            alert(errRes.message);
+            return _context4.abrupt("return");
+          case 16:
+            _context4.next = 18;
+            return response.json();
+          case 18:
+            data = _context4.sent;
+            if (data.status === "success") {
+              itemDeleted.parentElement.removeChild(itemDeleted);
+              subTotal = ((_data$data$cart = data.data.cart) === null || _data$data$cart === void 0 ? void 0 : _data$data$cart.subTotal) || 0;
+              formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+              cartTotals[0].textContent = "".concat(formattedSubTotal, " VN\u0110");
+              cartTotals[1].textContent = "".concat(formattedSubTotal, " VN\u0110");
+            }
+            _context4.next = 26;
+            break;
+          case 22:
+            _context4.prev = 22;
+            _context4.t0 = _context4["catch"](6);
+            alert(_context4.t0.message);
+            console.log(_context4.t0);
+          case 26:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[6, 22]]);
+  }));
+  return function handleDeleteItemFromCart(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+exports.handleDeleteItemFromCart = handleDeleteItemFromCart;
 },{}],"payment/order.js":[function(require,module,exports) {
 "use strict";
 
@@ -509,13 +574,19 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+// auth handling
 var signOutBtnAdmin = document.getElementById("signout-admin");
 var signOutBtnUser = document.getElementById("signout-user");
+
+// sort handling
 var priceSortForm = document.getElementById("price-sort-form");
+
+// cart handling
 var addItemBtn = document.querySelector(".btn-addtocart");
 var checkoutBtn = document.getElementById("checkout-btn-rtab");
 var orderBtn = document.getElementById("buy-btn");
 var quantityCartBtn = _toConsumableArray(document.querySelectorAll("input[name='quantity']"));
+var deleteItemBtn = _toConsumableArray(document.querySelectorAll("button[name='delete-item-btn']"));
 if (signOutBtnAdmin) {
   signOutBtnAdmin.addEventListener("click", _signOut.signOut);
 }
@@ -541,9 +612,13 @@ if (orderBtn) {
   orderBtn.addEventListener("click", _order.clickOrderButton);
 }
 if (quantityCartBtn.length > 0) {
-  console.log('ok');
   quantityCartBtn.forEach(function (btn) {
     btn.addEventListener("change", _cart.handleSetItemQuantity);
+  });
+}
+if (deleteItemBtn.length > 0) {
+  deleteItemBtn.forEach(function (btn) {
+    btn.addEventListener("click", _cart.handleDeleteItemFromCart);
   });
 }
 },{"./auth/sign-out.js":"auth/sign-out.js","./sort/price.js":"sort/price.js","./payment/cart.js":"payment/cart.js","./payment/order.js":"payment/order.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -571,7 +646,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59720" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60708" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

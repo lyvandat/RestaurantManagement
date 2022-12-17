@@ -1,16 +1,21 @@
 const express = require("express");
 const {
   updateItemQuantity,
-  updateSelectFieldToItem
+  updateSelectFieldToItem,
+  deleteItem,
 } = require("../app/controllers/ProductController");
 
 const {
-  protect
+  protect,
+  restrictTo,
 } = require("../app/controllers/AuthViewController");
 
 const router = express.Router();
 
-router.patch("/:id", [protect, updateItemQuantity]);
+router
+  .route("/:id")
+  .patch([protect, updateItemQuantity])
+  .delete([protect, deleteItem]);
 router.patch("/", [protect, updateSelectFieldToItem]);
 
 module.exports = router;

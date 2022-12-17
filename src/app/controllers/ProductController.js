@@ -4,32 +4,32 @@ const CartModel = require("../models/Cart");
 
 exports.updateItemQuantity = catchAsync(async (req, res, next) => {
   // for logged-in user
-  const cart = await CartModel.findOne({userId: req.user._id});
+  const cart = await CartModel.findOne({ userId: req.user._id });
   const productId = req.params.id;
   const quantity = req.body.quantity || 0;
   const price = req.body.price || 0;
   const type = req.body.type || "add";
   let newCart = null;
 
-  if(!cart) {
+  if (!cart) {
     return next(new AppError("cannot find cart with that userId"));
   }
 
   if (type === "add") {
     newCart = await cart.addItemToCart(productId, quantity, price);
   } else {
-    newCart  = await cart.setItemCart(productId, quantity, price);
+    newCart = await cart.setItemCart(productId, quantity, price);
   }
 
   res.status(200).json({
     status: "success",
-    data: newCart
-  })
+    data: newCart,
+  });
 });
 
 exports.updateSelectFieldToItem = catchAsync(async (req, res, next) => {
   const productIds = req.body.productIds;
-  const cart = await CartModel.findOne({userId: req.user._id});
+  const cart = await CartModel.findOne({ userId: req.user._id });
 
   if (!productIds || productIds.length === 0) {
     return next(new AppError(400, "vui lòng chọn món ăn"));
@@ -47,7 +47,37 @@ exports.updateSelectFieldToItem = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      cart: newCart
-    }
-  })
-})
+      cart: newCart,
+    },
+  });
+});
+
+exports.deleteItem = catchAsync(async (req, res, next) => {
+  const cart = await CartModel.findOne({ userId: req.user._id });
+  const productId = req.params.id;
+
+  if (!cart) {
+    return next(new AppError(400, "cannot find cart, cannot delete item"));
+  }
+
+  const deleteIndex = cart.products.findIndex(
+    (product) => String(product.productId) === productId
+  );
+
+  if (deleteIndex === -1) {
+    return next(new AppError(400, "cannot find item to delete"));
+  }
+
+  // update subtotal
+  cart.subTotal -= cart.products[deleteIndex].total;
+  // delete and save
+  cart.products.splice(deleteIndex, 1);
+  const newCart = await cart.save();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      cart: newCart,
+    },
+  });
+});

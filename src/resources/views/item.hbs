@@ -118,14 +118,14 @@
           </form>
           <div class="row w-75 m-auto">
             <div class="col text-center">
-              <button class="btn-addtocart mt-3" data-product-Id="{{food._id}}" data-price="{{food.price}}"">Thêm vào giỏ
+              <button class="btn-addtocart mt-3" data-product-Id="{{food._id}}" data-price="{{food.price}}">Thêm vào giỏ
                 hàng</button>
               {{#if user}}
               <a href=" {{user.id}}mmm/buy"><button class="btn-buynow mt-2" id="item-final-single-buy">Mua
                   ngay</button></a>
-                {{else}}
-                <a href="/buy"><button class="btn-buynow mt-2" id="item-final-single-buy">Mua ngay</button></a>
-                {{/if}}
+              {{else}}
+              <a href="/buy"><button class="btn-buynow mt-2" id="item-final-single-buy">Mua ngay</button></a>
+              {{/if}}
             </div>
           </div>
         </div>
