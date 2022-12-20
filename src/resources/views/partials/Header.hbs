@@ -136,8 +136,9 @@
             </div>
           </div>
           <div class="col d-flex justify-content-end" id="cart">
-            <a href="/user/{{user.id}}/cart">
+            <a class="cart-icon-wrapper" href="/user/{{user.id}}/cart">
               <i class="bi bi-cart cart-icon"></i>
+              <div class="cart-icon__quantity">{{quantity}}</div>
             </a>
           </div>
         </div>
@@ -151,14 +152,53 @@
     const buttonSearch = $('.btn.btn-primary');
     const inputBoxSearch = $('#search-box');
 
+    function createUrl(field, value) {
+      const allowFields = [
+        "_sort",
+        "column",
+        "type",
+        "priceRange",
+        "manufacturer",
+        "category",
+        "page",
+        "_search",
+      ];
+      const params = new URLSearchParams(location.search);
+      if (allowFields.includes(field)) {
+        params.set(field, value);
+      }
+
+      let isFirstQuery = true;
+      const url = allowFields.reduce((accum, field, index) => {
+        if (params.has(field)) {
+          if (!isFirstQuery) {
+            accum += "&";
+          }
+
+          if (isFirstQuery) {
+            isFirstQuery = false;
+          }
+          return (accum += `${field}=${params.get(field)}`);
+        }
+        return accum;
+      }, "?");
+      return url;
+    }
+
     buttonSearch.click(function () {
-      if (inputBoxSearch.val()) location.href = `/products?_search=${inputBoxSearch.val()}`;
+      if (inputBoxSearch.val()) {
+        const url = createUrl("_search", inputBoxSearch.val());
+        location.href = url;
+      }
       else location.href = '/products';
     });
 
     inputBoxSearch.on('keypress', function (e) {
       if (e.which == 13) {
-        if (inputBoxSearch.val()) location.href = `/products?_search=${inputBoxSearch.val()}`;
+        if (inputBoxSearch.val()) {
+          const url = createUrl("_search", inputBoxSearch.val());
+          location.href = url;
+        }
         else location.href = '/products';
       }
     });

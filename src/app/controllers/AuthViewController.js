@@ -3,6 +3,7 @@
 const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/AppError");
 const UserModel = require("../models/User");
+const CartModel = require("../models/Cart");
 const jwt = require("jsonwebtoken");
 const Email = require("../../utils/Email");
 const { promisify } = require("util");
@@ -14,7 +15,7 @@ const signToken = (userId) => {
   });
 };
 
-const createSendToken = (user, req, res, redirect=false) => {
+const createSendToken = (user, req, res, redirect = false) => {
   // 1) create token
   const token = signToken(user._id);
 
@@ -43,9 +44,8 @@ const createSendToken = (user, req, res, redirect=false) => {
       },
     });
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
-  
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
@@ -82,17 +82,20 @@ exports.signUp = catchAsync(async (req, res, next) => {
   // 4) send email
   try {
     const verifyToken = storedUser.createVerifyToken();
-    await storedUser.save({validateBeforeSave: false});
-    const emailObj = new Email(storedUser, `${req.protocol}://${req.get('host')}/auth/verify/${verifyToken}`);
+    await storedUser.save({ validateBeforeSave: false });
+    const emailObj = new Email(
+      storedUser,
+      `${req.protocol}://${req.get("host")}/auth/verify/${verifyToken}`
+    );
     await emailObj.send("WELCOME AND PLEASE VERIFY YOUR EMAIL");
-  } catch(err) {
+  } catch (err) {
     storedUser.emailVerifyToken = undefined;
     storedUser.emailVerifyTokenExpires = undefined;
-    await storedUser.save({validateBeforeSave: false});
+    await storedUser.save({ validateBeforeSave: false });
 
     return next(new AppError(500, err.message));
   }
-  
+
   // 5) send back to client
   res.status(200).json({
     status: "success",
@@ -117,7 +120,12 @@ exports.signIn = catchAsync(async (req, res, next) => {
   }
 
   if (!user.active) {
-    return next(new AppError(400, "your account has not been verified, please check our verify email"));
+    return next(
+      new AppError(
+        400,
+        "your account has not been verified, please check our verify email"
+      )
+    );
   }
 
   // 2) check if password is correct
@@ -131,7 +139,6 @@ exports.signIn = catchAsync(async (req, res, next) => {
 
   // 3) sign user in
   createSendToken(user, req, res);
-  
 });
 
 exports.signOut = catchAsync(async (req, res, next) => {
@@ -184,7 +191,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   // 4) user has logged in
+  const cart = await CartModel.findOne({ userId: user._id });
+  let cartQuantity = 0;
+
+  if (cart) {
+    cartQuantity = cart.products.length;
+  }
+
   req.user = user;
+  // res.locals.cartQuantity = cartQuantity;
+  res.locals.quantity = cartQuantity;
   res.locals.user = user;
   next();
 });
@@ -218,6 +234,15 @@ exports.isLoggedIn = async (req, res, next) => {
 
     // 4) user has logged in
     // global user for hbs view engine
+    const cart = await CartModel.findOne({ userId: user._id });
+    let cartQuantity = 0;
+
+    if (cart) {
+      cartQuantity = cart.products.length;
+    }
+
+    // res.locals.cartQuantity = cartQuantity;
+    res.locals.quantity = cartQuantity;
     res.locals.user = user;
     next();
   } catch (err) {
@@ -247,8 +272,11 @@ exports.restrictTo = (...roles) => {
 exports.verifyEmail = catchAsync(async (req, res, next) => {
   // req.params.token
   // 1) get verify token
-  const hashedVerifyToken = crypto.createHash('sha256').update(req.params.verifyToken).digest('hex');
-  
+  const hashedVerifyToken = crypto
+    .createHash("sha256")
+    .update(req.params.verifyToken)
+    .digest("hex");
+
   // 2) if token has not expired, and there is user, activate account
   const user = await UserModel.findOne({
     emailVerifyToken: hashedVerifyToken,
@@ -259,7 +287,7 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   user.active = true;
   user.emailVerifyToken = undefined;
   user.emailVerifyTokenExpires = undefined;
-  await user.save({validateBeforeSave: false});
+  await user.save({ validateBeforeSave: false });
 
   // 4) redirect user to home page
   createSendToken(user, req, res, true);
@@ -274,7 +302,7 @@ exports.updatePassword = catchAsync(async function (req, res, next) {
     user.password
   );
   if (!isCorrectPassword) {
-    return next(new AppError('current password is not correct'), 400);
+    return next(new AppError("current password is not correct"), 400);
   }
 
   // 3) update password (UserModel.findByIdAndUpdate se khong validate lai nen phai lam cach nay)

@@ -20,7 +20,6 @@
                                 placeholder="" />
                             <label for="maxprice-filter">Đến (.000 VNĐ)</label>
                         </div>
-                        <button type="submit" hidden></buttont>
                     </form>
                 </div>
 
@@ -47,7 +46,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="created-at-radio"
                                 value="created-at" />
-                            <label class="form-check-label" for="highrate-radio">
+                            <label class="form-check-label" for="created-at-radio">
                                 Ngày đăng
                             </label>
                         </div>
@@ -80,9 +79,11 @@
                     {{#each restaurant_logo}}
                     <div class="col-6 mt-2 mb-2">
                         <div class="brand-hover">
-                            <a href={{link}} class="erase-underline">
+                            <a name="manufacturer" href="javascript:;" class="erase-underline">
                                 <div class="row">
                                     <div class="col-12 col-lg-4 ps-0 d-flex align-items-center justify-content-center">
+                                        <input type="checkbox" name="manufacturer" data-search="{{slug}}"
+                                            value="{{slug}}">
                                         <img src={{img}} class="itdetail-icon" />
                                     </div>
                                     <div class="col-12 col-lg-8 ps-0 d-flex align-items-center justify-content-center">
@@ -95,9 +96,10 @@
                     {{/each}}
                 </div>
                 <hr class="list-splitline mb-5" />
-                <form class="mt-3">
+                <form id="category-filter" class="mt-3">
                     <label for="category">Chọn loại món ăn:</label>
                     <select class="p-2 fs-6 rounded-pill" name="category" id="category">
+                        <option value="All">Tất cả</option>
                         <option value="Cơm">Cơm</option>
                         <option value="Phở">Phở</option>
                         <option value="Bún">Bún</option>
@@ -107,8 +109,9 @@
                         <option value="general">Khác</option>
                     </select>
                     <br><br>
-                    <input class="fw-bold fs-6 text-white border border-gray-50 bg-primary py-2 px-3 rounded-medium"
-                        type="submit" value="Lựa chọn">
+                    <button
+                        class="btn-filter fw-bold fs-6 text-white border border-gray-50 bg-primary py-2 px-3 rounded-medium"
+                        type="button">Lựa chọn</button>
                 </form>
             </div>
             <div class="col-12 col-md-8">
@@ -134,12 +137,15 @@
                                     {{/loops}}
                                 </span>
                                 <p class="review-count">{{rvcount}}</p>
-                                <p class="sm-title">1 offer from
+                                <p class="sm-title">Chỉ từ
                                     <span class="rtab-money">{{{toPrice price}}} VNĐ</span>
+                                </p>
+                                <p class="sm-title">
+                                    <span class="text-black">Nhà hàng: {{manufacturer}}</span>
                                 </p>
                                 <div class="text-center">
                                     <a href="/products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
-                                            onclick="changepage()">See more detail</button></a>
+                                            onclick="changepage()">Xem chi tiết</button></a>
                                 </div>
                             </div>
                         </div>
@@ -149,29 +155,52 @@
 
             </div>
         </div>
+        <div class="row py-4">
+            <div class="col-4"></div>
+            <div class="col-8 d-flex justify-content-center align-items-center bg-white">
+                {{!-- <i class="d-block fa-solid fa-chevron-left p-3 fs-5"></i> --}}
+                <ul class="pagination-list d-flex align-items-center bg-white">
+                    {{#each productPage}}
+                    <li class="pagination-item">
+                        <a class="page-item" href="javascript:;" value={{value}}
+                            data-query="page={{value}}">{{value}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{!-- <i class="d-block fa-solid fa-chevron-right p-3 fs-5"></i> --}}
+
+            </div>
+        </div>
     </div>
 </div>
 
+
+{{!--
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let _search = null;
         if (location.search) {
             let oldSearchParams = new URLSearchParams(location.search);
+            console.log(oldSearchParams);
             _search = oldSearchParams.get("_search");
+            console.log(oldSearchParams.get("page"));
         }
-        const sortOptions =
-            $('input[name="flexRadioDefault"]'); const params = new Proxy(new
-                URLSearchParams(window.location.search), {
-                get: (searchParams, prop) =>
-                    searchParams.get(prop),
-            }); if (params.column === 'price') {
-                if (params.type
-                    === 'asc') $('#lowprice-radio').prop("checked", true); else
-                    $('#highprice-radio').prop("checked", true);
-            } else if (params.column ===
-                '_createdAt') { $('#created-at-radio').prop("checked", true); } else {
+        const sortOptions = $('input[name="flexRadioDefault"]');
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) =>
+                searchParams.get(prop),
+        });
+
+        if (params.column === 'price') {
+            if (params.type === 'asc') $('#lowprice-radio').prop("checked", true);
+            else $('#highprice-radio').prop("checked", true);
+        } else if (params.column === '_createdAt') {
+            $('#created-at-radio').prop("checked", true);
+        } else {
             $('#highrate-radio').prop("checked", true);
-        } sortOptions.change(function () {
+        }
+
+        sortOptions.change(function () {
             console.log($('input[name=flexRadioDefault]:checked').val());//
             let previousSearchLocation = null;
             previousSearchLocation = _search !== null ? `?_search=${_search}&` : "?";
@@ -190,4 +219,4 @@
             }
         });
     });
-</script>
+</script> --}}

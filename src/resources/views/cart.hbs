@@ -3,13 +3,13 @@
         {{!-- Main content --}}
         <div class="col-12 col-xl-9">
             <div class="bg-white ctdetail">
-                <p class="ctdetail-xxlg-title">Shopping Cart</p>
+                <p class="ctdetail-xxlg-title">Giỏ hàng</p>
                 <div>
                     <div class="form-check align-left">
                         <input class="form-check-input" type="checkbox" class="sellectItem" id="sellectAll">
-                        <label class="form-check-label" for="sellectAll">Sellect All</label>
+                        <label class="form-check-label" for="sellectAll">Chọn tất cả</label>
                     </div>
-                    <p class="align-right">Price</p>
+                    <p class="align-right">Giá</p>
                 </div>
                 <br>
                 <hr>
@@ -30,13 +30,13 @@
                     <div class="col-7 ctdetail-itemdetail">
                         <a href="/products/{{productId.slug}}"
                             class="ctdetail-item-title erase-underline text-black">{{productId.name}}</a>
-                        <p class="ctdetail-item-sm-detail text-green"><b>Còn hàng - status</b></p>
-                        <p class="ctdetail-item-sm-detail">Delivered from and sold by {{productId.manufacturer}}</p>
+                        <p class="ctdetail-item-sm-detail text-green"><b>Còn hàng</b></p>
+                        <p class="ctdetail-item-sm-detail">Cung cấp bởi {{productId.manufacturer}}</p>
                         {{!-- <p class="ctdetail-item-me-detail"><b>Your option: </b>{{notice}}</p> --}}
 
                         <div class="row mt-2 mb-2">
                             <div class="col form-group">
-                                <label for=(concat "qty-" {{_id}})>Quantity: </label>
+                                <label for=(concat "qty-" {{_id}})>Số lượng: </label>
                                 <span class="d-inline-block">
                                     <input type="number" name="quantity" class="form-control small-img"
                                         data-product-id="{{productId._id}}" data-price="{{productId.price}}"
@@ -54,10 +54,10 @@
                         <div class="row h-50">
                             <div class="d-flex justify-content-end align-items-end">
                                 <button data-product-id="{{productId._id}}" name="delete-item-btn"
-                                    class="btn ctdetail-delete-button">Delete</button>
+                                    class="btn ctdetail-delete-button">Xóa</button>
                             </div>
                         </div>
-                    </div>"
+                    </div>
                     <hr class="m-2">
                 </div>
                 {{/each}}
@@ -71,7 +71,8 @@
                 {{/if}}
                 <div class="row" id="subtotal-main">
                     <span>
-                        <p class="me-title align-right wrap-text">Subtotal ({{items.length}}):
+                        <p class="me-title align-right wrap-text">Subtotal
+                            <b class="items-length">&#40;{{items.length}}&#41;:&nbsp;</b>
                             <b class="cart-total">{{{toPrice totalPrice}}} VNĐ</b>
                         </p>
                     </span>
@@ -91,17 +92,18 @@
         {{!-- Right site bar --}}
         <div class="col-12 col-xl-3">
             <div class="bg-white rtab mb-4" id="subtotal-rtab">
-                <i class="bi bi-credit-card-2-front-fill"><span class="lg-title"> Payment</span></i>
+                <i class="bi bi-credit-card-2-front-fill"><span class="lg-title">&nbsp;Phương thức thanh toán</span></i>
                 <div class="text-center">
-                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Subtotal ({{items.length}}):
+                    <p class="lg-title mt-2 wrap-text" id="cart-subtotal">Tổng tiền <b
+                            class="items-length">({{items.length}})</b>:
                         <b class="cart-total">{{{toPrice totalPrice}}} VNĐ</b>
                     </p>
-                    <a href="javascript:;"><button class="rtab-buying-button"
-                            id="checkout-btn-rtab">Checkout</button></a>
+                    <a href="javascript:;"><button class="rtab-buying-button" id="checkout-btn-rtab">Thanh
+                            toán</button></a>
                 </div>
             </div>
             <div class="bg-white rtab-recommend">
-                <p class="sm-title mb-4">Recommend for you</p>
+                <p class="sm-title mb-4">Gợi ý cho bạn</p>
                 <div class="row">
                     {{#each recommend}}
                     <div class="col-12 col-lg-6 col-xl-12">
@@ -128,8 +130,8 @@
                                 <p class="sm-title">1 offer from <span class="rtab-money">{{toPrice price}} VNĐ</span>
                                 </p>
                                 <div class="text-center">
-                                    <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">See more
-                                            detail</button></a>
+                                    <a href={{link}}><button class="btn btn-outline-dark rtab-detail-button">Xem chi
+                                            tiết món ăn</button></a>
                                 </div>
                             </div>
                         </div>

@@ -5,9 +5,16 @@ const CartModel = require("../models/Cart");
 const UserModel = require("../models/User");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
-  const { phone, address, note, payment } = req.body;
-  const cart = await CartModel.findOne({userId: req.user._id});
-  const user = await UserModel.findByIdAndUpdate(req.user._id, {phone, address}, {new: true, runValidators: true});
+  const { phone, address, note, payment } = req.query;
+
+  if (!phone || !address || !note || !payment) return next();
+
+  const cart = await CartModel.findOne({ userId: req.user._id });
+  const user = await UserModel.findByIdAndUpdate(
+    req.user._id,
+    { phone, address },
+    { new: true, runValidators: true }
+  );
 
   if (!cart) {
     return next(new AppError(404, "cannot find your cart"));
@@ -18,12 +25,12 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   }
 
   const products = [...cart.products].filter((product) => {
-    return product.selected
+    return product.selected;
   });
 
   const totalPrice = products.reduce((accumulator, prod) => {
     return accumulator + prod.total;
-  }, 0)
+  }, 0);
 
   const order = await OrderModel.create({
     userId: cart.userId,
@@ -33,17 +40,12 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     payment,
   });
 
-  // remove all ordered products 
-  const remainProducts = cart.products.filter((product) => {return product.selected === false});
+  // remove all ordered products
+  const remainProducts = cart.products.filter((product) => {
+    return product.selected === false;
+  });
   cart.products = remainProducts;
   const newCart = await cart.save();
 
-  res.status(201).json({
-    status: "success",
-    data: {
-      order,
-      user,
-      cart: newCart
-    }
-  });
+  res.redirect(`/`);
 });

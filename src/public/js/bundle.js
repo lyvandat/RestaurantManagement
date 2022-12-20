@@ -181,28 +181,6 @@ var signOut = /*#__PURE__*/function () {
   };
 }();
 exports.signOut = signOut;
-},{}],"sort/price.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.handleSortPrice = void 0;
-var handleSortPrice = function handleSortPrice(e) {
-  e.preventDefault();
-  var fromInput = this.elements[name = "price-from"].value;
-  var toInput = this.elements[name = "price-to"].value;
-  if (!fromInput || !toInput || fromInput.trim().length === 0 || toInput.trim().length === 0 || fromInput > toInput) {
-    alert("Khoảng giá không phù hợp");
-    return;
-  }
-
-  //   const oldHref = location.href;
-  //   const queryPriceString =  `priceRange=${fromInput},${toInput}`
-  //   const newHref = oldHref.includes("?") ? `${oldHref}&${queryPriceString}` : `${oldHref}?${queryPriceString}`;
-  location.href = "?priceRange=".concat(fromInput, ",").concat(toInput);
-};
-exports.handleSortPrice = handleSortPrice;
 },{}],"payment/cart.js":[function(require,module,exports) {
 "use strict";
 
@@ -222,7 +200,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var handleAddItemToCart = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-    var productId, price, quantityInput, response, errRes, data;
+    var productId, price, quantityInput, cartQuantity, quantityInputValue, response, errRes, data, cart;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -230,12 +208,21 @@ var handleAddItemToCart = /*#__PURE__*/function () {
             productId = e.target.dataset.productId;
             price = +e.target.dataset.price || 0;
             quantityInput = document.getElementById("qty-itdetail");
-            _context.prev = 3;
-            _context.next = 6;
+            cartQuantity = document.querySelector(".cart-icon__quantity");
+            quantityInputValue = +quantityInput.value;
+            if (!(quantityInputValue === "" || isNaN(quantityInputValue) || quantityInputValue <= 0)) {
+              _context.next = 8;
+              break;
+            }
+            alert("Số lượng nhập không hợp lệ");
+            return _context.abrupt("return");
+          case 8:
+            _context.prev = 8;
+            _context.next = 11;
             return fetch("/api/v1/products/".concat(productId), {
               method: "PATCH",
               body: JSON.stringify({
-                quantity: +(quantityInput === null || quantityInput === void 0 ? void 0 : quantityInput.value) || 0,
+                quantity: quantityInputValue,
                 price: price,
                 type: "add"
               }),
@@ -243,35 +230,39 @@ var handleAddItemToCart = /*#__PURE__*/function () {
                 "Content-Type": "application/json"
               }
             });
-          case 6:
+          case 11:
             response = _context.sent;
             if (response.ok) {
-              _context.next = 13;
+              _context.next = 18;
               break;
             }
-            _context.next = 10;
-            return response.json();
-          case 10:
-            errRes = _context.sent;
-            alert(errRes.message);
-            return _context.abrupt("return");
-          case 13:
             _context.next = 15;
             return response.json();
           case 15:
-            data = _context.sent;
-            _context.next = 21;
-            break;
+            errRes = _context.sent;
+            alert(errRes.message);
+            return _context.abrupt("return");
           case 18:
-            _context.prev = 18;
-            _context.t0 = _context["catch"](3);
+            _context.next = 20;
+            return response.json();
+          case 20:
+            data = _context.sent;
+            if (data.status === "success") {
+              cart = data.data.cart;
+              cartQuantity.textContent = cart.products.length || "";
+            }
+            _context.next = 27;
+            break;
+          case 24:
+            _context.prev = 24;
+            _context.t0 = _context["catch"](8);
             alert(_context.t0.message);
-          case 21:
+          case 27:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 18]]);
+    }, _callee, null, [[8, 24]]);
   }));
   return function handleAddItemToCart(_x) {
     return _ref.apply(this, arguments);
@@ -320,7 +311,7 @@ var handleSetItemQuantity = /*#__PURE__*/function () {
           case 16:
             data = _context2.sent;
             // display new subtotal price when changing product quantity
-            subTotal = data.data.subTotal;
+            subTotal = data.data.cart.subTotal;
             formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             cartTotals[0].textContent = "".concat(formattedSubTotal, " VN\u0110");
             cartTotals[1].textContent = "".concat(formattedSubTotal, " VN\u0110");
@@ -410,7 +401,7 @@ var handleCartToOrder = /*#__PURE__*/function () {
 exports.handleCartToOrder = handleCartToOrder;
 var handleDeleteItemFromCart = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
-    var productId, itemDeleted, cartTotals, response, errRes, data, _data$data$cart, subTotal, formattedSubTotal;
+    var productId, itemDeleted, cartTotals, lengthItems, cartQuantity, response, errRes, data, cart, subTotal, formattedSubTotal;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
@@ -418,61 +409,224 @@ var handleDeleteItemFromCart = /*#__PURE__*/function () {
             productId = e.target.dataset.productId;
             itemDeleted = document.getElementById(productId);
             cartTotals = _toConsumableArray(document.querySelectorAll(".cart-total"));
+            lengthItems = _toConsumableArray(document.querySelectorAll(".items-length"));
+            cartQuantity = document.querySelector(".cart-icon__quantity");
             if (productId) {
-              _context4.next = 6;
+              _context4.next = 8;
               break;
             }
             alert("cannot find productId, fail to delete item from cart");
             return _context4.abrupt("return");
-          case 6:
-            _context4.prev = 6;
-            _context4.next = 9;
+          case 8:
+            _context4.prev = 8;
+            _context4.next = 11;
             return fetch("/api/v1/products/".concat(productId), {
               method: "DELETE"
             });
-          case 9:
+          case 11:
             response = _context4.sent;
             if (response.ok) {
-              _context4.next = 16;
+              _context4.next = 18;
               break;
             }
-            _context4.next = 13;
+            _context4.next = 15;
             return response.json();
-          case 13:
+          case 15:
             errRes = _context4.sent;
             alert(errRes.message);
             return _context4.abrupt("return");
-          case 16:
-            _context4.next = 18;
-            return response.json();
           case 18:
+            _context4.next = 20;
+            return response.json();
+          case 20:
             data = _context4.sent;
+            // update subtotal and number of products in cart
             if (data.status === "success") {
               itemDeleted.parentElement.removeChild(itemDeleted);
-              subTotal = ((_data$data$cart = data.data.cart) === null || _data$data$cart === void 0 ? void 0 : _data$data$cart.subTotal) || 0;
-              formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+              // prepare updating user interface data
+              cart = data.data.cart;
+              subTotal = (cart === null || cart === void 0 ? void 0 : cart.subTotal) || 0;
+              formattedSubTotal = subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); // update user interface
+              cartQuantity.textContent = cart.products.length || 0;
               cartTotals[0].textContent = "".concat(formattedSubTotal, " VN\u0110");
               cartTotals[1].textContent = "".concat(formattedSubTotal, " VN\u0110");
+              lengthItems[0].textContent = "(".concat(cart === null || cart === void 0 ? void 0 : cart.products.length, ")") || "0";
+              lengthItems[1].textContent = "(".concat(cart === null || cart === void 0 ? void 0 : cart.products.length, ")") || "0";
             }
-            _context4.next = 26;
+            _context4.next = 28;
             break;
-          case 22:
-            _context4.prev = 22;
-            _context4.t0 = _context4["catch"](6);
+          case 24:
+            _context4.prev = 24;
+            _context4.t0 = _context4["catch"](8);
             alert(_context4.t0.message);
             console.log(_context4.t0);
-          case 26:
+          case 28:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[6, 22]]);
+    }, _callee4, null, [[8, 24]]);
   }));
   return function handleDeleteItemFromCart(_x4) {
     return _ref4.apply(this, arguments);
   };
 }();
 exports.handleDeleteItemFromCart = handleDeleteItemFromCart;
+},{}],"payment/product.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadFilterFromSearchParams = exports.handleSearchAndFilter = exports.handlePagination = void 0;
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var handleSearchAndFilter = function handleSearchAndFilter(e) {
+  // I) variable identification
+  // 1.price search
+  var fromInput = document.querySelector('input[name="price-from"]').value;
+  var toInput = document.querySelector('input[name="price-to"]').value;
+
+  // 2. sort order (thứ tự sắp xếp)
+  var sortOptions = $('input[name="flexRadioDefault"]:checked');
+  var oldSearchParams = new URLSearchParams(location.search);
+
+  // 3.manufacturer
+  var checkedManufacturerInputs = _toConsumableArray(document.querySelectorAll("input[name='manufacturer']:checked"));
+
+  // 4.category
+  var categoryInput = document.querySelector("select[name='category']");
+
+  // II) assign query string
+  var searchQuery = "";
+  // 1) price search
+  if (fromInput.trim().length === 0 && toInput.trim().length === 0) {
+    searchQuery += "?priceRange=0, 1000000000";
+  } else if (fromInput.trim().length === 0 || toInput.trim().length === 0 || +fromInput > +toInput) {
+    alert("Khoảng giá không hợp lệ vui lòng nhập lại");
+    return;
+  } else {
+    searchQuery += "?priceRange=".concat(fromInput, ",").concat(toInput);
+  }
+
+  // 2) sort order
+
+  switch (sortOptions.val()) {
+    case "low-to-high":
+      searchQuery += "&_sort&column=price&type=asc";
+      break;
+    case "high-to-low":
+      searchQuery += "&_sort&column=price&type=desc";
+      break;
+    case "created-at":
+      searchQuery += "&_sort&column=_createdAt&type=asc";
+      break;
+    case "default":
+      searchQuery += "";
+      break;
+    default:
+      searchQuery += "";
+      break;
+  }
+
+  // 3) manufacturer
+  // ["Sunrise_Foods", "Friggitoria", ...]
+  if (checkedManufacturerInputs.length !== 0) {
+    var manufacturers = checkedManufacturerInputs.map(function (checkedManu) {
+      return checkedManu.dataset.search;
+    });
+    searchQuery += "&manufacturer=".concat(manufacturers.join(","));
+  }
+
+  // 4) category
+  searchQuery += "&category=".concat(categoryInput.value);
+  location.assign(searchQuery);
+};
+exports.handleSearchAndFilter = handleSearchAndFilter;
+var handlePagination = function handlePagination(e) {
+  var allowFields = ["_sort", "column", "type", "priceRange", "manufacturer", "category", "page"];
+  var query = e.target.dataset.query;
+  if (!query) {
+    alert("khong tim thay query");
+    return;
+  }
+  var pageValue = query.split("=")[1];
+  var params = new URLSearchParams(location.search);
+  params.set("page", pageValue);
+  var url = allowFields.reduce(function (accum, field, index) {
+    if (params.has(field)) {
+      if (index !== 0) {
+        accum += "&";
+      }
+      return accum += "".concat(field, "=").concat(params.get(field));
+    }
+    return accum;
+  }, "?");
+  location.assign(url);
+};
+exports.handlePagination = handlePagination;
+var loadFilterFromSearchParams = function loadFilterFromSearchParams() {
+  var params = new URLSearchParams(location.search);
+  // 1) price range
+  if (params.has("priceRange")) {
+    var fromInput = document.querySelector('input[name="price-from"]');
+    var toInput = document.querySelector('input[name="price-to"]');
+    var priceString = params.get("priceRange");
+    var _priceString$split = priceString.split(","),
+      _priceString$split2 = _slicedToArray(_priceString$split, 2),
+      fromPrice = _priceString$split2[0],
+      toPrice = _priceString$split2[1];
+    if (+fromPrice !== 0 && +toPrice !== 1000000000) {
+      fromInput.value = fromPrice;
+      toInput.value = toPrice;
+    }
+  }
+
+  // 2) sort order
+  if (params.has("column") && params.has("type")) {
+    var column = params.get("column");
+    var type = params.get("type");
+    var sortValue = "";
+    if (column === "price") {
+      sortValue = type === "asc" ? "low-to-high" : "high-to-low";
+    } else {
+      sortValue = "created-at";
+    }
+    var sortOptions = document.querySelector("input[value=".concat(sortValue, "]"));
+    console.log(sortOptions);
+    sortOptions.checked = true;
+  }
+
+  // 3) manufacturer
+  if (params.has("manufacturer")) {
+    var manufacturers = params.get("manufacturer").split(",");
+    manufacturers.forEach(function (manu) {
+      document.querySelector("input[value=".concat(manu, "]")).checked = true;
+    });
+  }
+
+  // 4) category
+  if (params.has("category")) {
+    var categoryInput = document.querySelector("select[name='category']");
+    categoryInput.value = params.get("category");
+  }
+
+  // 5) pagination
+  if (params.has("page")) {
+    var page = document.querySelector(".page-item[value=\"".concat(params.get("page"), "\"]"));
+    page.classList.add("selected");
+  }
+};
+exports.loadFilterFromSearchParams = loadFilterFromSearchParams;
 },{}],"payment/order.js":[function(require,module,exports) {
 "use strict";
 
@@ -513,13 +667,13 @@ var clickOrderButton = /*#__PURE__*/function () {
           case 8:
             _context.prev = 8;
             _context.next = 11;
-            return fetch("/api/v1/orders", {
+            return fetch("/api/v1/payment/checkout-session", {
               method: "POST",
               body: JSON.stringify({
                 phone: phoneInput.value,
                 address: addressInput.value,
-                note: noteInput.value,
-                payment: checkedPayment.dataset.value
+                note: noteInput.value || "None",
+                payment: checkedPayment.dataset.value || "card"
               }),
               headers: {
                 "Content-Type": "application/json"
@@ -542,7 +696,9 @@ var clickOrderButton = /*#__PURE__*/function () {
             return response.json();
           case 20:
             data = _context.sent;
-            alert("order successfully");
+            if (data.status === "success") {
+              location.assign(data.data.session.url);
+            }
             _context.next = 27;
             break;
           case 24:
@@ -565,8 +721,8 @@ exports.clickOrderButton = clickOrderButton;
 "use strict";
 
 var _signOut = require("./auth/sign-out.js");
-var _price = require("./sort/price.js");
 var _cart = require("./payment/cart.js");
+var _product = require("./payment/product.js");
 var _order = require("./payment/order.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -578,8 +734,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var signOutBtnAdmin = document.getElementById("signout-admin");
 var signOutBtnUser = document.getElementById("signout-user");
 
-// sort handling
-var priceSortForm = document.getElementById("price-sort-form");
+// filter, sort, pagination handling
+var filterSortBtn = document.querySelector(".btn-filter");
+var paginationItems = document.querySelectorAll(".page-item");
 
 // cart handling
 var addItemBtn = document.querySelector(".btn-addtocart");
@@ -594,11 +751,8 @@ if (signOutBtnUser) {
   // alert("logout successfully");
   signOutBtnUser.addEventListener("click", _signOut.signOut);
 }
-if (priceSortForm) {
-  priceSortForm.addEventListener("submit", _price.handleSortPrice);
-}
 
-// add item to cart 
+// add item to cart
 
 if (addItemBtn) {
   addItemBtn.addEventListener("click", _cart.handleAddItemToCart);
@@ -621,7 +775,26 @@ if (deleteItemBtn.length > 0) {
     btn.addEventListener("click", _cart.handleDeleteItemFromCart);
   });
 }
-},{"./auth/sign-out.js":"auth/sign-out.js","./sort/price.js":"sort/price.js","./payment/cart.js":"payment/cart.js","./payment/order.js":"payment/order.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+// filter, sort, pagination
+if (filterSortBtn) {
+  // check manufacturer
+  var checkedManufacturerWrappers = _toConsumableArray(document.querySelectorAll("a[name='manufacturer']"));
+  checkedManufacturerWrappers.forEach(function (wrapper) {
+    wrapper.addEventListener("click", function (e) {
+      var childInput = wrapper.querySelector("input");
+      childInput.checked = !childInput.checked;
+    });
+  });
+  (0, _product.loadFilterFromSearchParams)();
+  filterSortBtn.addEventListener("click", _product.handleSearchAndFilter);
+}
+if (paginationItems.length > 0) {
+  paginationItems.forEach(function (item) {
+    item.addEventListener("click", _product.handlePagination);
+  });
+}
+},{"./auth/sign-out.js":"auth/sign-out.js","./payment/cart.js":"payment/cart.js","./payment/product.js":"payment/product.js","./payment/order.js":"payment/order.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -646,7 +819,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60708" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57110" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

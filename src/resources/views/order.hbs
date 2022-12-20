@@ -1,0 +1,89 @@
+<div class="container mt-5 mb-4 pb-5">
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <a href="/me" class="order__profile">
+        <div class="profile__image-wrapper">
+          <img src="/images/avatar/{{user.photo}}">
+        </div>
+        <div class="profile__info">
+          <h5>{{user.name}}</h5>
+          <p><i class="fa-solid fa-pencil"></i>&nbsp;Sửa hồ sơ</p>
+        </div>
+      </a>
+      <ul class="p-3 order__menu">
+        <li class="order__menu-item"><a href="#" class="text-decoration-none text-black"><i
+              class="fa-solid fa-user text-primary me-3"></i>Tài khoản của tôi
+        </li></a>
+        <li class="order__menu-item"><a href="#" class="text-decoration-none text-black"><i
+              class="fa-solid fa-clipboard text-primary me-3"></i>Đơn mua</li></a>
+        <li class="order__menu-item"><a href="#" class="text-decoration-none text-black"><i
+              class="fa-solid fa-ticket text-danger me-3"></i>Kho voucher</li></a>
+      </ul>
+    </div>
+    <div class="col-12 col-md-9">
+      {{#if hasOrders}}
+      {{#each orders}}
+      <div class="row">
+        <div class="col-12 bg-white p-4 mb-3">
+          <div class="order__info d-flex align-items-center justify-content-between pb-3 border-bottom border-success">
+            <div class="order__info-shop d-flex align-items-baseline">
+              <i class="fa-solid fa-store d-block me-2"></i>
+              <h5 class="me-3 fs-6">Sunrise E-market</h5>
+              <a class="d-block me-3 text-decoration-none px-3 py-2 text-white bg-danger border" href="#"><i
+                  class="fa-solid fa-comment me-1"></i>Nhắn tin</a>
+              <a class="d-block me-3 text-decoration-none px-3 py-2 text-muted border" href="#"><i
+                  class="fa-solid fa-store me-1"></i>Xem shop</a>
+            </div>
+            <div class="order__info-status d-flex align-items-baseline">
+              <i class=" fa-solid fa-truck text-muted"></i>
+              <span class="d-block mx-2">{{status}}</span>
+              <h4 class="fs-5 text-danger border-start fw-normal ps-3 border-secondary">
+                Đánh giá
+              </h4>
+            </div>
+          </div>
+          {{#each products}}
+          <div class="order__item-detail d-flex align-items-center pb-3 border-bottom border-success my-3">
+            <div class="order__image-wrapper me-3">
+              <img class="order__image" src="/images/FoodThumnail/{{productId.photo.[0]}}">
+            </div>
+            <div>
+              <h5 class="mb-0 fs-6 fw-semibold">{{productId.name}}</h5>
+              <p class="text-secondary">Phân loại hàng: {{productId.category.[0]}}</p>
+              <p>x{{quantity}}</p>
+            </div>
+            <span class="d-block fw-semibold justify-self-end ms-auto">₫{{{toPrice productId.price}}}</span>
+          </div>
+          {{/each}}
+          <div class="order__price">
+            <div class="me-auto d-flex justify-content-end align-items-center mb-3">
+              <i class="fa-regular fa-money-bill-1 text-danger fs-5"></i>
+              <p class="d-inline-block ms-2 fs-6">Thành Tiền: </p>
+              <h5 class="d-inline-block ms-2 fs-4 text-danger fw-normal">₫{{{toPrice subTotal}}}</h5>
+            </div>
+            <div class="d-flex mt-3 align-items-center">
+              <span class="d-inline-block text-muted">Không có đánh giá nào</span>
+              <a href="/orders/{{_id}}"
+                class="order__price-btn order__price-detail d-inline-block py-2 px-3 bg-danger text-white text-decoration-none border ms-auto me-3">Xem
+                chi tiết
+                đơn</a>
+              <a href="#"
+                class="order__price-btn order__price-chat d-inline-block py-2 px-3 text-black text-decoration-none border">Liên
+                hệ người
+                bán</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="py-5 d-flex flex-column justify-content-center align-items-center">
+        <h4 class="text-danger">Không có đơn hàng đã đặt nào</h4>
+        <div class="" style="width: 200px; height: 160px;">
+          <img class="w-100" src="/images/cart/empty.png" alt="empty cart image">
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

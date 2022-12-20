@@ -2,11 +2,23 @@ export const handleAddItemToCart = async function (e) {
   const productId = e.target.dataset.productId;
   const price = +e.target.dataset.price || 0;
   const quantityInput = document.getElementById("qty-itdetail");
+  const cartQuantity = document.querySelector(".cart-icon__quantity");
+
+  const quantityInputValue = +quantityInput.value;
+  if (
+    quantityInputValue === "" ||
+    isNaN(quantityInputValue) ||
+    quantityInputValue <= 0
+  ) {
+    alert("Số lượng nhập không hợp lệ");
+    return;
+  }
+
   try {
     const response = await fetch(`/api/v1/products/${productId}`, {
       method: "PATCH",
       body: JSON.stringify({
-        quantity: +quantityInput?.value || 0,
+        quantity: quantityInputValue,
         price,
         type: "add",
       }),
@@ -22,6 +34,10 @@ export const handleAddItemToCart = async function (e) {
     }
 
     const data = await response.json();
+    if (data.status === "success") {
+      const cart = data.data.cart;
+      cartQuantity.textContent = cart.products.length || "";
+    }
   } catch (err) {
     alert(err.message);
   }
@@ -54,7 +70,7 @@ export const handleSetItemQuantity = async function (e) {
     const data = await response.json();
 
     // display new subtotal price when changing product quantity
-    const subTotal = data.data.subTotal;
+    const subTotal = data.data.cart.subTotal;
     const formattedSubTotal = subTotal
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -112,6 +128,9 @@ export const handleDeleteItemFromCart = async function (e) {
   const productId = e.target.dataset.productId;
   const itemDeleted = document.getElementById(productId);
   const cartTotals = [...document.querySelectorAll(".cart-total")];
+  const lengthItems = [...document.querySelectorAll(".items-length")];
+  const cartQuantity = document.querySelector(".cart-icon__quantity");
+
   if (!productId) {
     alert("cannot find productId, fail to delete item from cart");
     return;
@@ -129,14 +148,24 @@ export const handleDeleteItemFromCart = async function (e) {
     }
     // lưu ý nếu trả về 204 no content thì chỗ này bị lỗi (^.^)
     const data = await response.json();
+
+    // update subtotal and number of products in cart
     if (data.status === "success") {
       itemDeleted.parentElement.removeChild(itemDeleted);
-      const subTotal = data.data.cart?.subTotal || 0;
+
+      // prepare updating user interface data
+      const cart = data.data.cart;
+      const subTotal = cart?.subTotal || 0;
       const formattedSubTotal = subTotal
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+      // update user interface
+      cartQuantity.textContent = cart.products.length || 0;
       cartTotals[0].textContent = `${formattedSubTotal} VNĐ`;
       cartTotals[1].textContent = `${formattedSubTotal} VNĐ`;
+      lengthItems[0].textContent = `(${cart?.products.length})` || "0";
+      lengthItems[1].textContent = `(${cart?.products.length})` || "0";
     }
   } catch (err) {
     alert(err.message);

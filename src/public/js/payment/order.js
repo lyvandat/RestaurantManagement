@@ -1,4 +1,4 @@
-export const clickOrderButton = async function(e) {
+export const clickOrderButton = async function (e) {
   const payments = [...document.querySelectorAll(".form-check-input")];
   const phoneInput = document.querySelector("input[name='phone']");
   const addressInput = document.querySelector("input[name='address']");
@@ -11,17 +11,17 @@ export const clickOrderButton = async function(e) {
   }
 
   try {
-    const response = await fetch(`/api/v1/orders`, {
+    const response = await fetch(`/api/v1/payment/checkout-session`, {
       method: "POST",
       body: JSON.stringify({
         phone: phoneInput.value,
         address: addressInput.value,
-        note: noteInput.value,
-        payment: checkedPayment.dataset.value
+        note: noteInput.value || "None",
+        payment: checkedPayment.dataset.value || "card",
       }),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (!response.ok) {
@@ -31,8 +31,10 @@ export const clickOrderButton = async function(e) {
     }
 
     const data = await response.json();
-    alert("order successfully");
-  } catch(err) {
+    if (data.status === "success") {
+      location.assign(data.data.session.url);
+    }
+  } catch (err) {
     alert(err.message);
   }
-}
+};

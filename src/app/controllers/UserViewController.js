@@ -7,6 +7,7 @@ const {
   multipleMongooseToObject,
   mongooseToObject,
 } = require("../../utils/mongoose");
+const AppError = require("../../utils/AppError");
 
 let large_banner = [
   { img: "images/banners/banner-1.png", link: "banner1.com", index: 0 },
@@ -163,16 +164,28 @@ let sale_thumnails_2 = [
 ];
 
 const restaurant_logo = [
-  { img: "/images/logo/logo.png", name: "Sunrise Foods", link: "?manufacturer=Sunrise_Foods" },
+  {
+    img: "/images/logo/logo.png",
+    name: "Sunrise Foods",
+    slug: "Sunrise_Foods",
+    link: "?manufacturer=Sunrise_Foods",
+  },
   {
     img: "/images/logo/FlavourOfIndia-logo.png",
     name: "Flavour_of_India",
+    slug: "Flavour_of_India",
     link: "?manufacturer=Flavour of India",
   },
-  { img: "/images/logo/PanzerHot-logo.png", name: "Panzer Hot", link: "?manufacturer=Panzer_Hot" },
+  {
+    img: "/images/logo/PanzerHot-logo.png",
+    name: "Panzer Hot",
+    slug: "Panzer_Hot",
+    link: "?manufacturer=Panzer_Hot",
+  },
   {
     img: "/images/logo/Friggitoria-logo.png",
     name: "Friggitoria",
+    slug: "Friggitoria",
     link: "?manufacturer=Friggitoria",
   },
 ];
@@ -203,22 +216,24 @@ const items = [
 
 // payment
 const payment_methods = [
+  // {
+  //   key: "card",
+  //   img: "/images/icons/momo.png",
+  //   label: "Thanh toán Online bằng Momo (Có mã ưu đãi)",
+  // },
+  // {
+  //   key: "card",
+  //   img: "/images/icons/debit-card.png",
+  //   label: "Chuyển khoản ngân hàng (Miễn phí phí chuyển)",
+  // },
   {
-    key: "card",
-    img: "/images/icons/momo.png",
-    label: "Thanh toán Online bằng Momo (Có mã ưu đãi)",
-  },
-  {
-    key: "card",
-    img: "/images/icons/debit-card.png",
-    label: "Chuyển khoản ngân hàng (Miễn phí phí chuyển)",
-  },
-  {
+    id: "COD__PAYMENT",
     key: "cash",
     img: "/images/icons/cod.png",
     label: "Thanh toán khi nhận hàng (COD)",
   },
   {
+    id: "CARD__PAYMENT",
     key: "card",
     img: "/images/icons/visa.png",
     label: "Thanh toán Online bằng Visa, Master, JCB (Miễn phí phí chuyển)",
@@ -241,7 +256,9 @@ exports.renderHome = async function index(req, res, next) {
 
 exports.renderItemDetail = async function (req, res, next) {
   const product = await Product.findOne({ slug: req.params.slug });
-  const recommend = await Product.find({category: { $regex: product.category[0], $options: "i" }})
+  const recommend = await Product.find({
+    category: { $regex: product.category[0], $options: "i" },
+  });
   res.render("item", {
     recommend,
     food: mongooseToObject(product),
@@ -251,6 +268,7 @@ exports.renderItemDetail = async function (req, res, next) {
 // [GET] /products
 exports.renderItems = async function (req, res, next) {
   const options = {};
+  let page = 1;
   if (req.query.hasOwnProperty("_search"))
     Object.assign(options, {
       name: { $regex: req.query._search, $options: "i" },
@@ -264,27 +282,56 @@ exports.renderItems = async function (req, res, next) {
   if (req.query.hasOwnProperty("manufacturer")) {
     const manufacturer = req.query.manufacturer;
     const manufacurerQuery = manufacturer.replaceAll("_", " ");
-    options["manufacturer"] = manufacurerQuery;
+    const manufacturers = manufacurerQuery.split(",");
+    options["manufacturer"] = {
+      $in: manufacturers,
+    };
   }
 
   if (req.query.hasOwnProperty("category")) {
     const category = req.query.category;
     const categoryQuery = category.replaceAll("_", " ");
-    options["category"] = { $regex: categoryQuery, $options: "i" };
+    if (categoryQuery !== "All") {
+      options["category"] = { $regex: categoryQuery, $options: "i" };
+    }
   }
 
+  if (req.query.hasOwnProperty("page")) {
+    page = +req.query.page;
 
-  const products = await Product.find(options).sortable(req);
+    if (isNaN(page)) {
+      page = 1;
+    }
+  }
+
+  const skipNum = (page - 1) * 6;
+
+  // for pagination
+  const allProducts = await Product.find(options);
+  const productLength = Math.ceil(allProducts.length / 6);
+  const productPage = [];
+  for (let i = 0; i < productLength; ++i) {
+    productPage[i] = {
+      value: i + 1,
+    };
+  }
+  //
+
+  const products = await Product.find(options)
+    .skip(skipNum)
+    .limit(6)
+    .sortable(req);
 
   res.render("products", {
     foods: multipleMongooseToObject(products),
     restaurant_logo,
+    productPage,
   });
 };
 
 // [GET] /user/:id/cart
 exports.renderCart = catchAsync(async (req, res, next) => {
-  let cart = await Cart.findOne({userId: req.params.id});
+  let cart = await Cart.findOne({ userId: req.params.id });
   const recommend = await Product.aggregate([{ $sample: { size: 6 } }]);
   if (cart) {
     // // populate product data in productId field
@@ -296,7 +343,7 @@ exports.renderCart = catchAsync(async (req, res, next) => {
     // cart = carts[0];
 
     cart = await cart.getPopulatedCart();
-  } 
+  }
   // create an empty cart
   else {
     cart = await Cart.create({
@@ -316,11 +363,11 @@ exports.renderCart = catchAsync(async (req, res, next) => {
   //   status: 'success',
   //   data: cart[0],
   // })
-})
+});
 
 // [GET] /user/:id/order
 exports.renderPayment = catchAsync(async (req, res, next) => {
-  let cart = await Cart.findOne({userId: req.user._id});
+  let cart = await Cart.findOne({ userId: req.user._id });
   let totalPrice = 0;
   cart = await cart.getPopulatedCart();
   const items = cart.products.reduce((accumulator, product) => {
@@ -331,8 +378,6 @@ exports.renderPayment = catchAsync(async (req, res, next) => {
     return accumulator;
   }, []);
 
-
-
   res.render("buy", {
     items,
     payment_methods,
@@ -341,6 +386,41 @@ exports.renderPayment = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.renderMe = catchAsync(async(req, res, next) => {
-  res.status(200).render('profile');
+exports.renderMe = catchAsync(async (req, res, next) => {
+  res.status(200).render("profile");
+});
+
+exports.renderOrder = catchAsync(async (req, res, next) => {
+  let orders = await Order.find({ userId: req.user._id });
+  const hasOrders = orders.length > 0 ? true : false;
+  const orderPromises = orders.map((order) => {
+    return order.getPopulatedOrder();
+  });
+
+  // populated orders
+  orders = await Promise.all(orderPromises);
+  res.status(200).render("order", {
+    orders,
+    hasOrders,
+  });
+});
+
+exports.renderOrderDetail = catchAsync(async (req, res, next) => {
+  let order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(
+      new AppError("Cannot find your order, may be order id is wrong")
+    );
+  }
+  order = await order.getPopulatedOrder();
+  const paymentMethod = payment_methods.find((pm) => pm.key === order.payment);
+  res.render("order-detail", {
+    items: order.products,
+    payment_methods,
+    subTotal: order.subTotal,
+    total: order.subTotal + 20000,
+    note: order.note,
+    paymentMethod,
+  });
 });

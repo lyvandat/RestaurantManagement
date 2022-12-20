@@ -15,6 +15,10 @@ exports.updateItemQuantity = catchAsync(async (req, res, next) => {
     return next(new AppError("cannot find cart with that userId"));
   }
 
+  if (quantity === "" || isNaN(quantity) || quantity <= 0) {
+    return next(new AppError(400, "invalid quantity value"));
+  }
+
   if (type === "add") {
     newCart = await cart.addItemToCart(productId, quantity, price);
   } else {
@@ -23,7 +27,9 @@ exports.updateItemQuantity = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    data: newCart,
+    data: {
+      cart: newCart,
+    },
   });
 });
 
