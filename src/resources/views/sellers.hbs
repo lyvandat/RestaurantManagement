@@ -1,6 +1,15 @@
 <div class="bg-white">
     <div class="container pt-5">
-        <p class="xlg-title mb-0">RESULTS</p>
+        <div class="d-flex align-items-baseline">
+            <p class="xlg-title mb-0 me-4">Danh sách nhà hàng</p>
+            {{!-- <a href="/seller/menu"
+                style="display: block; text-decoration: underline; font-size: 18px; color: #333;" class="me-4">
+                Thực đơn
+            </a> --}}
+            <a href="/order" style="display: block; text-decoration: underline; font-size: 18px; color: #333;">
+                Đơn đặt hàng
+            </a>
+        </div>
         <p class="me-title opacity-75">Price and other details may vary based on
             product size and colour.</p>
         <hr />
@@ -109,42 +118,39 @@
                         <option value="general">Khác</option>
                     </select>
                     <br><br>
-                    <button
-                        class="btn-filter fw-bold fs-6 text-white border border-gray-50 bg-primary py-2 px-3 rounded-medium"
+                    {{!-- class : btn-filter --}}
+                    <button class="fw-bold fs-6 text-white border border-gray-50 bg-primary py-2 px-3 rounded-medium"
                         type="button">Lựa chọn</button>
                 </form>
             </div>
             <div class="col-12 col-md-8">
                 <div class="row">
-                    {{#each foods}}
+                    {{#each sellers}}
                     <div class="col-6 col-lg-4 pb-3">
                         <div class="card card-hover">
-                            <a href="/products/{{slug}}"><img src="/images/FoodThumnail/{{photo.[0]}}"
+                            <a href="/menu/{{MADOITAC}}"><img src="/images/logo/logo.png"
                                     class="card-img-top p-3" /></a>
                             <div class="card-body">
-                                <a href="/products/{{slug}}" class="erase-underline">
-                                    <p class="me-title text-lightblue">{{name}}</p>
+                                <a href="/menu/{{MADOITAC}}" class="erase-underline">
+                                    <p class="me-title text-lightblue">Nhà Hàng: {{TENQUAN}}</p>
                                 </a>
-                                <span class="ratings">
-                                    {{#loops fstar}}
-                                    <i class="bi bi-star-fill rating-color"></i>
-                                    {{/loops}}
-                                    {{#loops hstar}}
-                                    <i class="bi bi-star-half rating-color"></i>
-                                    {{/loops}}
-                                    {{#loops nstar}}
-                                    <i class="bi bi-star"></i>
-                                    {{/loops}}
-                                </span>
-                                <p class="review-count">{{rvcount}}</p>
-                                <p class="sm-title">Chỉ từ
-                                    <span class="rtab-money">{{{toPrice price}}} VNĐ</span>
+                                <p class="sm-title">Loại ẩm thực
+                                    <span class="rtab-money">{{LOAIAMTHUC}}</span>
                                 </p>
-                                <p class="sm-title">
-                                    <span class="text-black">Nhà hàng: {{manufacturer}}</span>
+                                <p class="sm-title">Số điện thoại
+                                    <span class="rtab-money">{{SDT}}</span>
+                                </p>
+                                <p class="sm-title">Số chi nhánh
+                                    <span class="rtab-money">{{SOLUONGCHINHANH}}</span>
+                                </p>
+                                <p class="sm-title">Số đơn hàng mỗi ngày
+                                    <span class="rtab-money">{{SOLUONGDONHANGNGAY}}</span>
+                                </p>
+                                <p class="sm-title">Địa chỉ
+                                    <span class="rtab-money">{{DIACHI}}</span>
                                 </p>
                                 <div class="text-center">
-                                    <a href="/products/{{slug}}"><button class="btn btn-outline-dark rtab-detail-button"
+                                    <a href="/menu/{{MADOITAC}}"><button class="btn btn-outline-dark rtab-detail-button"
                                             onclick="changepage()">Xem chi tiết</button></a>
                                 </div>
                             </div>
@@ -173,50 +179,3 @@
         </div>
     </div>
 </div>
-
-
-{{!--
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let _search = null;
-        if (location.search) {
-            let oldSearchParams = new URLSearchParams(location.search);
-            console.log(oldSearchParams);
-            _search = oldSearchParams.get("_search");
-            console.log(oldSearchParams.get("page"));
-        }
-        const sortOptions = $('input[name="flexRadioDefault"]');
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-            get: (searchParams, prop) =>
-                searchParams.get(prop),
-        });
-
-        if (params.column === 'price') {
-            if (params.type === 'asc') $('#lowprice-radio').prop("checked", true);
-            else $('#highprice-radio').prop("checked", true);
-        } else if (params.column === '_createdAt') {
-            $('#created-at-radio').prop("checked", true);
-        } else {
-            $('#highrate-radio').prop("checked", true);
-        }
-
-        sortOptions.change(function () {
-            console.log($('input[name=flexRadioDefault]:checked').val());//
-            let previousSearchLocation = null;
-            previousSearchLocation = _search !== null ? `?_search=${_search}&` : "?";
-            switch ($('input[name=flexRadioDefault]:checked').val()) {
-                case 'low-to-high':
-                    location.href = `${previousSearchLocation}_sort&column=price&type=asc`;
-                    break;
-                case 'high-to-low':
-                    location.href = `${previousSearchLocation}_sort&column=price&type=desc`; break;
-                case 'created-at':
-                    location.href = `${previousSearchLocation}_sort&column=_createdAt&type=asc`; break;
-                case 'default':
-                    location.href = '/products'; break;
-                default: location.href = './products';
-                    break;
-            }
-        });
-    });
-</script> --}}

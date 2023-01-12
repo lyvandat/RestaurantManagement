@@ -1,0 +1,52 @@
+<div class="bg-white">
+    <div class="container pt-5">
+        <div class="d-flex align-items-baseline">
+            <p class="xlg-title mb-0 me-4">Danh sách nhà hàng</p>
+            <a href="/seller/menu" style="display: block; text-decoration: underline; font-size: 18px; color: #333;"
+                class="me-4">
+                Thực đơn
+            </a>
+            <a href="/seller/order" style="display: block; text-decoration: underline; font-size: 18px; color: #333;">
+                Đơn đặt hàng
+            </a>
+        </div>
+        <p class="me-title opacity-75"></p>
+        <hr />
+        <div class="row">
+            {{#each stores}}
+            <div class="col-6 mt-3">
+                <div class="row">
+                    <div class="col-12 col-lg-12 pb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <img style="width: 100%; object-fit: cover; object-position: center;"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marks_%26_Spencer_original_penny_bazaar_%2824th_June_2013%29.jpg"
+                                    alt="cuahang" />
+                                <a href="/seller/store/{{MACUAHANG}}" class="erase-underline">
+                                    <p class="me-title text-lightblue">Tên cửa hàng: {{TENQUAN}}</p>
+                                </a>
+                                <p class="review-count">{{DIACHI}}</p>
+                                <p class="sm-title">
+                                    <span class="rtab-money">Giờ mở cửa: {{GIOMOCUA}}</span>
+                                </p>
+                                <p class="sm-title">
+                                    <span class="text-black">Giờ đóng cửa: {{GIODONGCUA}}</span>
+                                </p>
+                                <p class="sm-title">
+                                    <span class="text-black">Tình trạng cửa hàng: {{TINHTRANG}}</span>
+                                </p>
+                                <div class="text-center">
+                                    <a href="/seller/store/{{MACUAHANG}}"><button
+                                            class="btn btn-outline-dark rtab-detail-button">Xem
+                                            chi tiết</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

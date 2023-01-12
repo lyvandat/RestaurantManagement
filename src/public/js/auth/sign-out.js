@@ -1,6 +1,6 @@
 export const signOut = async (e) => {
   try {
-    const response = await fetch("/auth/sign-out");
+    const response = await fetch("/api/v1/auth/sign-out");
 
     if (!response.ok) {
       const errRes = await response.json();
@@ -14,7 +14,7 @@ export const signOut = async (e) => {
     setTimeout(() => {
       // window.location.reload(true);
       alert("logout successfully");
-      window.location.replace("/admin/sign-in");
+      window.location.replace("/sign-in");
     }, 500);
   } catch (err) {
     console.log(err.message);

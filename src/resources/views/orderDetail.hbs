@@ -1,0 +1,94 @@
+<div class="bg-white">
+  <div class="container pt-5">
+    {{! Item Detail }}
+    <div class="row pt-4 pb-5">
+      {{#each orderDetail}}
+      <div class="col-6 d-flex pb-3">
+
+        <div class="col-4 text-center" id="itdetail-mainimg">
+          <a href="#">
+            <img src="https://blog.mamangon.vn/wp-content/uploads/2019/08/Picture7-2-1024x683.png"
+              class="img-fluid itdetail-food-img" alt="Cửa hàng" />
+          </a>
+        </div>
+        <div class="col-8 text-center ms-2 px-3">
+          <p class="itdetail-lger-title">Món ăn: {{tenmon}}</p>
+          <p class="itdetail-me-title text-indigo">Tình trạng: {{tinhtrang}}</p>
+          <p class="itdetail-me-title text-danger">Số lượng: {{toPrice soluong}}</p>
+
+          <div id="itdetail-mainimg">
+            <br />
+            <hr />
+            <p class="itdetail-me-title text-green">Giá: &#160<span class="itdetail-lg-money">&nbsp;{{toPrice gia}}k
+                VNĐ</span>
+            </p>
+            <p class="itdetail-me-title text-green">địa chỉ&#160<span class="itdetail-lg-money">&nbsp;{{diachi}}</span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      {{/each}}
+
+      <br /><br /><br /><br />
+      <hr /><br /><br />
+      <form class="d-flex mb-5">
+        <button data-customer-id="{{orderDetail.[0].khachhang}}" data-order-id="{{orderDetail.[0].madondathang}}"
+          type="button" class="confirm-order-btn">Xác nhận đơn
+          hàng</button>
+      </form>
+      {{! About Restaurant }}
+      <p class="itdetail-lg-title text-center opacity-50">ABOUT US</p>
+      <p class="itdetail-main-lg-title text-center">Về nhà hàng của chúng tôi</p>
+
+      <div class="itdetail-about">
+        <div class="row">
+          <div class="col-12 pe-0 pb-4">
+            <img src="/images/abouts/about-1.png" class="img-fluid itdetail-food-img" />
+          </div>
+          <div class="col-12 ps-5">
+            <p class="itdetail-lg-title text-center"><b>ĐƯỢC THÀNH LẬP VÀ PHÂN
+                PHỐI BỞI<br />SUNRISE COMPANY</b><br /><br /></p>
+            <p class="itdetail-me-title wrap-text text-justify light-text">
+              <i>Chuỗi nhà hàng Sunrise Foods được hình thành và phát triển hơn 69
+                năm. Với uy tín và chất lượng thuộc top đầu thế giới với vô số đầu
+                bếp sở hữu sao Michelin và muôn vẻ sáng tạo trong việc đưa những
+                món ăn độc lạ hay đặc sản đến mọi miền đất nước trên thế giới.
+                Chúng tôi luôn chú tâm vào những nhu cầu và cảm giác của khách
+                hàng, đặt ra những tiêu chí hàng đầu để có thể làm hài lòng dù là
+                những vị khách khó tính nhất.</i><br />
+              <span class="align-right">- Dương Minh -</span>
+            </p>
+            <div class="d-flex justify-content-center pt-4">
+              <span class="itdetail-achievement-icon text-center">
+                <img src="/images/icons/star.png" class="itdetail-icon" alt="star" />
+                <p class="p-3 itdetail-me-title">Ngon chuẩn 5 sao</p>
+              </span>
+              <span class="itdetail-achievement-icon text-center">
+                <img src="/images/icons/certificate.png" class="itdetail-icon" alt="star" />
+                <p class="p-3 itdetail-me-title">Chứng nhận quốc tế</p>
+              </span>
+              <span class="itdetail-achievement-icon text-center">
+                <img src="/images/icons/achievement.png" class="itdetail-icon" alt="star" />
+                <p class="p-3 itdetail-me-title">Top 1 thịnh hành</p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const dropdown_qty_itdetail = $('#qty-itdetail');
+      dropdown_qty_itdetail.change(function () {
+        if ($('#qty-itdetail').find(":selected").val() == 'many') {
+          $('#qty-itdetail').replaceWith('<input type="number" class="form-control small-img" id="qty-itdetail" min="0">');
+        }
+      });
+    });
+
+  </script>

@@ -1,73 +1,69 @@
 const catchAsync = require("../../utils/catchAsync");
-const AppError = require("../../utils/AppError");
-const UserModel = require("../models/User");
-const multer = require("multer");
-const sharp = require("sharp");
+const { conn, sql } = require("../../config/db");
 
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new AppError("only image files are supported"));
-  }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-})
-
-exports.uploadSingleImage = upload.single('photo');
-
-exports.resizeUploadImage = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
-  req.file.filename = `ava-${req.user._id}-${Date.now()}`;
-
-  await sharp(req.file.buffer).resize(500, 500).toFormat("jpg").jpeg({quality: 90}).toFile(`${process.cwd()}/src/public/images/avatar/${req.file.filename}.jpg`);
-  next();
-})
-
-exports.updateMe = catchAsync(async function (req, res, next) {
-  // req.user
-  if (req.body.password || req.body.confirmPassword) {
-    return next(
-      new AppError(
-        'this route is for updating user name and email. Try /changePassword'
-      )
-    );
-  }
-
-  // filter updated fields (only allow name, email - avoid changing role)
-  const allowUpdateFields = ['name', 'email'];
-  const newUpdateObj = {};
-  Object.keys(req.body).forEach((el) => {
-    if (allowUpdateFields.includes(el)) {
-      newUpdateObj[el] = req.body[el];
-    }
-  });
-  // for uploading files
-  if (req.file) newUpdateObj.photo = `${req.file.filename}.jpg`;
-
-  // khong co new: true thì trả về đối tượng cũ chưa update
-  const updatedUser = await UserModel.findByIdAndUpdate(
-    req.user._id,
-    newUpdateObj,
-    {
-      new: true,
-      // chỉ validate các fields được update
-      runValidators: true,
-    }
+exports.createOrder = catchAsync(async (req, res, next) => {
+  const { menuId, foodId, sellerId, price, quantity } = req.body;
+  const userId = req.user.MAKHACHHANG;
+  const totalPrice = +price * +quantity;
+  const pool = await sql.connect(req.config);
+  const orderId = `DDH-${Date.now()}-${Math.ceil(Math.random() * 1000)}`;
+  const detailOrderId = orderId.replace("DDH", "CT");
+  console.log(
+    detailOrderId,
+    orderId,
+    menuId,
+    foodId,
+    +quantity,
+    userId,
+    sellerId,
+    totalPrice
   );
+  await pool
+    .request()
+    .input("MACHITIET", sql.VarChar, detailOrderId)
+    .input("MADONDATHANG", sql.VarChar, orderId)
+    .input("THUCDON", sql.VarChar, menuId)
+    .input("MONAN", sql.VarChar, foodId)
+    .input("SOLUONG", sql.Int, +quantity)
+    .input("MAKHACHHANG", sql.VarChar, userId)
+    .input("MADOITAC", sql.VarChar, sellerId)
+    .input("THANHTIEN", sql.Float, totalPrice)
+    .execute("USP_DATHANG", function (err, data) {
+      console.log(err);
+      console.log(data);
+      res.status(200).json({
+        status: "success",
+        data: null,
+      });
+    });
+});
 
-  // remove password field from res data
-  updatedUser.pasword = undefined;
+exports.deleteOrder = catchAsync(async (req, res, next) => {
+  const sellerId = req.params.customerId;
+  const orderId = req.params.orderId;
 
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user: updatedUser,
-    },
-  });
+  console.log(sellerId, orderId);
+
+  const pool = await sql.connect(req.config);
+  await pool
+    .request()
+    .input("MaDon", sql.VarChar, orderId)
+    .input("KhachHang", sql.VarChar, req.user.MAKHACHHANG)
+    .input("DoiTac", sql.VarChar, sellerId)
+    .execute("USP_HUYDONHANG", function (err, data) {
+      console.log(err);
+      console.log(data);
+
+      if (err) {
+        return res.status(200).json({
+          status: err.message,
+          data: null,
+        });
+      }
+
+      res.status(200).json({
+        status: "success",
+        data: null,
+      });
+    });
 });

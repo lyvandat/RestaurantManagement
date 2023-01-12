@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/sign-up">Đăng ký</a>
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/sign-up">Đăng ký</a>
             </li>
 
             <li class="nav-item">
@@ -85,7 +85,7 @@
             </li>
             {{else}}
             <li class="nav-item">
-              <a class="nav-link active navbar-font-link pb-2 m-0" href="/admin/sign-in">Đăng nhập</a>
+              <a class="nav-link active navbar-font-link pb-2 m-0" href="/sign-in">Đăng nhập</a>
             </li>
             {{/if}}
 
@@ -97,9 +97,11 @@
 
             {{#if user}}
             <a class="nav-item d-flex align-items-center text-decoration-none" href="/me">
-              <div class="nav-link active navbar-font-link pb-2 m-0">Hi {{user.name}}</div>
+              <div class="nav-link active navbar-font-link pb-2 m-0">Hi {{user.TENDANGNHAP}}</div>
               <div class="header__avatar">
-                <img class="header__avatar-image" src="/images/avatar/{{user.photo}}" alt="avatar" />
+                <img class="header__avatar-image"
+                  src="https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg"
+                  alt="avatar" />
               </div>
             </a>
             {{/if}}

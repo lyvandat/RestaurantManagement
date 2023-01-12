@@ -1,4 +1,4 @@
-<div class="profile-wrapper">
+<div class="profile-wrapper p-0">
   <main class="main">
     <div class="user-view">
       <nav class="user-view__menu">
@@ -32,26 +32,92 @@
         </div> --}}
       </nav>
       <div class="user-view__content">
-        <div class="user-view__form-container">
+        <div class="user-view__form-container p-0">
           <h2 class="heading-secondary ma-bt-md">Thông tin cá nhân của bạn</h2>
           <form class="form form-user-data">
-            <div class="form__group"><label class="form__label" for="name">Tên</label><input class="form__input"
-                id="name" type="text" value="{{user.name}}" required="required" /></div>
-            <div class="form__group ma-bt-md">
-              <label class="form__label" for="email">Địa chỉ email</label>
-              <input class="form__input" id="email" type="email" value="{{user.email}}" required=" required">
+            <div class="row">
+              <div class="form__group col-6">
+                <label class="form__label" for="restaurant-name">Tên quán</label>
+                <input class="form__input" id="restaurant-name" type="text" value="{{user.name}}" required="required" />
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-email">Địa chỉ email</label>
+                <input class="form__input" id="restaurant-email" type="email" value="{{user.email}}"
+                  required=" required">
+              </div>
             </div>
-            <div class="form__group form__photo-upload">
-              <img class="form__user-photo" id="avatar-display" src="/images/avatar/{{user.photo}}" alt="User photo" />
-              <a class="btn-text" href=""><label for="avatar-input">Thay đổi ảnh đại diện</label></a>
-              <input type="file" accept="*image/*" id="avatar-input" name="photo" hidden>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-owner">Người đại diện</label>
+                <input class="form__input" id="restaurant-owner" type="text" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-district">Quận</label>
+                <input class="form__input" id="restaurant-district" type="text" required=" required">
+              </div>
             </div>
-            <div class="form__group right"><button type="submit" class="btn btn--small btn--green">Cập nhật</button>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-city">Thành Phố</label>
+                <input class="form__input" id="restaurant-city" type="text" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-branch">Số chi nhánh</label>
+                <input class="form__input" id="restaurant-branch" type="number" required=" required">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-quantity">Số lượng đơn mỗi ngày</label>
+                <input class="form__input" id="restaurant-quantity" type="number" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-type">Loại ẩm thực</label>
+                <input class="form__input" id="restaurant-type" type="text" required=" required">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-address">địa chỉ kinh doanh</label>
+                <input class="form__input" id="restaurant-address" type="text" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="restaurant-phone">số điện thoại</label>
+                <input class="form__input" id="restaurant-phone" type="text" required=" required">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="bankName">Ngân hàng</label>
+                <input class="form__input" id="bankName" type="text" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="bankBranch">Chi nhánh</label>
+                <input class="form__input" id="bankBranch" type="text" required=" required">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="seller-username">Tên đăng nhập</label>
+                <input class="form__input" id="seller-username" type="text" required=" required">
+              </div>
+              <div class="form__group ma-bt-md col-6">
+                <label class="form__label" for="seller-password">Mật khẩu</label>
+                <input class="form__input" id="seller-password" type="password" required=" required">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form__group ma-bt-md col-12">
+                <label class="form__label" for="bankNumber">Số tài khoản ngân hàng</label>
+                <input class="form__input" id="bankNumber" type="text" required=" required">
+              </div>
+            </div>
+            <div class="form__group right"><button type="submit" class="btn btn--small btn--green">Đăng ký</button>
             </div>
           </form>
         </div>
         <div class="line">&nbsp;</div>
-        <div class="user-view__form-container">
+        {{!-- <div class="user-view__form-container">
           <h2 class="heading-secondary ma-bt-md">Thay đổi mật khẩu</h2>
           <form class="form form-user-settings">
             <div class="form__group"><label class="form__label" for="password-current">Mật khẩu hiện tại</label><input
@@ -66,7 +132,7 @@
             <div class="form__group right"><button type="submit" class="btn btn--small btn--green">Cập nhật</button>
             </div>
           </form>
-        </div>
+        </div> --}}
       </div>
     </div>
   </main>

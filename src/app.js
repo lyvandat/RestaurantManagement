@@ -3,6 +3,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const { engine } = require("express-handlebars");
 const app = express();
+const { conn, sql } = require("./config/db");
 // parsing cookies
 var cookieParser = require("cookie-parser");
 const route = require("./routes");
@@ -79,7 +80,19 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources", "views"));
 
+// connect db
+
 // Routes init
+// app.use("/:id", async function (req, res) {
+//   const pool = await conn;
+//   const sqlString = "select * from khachhang where makhachhang = @id";
+//   return await pool
+//     .request()
+//     .input("id", req.params.id)
+//     .query(sqlString, function (err, data) {
+//       console.log(err, data.recordset);
+//     });
+// });
 route(app);
 
 module.exports = app;

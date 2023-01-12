@@ -1,0 +1,52 @@
+{{!-- <h2>Mã số thuế</h2>
+<h2>người đại diện</h2>
+<h2>số chi nhánh đăng kí</h2>
+<h2>địa chỉ</h2>
+<h2>số tài khoản</h2>
+<h2>ngân hàng</h2>
+<h2>Hoa hồng tháng</h2>
+<h2>thời gian hiệu lực</h2>
+<button id="sign-contract-btn">kí hợp đồng</button> --}}
+
+<div class="container bg-white p-5 mt-5 me-5">
+  <div class="row text-center">
+    <h4 class="text-danger mb-4">
+      Hợp đồng đã lập
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <b>Mã hợp đồng:</b> {{MAHOPDONG}}
+    </div>
+    <div class="col-6">
+      <b>Tên ngân hàng:</b> {{TENNGANHANG}}
+    </div>
+    <div class="col-6">
+      <b>Chi nhánh:</b> {{CHINHANH}}
+    </div>
+    <div class="col-6">
+      <b>Thời hạn:</b> {{THOIHAN}}
+    </div>
+    <div class="col-6">
+      <b>Phí hoa hồng:</b> {{PHIHOAHONG}}
+    </div>
+    <div class="col-6">
+      <b>Tình trạng:</b> {{TINHTRANG}}
+    </div>
+    <div class="col-6">
+      <b>Người đại diện:</b> {{NGUOIDAIDIEN}}
+    </div>
+    <div class="col-6">
+      <b>Số chi nhánh đăng kí:</b> {{SOCHINHANH}}
+    </div>
+  </div>
+  <div class="row mt-4">
+    <button data-contract-id="{{MAHOPDONG}}" id="sign-contract-btn" class="border-0 ms-auto"
+      style="width: 140px; height: 40px; border-radius: 8px; background-color: blue; color: white; font-size: 15px;">kí
+      hợp
+      đồng</button>
+  </div>
+</div>
+<div>
+  " "
+</div>

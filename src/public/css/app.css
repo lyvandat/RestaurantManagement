@@ -718,3 +718,23 @@ body p {
     font-size: medium; }
   #checkout-btn-rtab {
     font-size: small; } }
+
+.menu-img-wrapper img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  height: 300px; }
+
+.confirm-order-btn {
+  background-color: orange;
+  color: white;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  opacity: 0.9;
+  margin-left: auto;
+  transition: all 0.3s ease; }
+
+.confirm-order-btn:hover {
+  background-color: red;
+  opacity: 1; }

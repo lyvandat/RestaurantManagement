@@ -1,10 +1,19 @@
 // send for developers
 const sendErrorDev = (err, req, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    err: err,
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      err: err,
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+
+  // B) RENDERED WEBSITE
+  console.error("ERROR 💥", err);
+  return res.status(err.statusCode).render("error", {
+    title: err.status,
     message: err.message,
-    stack: err.stack,
   });
 };
 

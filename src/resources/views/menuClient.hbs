@@ -1,0 +1,43 @@
+<div class="bg-white">
+    <div class="container pt-5">
+        <p class="xlg-title mb-0">Danh sách món ăn của nhà hàng</p>
+        <p class="me-title opacity-75"></p>
+        <hr />
+        <div class="row">
+            {{#each menu}}
+            <div class="col-6 mt-3">
+                <div class="row">
+                    <div class="col-12 col-lg-12 pb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <div class="menu-img-wrapper">
+                                    <img src="/images/foods/food_2.png" alt="ảnh món ăn">
+                                </div>
+                                <a href="/products/slug" class="erase-underline">
+                                    <p class="me-title text-lightblue">{{TENMON}}</p>
+                                </a>
+                                <p class="review-count">{{MIEUTA}}</p>
+                                <p class="sm-title">
+                                    <span class="rtab-money">Giá: {{toPrice GIA}}k VNĐ</span>
+                                </p>
+                                <p class="sm-title">
+                                    <span class="text-black">Ghi chú: {{TENTUYCHON}}</span>
+                                </p>
+                                <p class="sm-title">
+                                    <span class="text-black">Số lượng: {{TINHTRANG}}</span>
+                                </p>
+                                <div class="text-center">
+                                    <a href="/menu/{{THUCDON}}/{{MAMONAN}}"><button
+                                            class="btn btn-outline-dark rtab-detail-button">Xem
+                                            chi tiết</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

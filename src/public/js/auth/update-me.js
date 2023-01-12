@@ -1,30 +1,18 @@
-const updateInfoForm = document.querySelector('.form-user-data');
-const updatePasswordForm = document.querySelector('.form-user-settings');
-const avatarInput = document.getElementById("avatar-input");
+const registerSellerForm = document.querySelector(".form-user-data");
 
-const updateSettings = async function (data, type) {
-  const url =
-    type === 'password'
-      ? '/auth/update-password'
-      : '/auth/update-me';
+const registerSeller = async function (data, type) {
+  const url = "/api/v1/seller";
   try {
     let fetchOptions = {
-      method: 'PATCH',
+      method: "POST",
       // gửi form data thì không cần JSON.stringify với lại "Content-Type"
-      body: data,
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
-    if (type === 'password') {
-      fetchOptions = { 
-        method: 'PATCH',
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      } 
-
-    };
-    
+    console.log(url, fetchOptions);
     const response = await fetch(url, fetchOptions);
     if (!response.ok) {
       const errRes = await response.json();
@@ -34,60 +22,53 @@ const updateSettings = async function (data, type) {
     }
 
     const resData = await response.json();
-    alert(`update ${type} successfully`);
+    alert(`register successfully`);
     return true;
   } catch (err) {
-    alert('error', err.message);
+    alert("error", err.message);
     return false;
   }
 };
 
-if (avatarInput) {
-  const avatarDisplay = document.getElementById("avatar-display");
-  const displayInputAvatar = (e) => {
-    // console.log(URL.createObjectURL(e.target.files[0]));
-    avatarDisplay.src = URL.createObjectURL(e.target.files[0]);
-  };
-
-  avatarInput.addEventListener("change", displayInputAvatar);
-}
-
-if (updateInfoForm) {
+if (registerSellerForm) {
   const updateUserData = async function (e) {
     e.preventDefault();
-    const formData = new FormData();
-    const nameInput = this.elements[(name = 'name')];
-    const emailInput = this.elements[(name = 'email')];
-    const photoInput = this.elements[(name = 'photo')];
+    const nameInput = this.elements[(id = "restaurant-name")];
+    const emailInput = this.elements[(id = "restaurant-email")];
+    const ownerInput = this.elements[(id = "restaurant-owner")];
+    const districtInput = this.elements[(id = "restaurant-district")];
+    const cityInput = this.elements[(id = "restaurant-city")];
+    const branchInput = this.elements[(id = "restaurant-branch")];
+    const quantityInput = this.elements[(id = "restaurant-quantity")];
+    const typeInput = this.elements[(id = "restaurant-type")];
+    const phoneInput = this.elements[(id = "restaurant-phone")];
+    const addressInput = this.elements[(id = "restaurant-address")];
+    const bankNameInput = this.elements[(id = "bankName")];
+    const bankBranchInput = this.elements[(id = "bankBranch")];
+    const bankNumberInput = this.elements[(id = "bankNumber")];
+    const usernameInput = this.elements[(id = "seller-username")];
+    const passwordInput = this.elements[(id = "seller-password")];
 
-    formData.append("name", nameInput.value);
-    formData.append("email", emailInput.value);
-    formData.append("photo", photoInput.files[0]);
-
-    updateSettings(formData, 'user info');
-  };
-
-  updateInfoForm.addEventListener('submit', updateUserData);
-}
-
-if (updatePasswordForm) {
-  const updatePassword = async function (e) {
-    e.preventDefault();
-    const currentPasswordInput = this.elements[name = 'current-password'];
-    const passwordInput = this.elements[name = 'password'];
-    const confirmPasswordInput = this.elements[name = 'confirm-password'];
-    const data = {
-      currentPassword: currentPasswordInput.value,
+    const formData = {
+      restaurantName: nameInput.value,
+      restaurantEmail: emailInput.value,
+      restaurantOwner: ownerInput.value,
+      restaurantDistrict: districtInput.value,
+      restaurantCity: cityInput.value,
+      restaurantBranch: branchInput.value,
+      restaurantQuantity: quantityInput.value,
+      restaurantType: typeInput.value,
+      restaurantAddress: addressInput.value,
+      restaurantPhone: phoneInput.value,
+      bankName: bankNameInput.value,
+      bankBranch: bankBranchInput.value,
+      bankNumber: bankNumberInput.value,
+      username: usernameInput.value,
       password: passwordInput.value,
-      confirmPassword: confirmPasswordInput.value,
     };
 
-    if ((await updateSettings(data, 'password')) === true) {
-      currentPasswordInput.value = '';
-      passwordInput.value = '';
-      confirmPasswordInput.value = '';
-    }
+    registerSeller(formData, "user info");
   };
 
-  updatePasswordForm.addEventListener('submit', updatePassword);
+  registerSellerForm.addEventListener("submit", updateUserData);
 }

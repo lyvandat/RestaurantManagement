@@ -44,6 +44,8 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.7.2",
     "mongoose-slug-generator": "^1.0.4",
+    "msnodesqlv8": "^3.0.1",
+    "mssql": "^9.0.1",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.8.0",
     "regenerator-runtime": "^0.13.11",
